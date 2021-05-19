@@ -2,6 +2,7 @@ package prSwishMedia;
 
 import java.util.Date;
 
+
 public class Usuario {
     private int id;
     private String nombre;
