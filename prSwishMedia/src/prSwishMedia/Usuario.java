@@ -20,6 +20,10 @@ public class Usuario {
     private int numEpisodiosVistos;
     private int numPeliculasVistas;
 
+    public Usuario(int id){
+
+    }
+
     public Usuario(int id,
                     String nombre,
                     String email,
