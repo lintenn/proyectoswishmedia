@@ -1,6 +1,7 @@
-package prSwishMedia.Views;
+package prSwishMedia.Controllers;
 
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.LoginView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
