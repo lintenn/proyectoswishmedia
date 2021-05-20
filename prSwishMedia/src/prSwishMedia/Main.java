@@ -21,12 +21,13 @@ public class Main {
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         frame = new JFrame();
-        //frame.setSize(500,500);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+
+
         frame.setTitle("SwishMedia");
         frame.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(lview.getPanel());
+
 
         // Display the window.
         frame.pack(); //si lo pongo no va el tamaño por defecto
