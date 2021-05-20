@@ -4,14 +4,14 @@ import java.util.Date;
 
 
 public class Usuario {
-    private int id;
+    private int id; // obligatorio
     private String nombre;
-    private String email;
+    private String email; // obligatorio
     private String foto;
     private String descripcion;
     private Date fechaNacimiento;
     private Date fechaCreacion;
-    private String contrasenya;
+    private String contrasenya; // obligatorio
     private int numListas;
     private int numAmigos;
     private String privacidad;
@@ -21,7 +21,14 @@ public class Usuario {
     private int numPeliculasVistas;
 
     public Usuario(int id){
+        this.id = id;
+    }
 
+    // Constructor Esencial
+    public Usuario(int id, String email, String contrasenya) {
+        this.id = id;
+        this.email = email;
+        this.contrasenya = contrasenya;
     }
 
     public Usuario(int id,

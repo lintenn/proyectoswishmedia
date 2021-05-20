@@ -3,8 +3,8 @@ package prSwishMedia;
 import java.util.Date;
 
 public class ContenidoMultimedia {
-    private int id;
-    private String nombre;
+    private int id; // obligatorio
+    private String nombre; // obligatorio
     private String sinopsis;
     private String reparto;
     private double valoracion;
@@ -15,6 +15,14 @@ public class ContenidoMultimedia {
     private String trailer; //enlace del trailer
     private int veces_anyadidas;
     private int ranking;
+    private boolean aprobado; //true sii aprobado por admin, false sii no // obligatorio
+
+    // Constructor Esencial
+    public ContenidoMultimedia(int id, String nombre, boolean aprobado) {
+        this.id = id;
+        this.nombre = nombre;
+        this.aprobado = aprobado;
+    }
 
     public ContenidoMultimedia(int id,
                     String nombre,
@@ -27,7 +35,8 @@ public class ContenidoMultimedia {
                     int rating,
                     String trailer, //enlace del trailer
                     int veces_anyadidas,
-                    int ranking) {
+                    int ranking,
+                    boolean aprobado) {
         this.fecha = fecha;
         this.genero = genero;
         this.id = id;
@@ -40,6 +49,7 @@ public class ContenidoMultimedia {
         this.trailer = trailer;
         this.valoracion = valoracion;
         this.veces_anyadidas = veces_anyadidas;
+        this.aprobado = aprobado;
     }
 
     // Getters
@@ -91,6 +101,10 @@ public class ContenidoMultimedia {
         return trailer;
     }
 
+    public boolean isAprobado() {
+        return aprobado;
+    }
+
     // Setters
     public void setFecha(Date fecha) {
         this.fecha = fecha;
@@ -140,4 +154,7 @@ public class ContenidoMultimedia {
         this.veces_anyadidas = veces_anyadidas;
     }
 
+    public void setAprobado(boolean aprobado) {
+        this.aprobado = aprobado;
+    }
 }

@@ -6,15 +6,19 @@ public class Serie extends ContenidoMultimedia {
     private int numCapitulos, numTemporadas;
     private double duracionMedia;
 
+    // Constructor Esencial
+    public Serie(int id, String nombre, boolean aprobado) {
+        super(id, nombre, aprobado);
+    }
 
-    public Serie(int id, String nombre, String sinopsis, String reparto, double valoracion, Date fecha, String genero, String premios, int rating, String trailer, int veces_anyadidas, int ranking, int numCapitulos, int numTemporadas, double duracionMedia) {
-        super(id, nombre, sinopsis, reparto, valoracion, fecha, genero, premios, rating, trailer, veces_anyadidas, ranking);
+    public Serie(int id, String nombre, String sinopsis, String reparto, double valoracion, Date fecha, String genero, String premios, int rating, String trailer, int veces_anyadidas, int ranking, boolean aprobado, int numCapitulos, int numTemporadas, double duracionMedia) {
+        super(id, nombre, sinopsis, reparto, valoracion, fecha, genero, premios, rating, trailer, veces_anyadidas, ranking, aprobado);
         this.duracionMedia = duracionMedia;
         this.numCapitulos = numCapitulos;
         this.numTemporadas = numTemporadas;
-
     }
 
+    // Getters
     public double getDuracionMedia() {
         return duracionMedia;
     }
@@ -27,6 +31,7 @@ public class Serie extends ContenidoMultimedia {
         return numTemporadas;
     }
 
+    // Setters
     public void setDuracionMedia(double duracionMedia) {
         this.duracionMedia = duracionMedia;
     }
