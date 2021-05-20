@@ -8,13 +8,13 @@ import prSwishMedia.Views.RegisterView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginController implements ActionListener {
+public class RegisterController implements ActionListener {
 
     private LoginView lview;
     private RegisterView rview;
     private Usuario user;
 
-    public LoginController(RegisterView rv, LoginView lv,Usuario u){
+    public RegisterController(RegisterView rv, LoginView lv,Usuario u){
         lview=lv;
         rview=rv;
         user=u;
@@ -22,8 +22,8 @@ public class LoginController implements ActionListener {
     public void actionPerformed(ActionEvent ev){
         String act=ev.getActionCommand();
 
-        if(act.equals("REGISTRO")) {
-            Main.frame.setContentPane(rview.getPanel());
+        if(act.equals("VOLVER")) {
+            Main.frame.setContentPane(lview.getPanel());
             Main.frame.setVisible(true);
         }
 
