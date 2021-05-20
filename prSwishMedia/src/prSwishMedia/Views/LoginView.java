@@ -15,19 +15,11 @@ public class LoginView extends JFrame{
     private JLabel Logo;
 
     public LoginView(){
-
-        try {
-            setIconImage(ImageIO.read(LoginView.class.getResourceAsStream("/imagen/LogoSwish.png")));
-        }catch (Exception e) {
-            System.out.println("sd");
-            setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
-        }
-
-
-
+        
         add(panel1);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SwishMedia");
+        setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
 
         pack();
         setLocationRelativeTo(null);
