@@ -1,5 +1,5 @@
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.LoginController;
+import prSwishMedia.Controllers.LoginController;
 import prSwishMedia.Views.LoginView;
 
 import javax.swing.*;

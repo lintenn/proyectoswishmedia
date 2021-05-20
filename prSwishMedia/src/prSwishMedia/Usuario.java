@@ -14,7 +14,7 @@ public class Usuario {
     private String contrasenya; // obligatorio
     private int numListas;
     private int numAmigos;
-    private String privacidad;
+    private boolean privacidad;
     private int numComentarios;
     private int numSeriesVistas;
     private int numEpisodiosVistos;
@@ -34,33 +34,23 @@ public class Usuario {
     public Usuario(int id,
                     String nombre,
                     String email,
-                    String foto,
-                    String descripcion,
                     Date fechaNacimiento,
                     Date fechaCreacion,
-                    String contrasenya,
-                    int numListas,
-                    int numAmigos,
-                    String privacidad,
-                    int numComentarios,
-                    int numSeriesVistas,
-                    int numEpisodiosVistos,
-                    int numPeliculasVistas) {
+                    String contrasenya) {
         this.nombre = nombre;
         this.id = id;
         this.contrasenya = contrasenya;
-        this.descripcion = descripcion;
+        this.descripcion = "";
         this.email = email;
         this.fechaCreacion = fechaCreacion;
         this.fechaNacimiento = fechaNacimiento;
-        this.foto = foto;
-        this.numAmigos = numAmigos;
-        this.numComentarios = numComentarios;
-        this.numEpisodiosVistos = numEpisodiosVistos;
-        this.numListas = numListas;
-        this.numPeliculasVistas = numPeliculasVistas;
-        this.numSeriesVistas = numSeriesVistas;
-        this.privacidad = privacidad;
+        this.numListas = 3;
+        this.numPeliculasVistas = 0;
+        this.numSeriesVistas = 0;
+        this.privacidad = false;
+        this.numAmigos=0;
+        this.numComentarios=0;
+        this.numEpisodiosVistos=0;
     }
 
     // Getters
@@ -120,7 +110,7 @@ public class Usuario {
         return foto;
     }
 
-    public String getPrivacidad() {
+    public boolean getPrivacidad() {
         return privacidad;
     }
 
@@ -181,7 +171,7 @@ public class Usuario {
         this.numSeriesVistas = numSeriesVistas;
     }
 
-    public void setPrivacidad(String privacidad) {
+    public void setPrivacidad(boolean privacidad) {
         this.privacidad = privacidad;
     }
 
