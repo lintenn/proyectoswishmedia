@@ -17,13 +17,13 @@ public class LoginView extends JFrame{
     public LoginView(){
         
         add(panel1);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+       /* setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SwishMedia");
         setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
 
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
+        setVisible(true);*/
     }
 
     public void controlador(ActionListener ctr){
@@ -34,6 +34,10 @@ public class LoginView extends JFrame{
         registroButton.setActionCommand("REGISTRO");
 
 
+    }
+
+    public JPanel getPanel(){
+        return panel1;
     }
 
 
