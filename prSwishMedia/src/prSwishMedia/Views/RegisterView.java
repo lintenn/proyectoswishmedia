@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class RegisterView extends JFrame {
     private JPanel panel1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField user;
+    private JTextField email;
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JButton registroButton;
@@ -31,6 +31,10 @@ public class RegisterView extends JFrame {
         registroButton.setActionCommand("REGISTRO");
         volverButton.setActionCommand("VOLVER");
 
+    }
+
+    public JTextField getEmail() {
+        return email;
     }
 
     public JPanel getPanel() {

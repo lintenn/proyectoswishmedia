@@ -8,11 +8,12 @@ import java.io.IOException;
 
 public class LoginView extends JFrame{
     private JPanel panel1;
-    private JPasswordField passwordField1;
-    private JTextField textField1;
+    private JPasswordField password;
+    private JTextField user;
     private JButton loginButton;
     private JButton registroButton;
     private JLabel Logo;
+    private JLabel Error;
 
     public LoginView(){
         
@@ -34,6 +35,22 @@ public class LoginView extends JFrame{
         registroButton.setActionCommand("REGISTRO");
 
 
+    }
+
+    public JTextField getUser() {
+        return user;
+    }
+
+    public JPasswordField getPassword() {
+
+        return password;
+    }
+
+
+
+    public void setErrorMessage(String s){
+        this.Error.setForeground(Color.red);
+        this.Error.setText(s);
     }
 
     public JPanel getPanel(){

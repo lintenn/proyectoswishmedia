@@ -22,7 +22,21 @@ public class LoginController implements ActionListener {
     public void actionPerformed(ActionEvent ev){
         String act=ev.getActionCommand();
 
-        if(act.equals("REGISTRO")) {
+        if(act.equals("LOGIN")){
+
+            String pass=new String (lview.getPassword().getPassword());
+            if(lview.getUser().getText().equals("") || pass.equals("")){
+                lview.setErrorMessage("Datos erróneos");
+                lview.getUser().setText("");
+                lview.getPassword().cut();
+                lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
+            }
+
+
+        } else if(act.equals("REGISTRO")) {
+            lview.setErrorMessage("");
+            lview.getUser().setText("");
+            lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
             Main.frame.setContentPane(rview.getPanel());
             Main.frame.setVisible(true);
         }
