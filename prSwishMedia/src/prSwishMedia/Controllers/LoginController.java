@@ -2,6 +2,7 @@ package prSwishMedia.Controllers;
 
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.ConfirmedView;
 import prSwishMedia.Views.LoginView;
 import prSwishMedia.Views.RegisterView;
 
@@ -14,11 +15,13 @@ public class LoginController implements ActionListener, MouseListener {
 
     private LoginView lview;
     private RegisterView rview;
+    private ConfirmedView cview;
     private Usuario user;
 
-    public LoginController(RegisterView rv, LoginView lv,Usuario u){
+    public LoginController(RegisterView rv, LoginView lv,ConfirmedView cv,Usuario u){
         lview=lv;
         rview=rv;
+        cview=cv;
         user=u;
     }
     public void actionPerformed(ActionEvent ev){
@@ -48,7 +51,8 @@ public class LoginController implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        Main.frame.setContentPane(cview.getPanel());
+        Main.frame.setVisible(true);
     }
 
     @Override
