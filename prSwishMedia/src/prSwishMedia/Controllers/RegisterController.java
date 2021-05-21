@@ -26,7 +26,7 @@ public class RegisterController implements ActionListener {
 
         if(act.equals("REGISTRO")){
             Gmail g=new Gmail();
-            g.enviarCorreo(rview.getEmail().getText(),"tu contraseña", "usuario");
+            g.enviarCorreo(rview.getEmail().getText(),"contraseña", "usuario");
 
         }else if(act.equals("VOLVER")) {
             Main.frame.setContentPane(lview.getPanel());
