@@ -15,6 +15,7 @@ public class LoginView extends JFrame{
     private JLabel Logo;
     private JLabel Error;
 
+    
     public LoginView(){
         
         add(panel1);
