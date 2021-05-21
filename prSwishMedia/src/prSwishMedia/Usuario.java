@@ -1,6 +1,8 @@
 package prSwishMedia;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Usuario {
@@ -19,6 +21,7 @@ public class Usuario {
     private int numSeriesVistas;
     private int numEpisodiosVistos;
     private int numPeliculasVistas;
+    private List<Lista> listasPersonales;
 
     public Usuario(int id){ //de prueba
         this.id = id;
@@ -38,6 +41,7 @@ public class Usuario {
         this.numAmigos=0;
         this.numComentarios=0;
         this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
     }
 
     public Usuario(int id,
@@ -60,6 +64,7 @@ public class Usuario {
         this.numAmigos=0;
         this.numComentarios=0;
         this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
     }
 
     // Getters
@@ -123,6 +128,10 @@ public class Usuario {
         return privacidad;
     }
 
+    public List<Lista> getListasPersonales() {
+        return listasPersonales;
+    }
+
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -184,4 +193,7 @@ public class Usuario {
         this.privacidad = privacidad;
     }
 
+    public void setListasPersonales(List<Lista> listasPersonales) {
+        this.listasPersonales = listasPersonales;
+    }
 }

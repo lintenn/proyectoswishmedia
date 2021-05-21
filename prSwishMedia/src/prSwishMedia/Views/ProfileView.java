@@ -40,11 +40,9 @@ public class ProfileView extends JFrame{
     public void controlador(ActionListener ctr, ChangeListener ctr1){
         buttonCrearLista.addActionListener(ctr);
         buttonEliminarLista.addActionListener(ctr);
-
         checkBoxPrivacidad.addChangeListener(ctr1);
 
         checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
-
         buttonEliminarLista.setActionCommand("ELIMINAR");
         buttonCrearLista.setActionCommand("CREAR");
     }
