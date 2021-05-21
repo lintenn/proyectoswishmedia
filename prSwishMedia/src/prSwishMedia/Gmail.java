@@ -14,7 +14,7 @@ public class Gmail {
 	static OutputStream out = null;
 	
 	static final String usuario = "galosoftware1@gmail.com";
-	static final String clave = "SwishMedia.";
+	static final String clave = "cloyuveodfhyrjye";
 	
 	// Esta funci�n se conecta al servidor de SMTP
 	private void conectar(){
