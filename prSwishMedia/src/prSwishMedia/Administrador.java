@@ -5,8 +5,8 @@ import java.util.Date;
 public class Administrador extends Usuario {
 
     // Constructor Esencial
-    public Administrador(int id, String email, String contrasenya) {
-        super(id, email, contrasenya);
+    public Administrador(int id, String nombre, String email, String contrasenya) {
+        super(id, nombre, email, contrasenya);
     }
 
     public Administrador(int id, String nombre, String email, Date fechaNacimiento, Date fechaCreacion, String contrasenya) {

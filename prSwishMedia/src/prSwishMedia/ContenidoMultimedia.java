@@ -22,6 +22,9 @@ public class ContenidoMultimedia {
         this.id = id;
         this.nombre = nombre;
         this.aprobado = aprobado;
+        this.sinopsis = "";
+        this.valoracion = 0;
+        this.veces_anyadidas = 0;
     }
 
     public ContenidoMultimedia(int id,
