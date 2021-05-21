@@ -13,13 +13,15 @@ import prSwishMedia.Views.RegisterView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Main {
 
     public static JFrame frame;
 
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         java.sql.Connection conexion = DriverManager.getConnection("jdbc:mysql://iis2021.cobadwnzalab.eu-central-1.rds.amazonaws.com:3306/grupoG","usuarioG","gorgonezhao");
 
