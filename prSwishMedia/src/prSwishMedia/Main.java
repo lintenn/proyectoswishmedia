@@ -1,28 +1,29 @@
 package prSwishMedia;
 
+import com.mysql.jdbc.Statement;
 import prSwishMedia.Controllers.ConfirmedController;
+import prSwishMedia.Controllers.ProfileController;
 import prSwishMedia.Controllers.RegisterController;
-import prSwishMedia.ContenidoMultimedia;
-import prSwishMedia.Lista;
 import prSwishMedia.Listeners.MouseClick;
-import prSwishMedia.Usuario;
 import prSwishMedia.Controllers.LoginController;
 import prSwishMedia.Views.ConfirmedView;
 import prSwishMedia.Views.LoginView;
+import prSwishMedia.Views.ProfileView;
 import prSwishMedia.Views.RegisterView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Main {
 
     public static JFrame frame;
 
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         java.sql.Connection conexion = DriverManager.getConnection("jdbc:mysql://iis2021.cobadwnzalab.eu-central-1.rds.amazonaws.com:3306/grupoG","usuarioG","gorgonezhao");
-
+        Statement stmt = (Statement) conexion.createStatement();
 
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
@@ -31,11 +32,13 @@ public class Main {
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
+        ProfileView pview = new ProfileView();
+
         MouseClick mc =new MouseClick(lview,cview);
         lview.getForgot().addMouseListener(mc);
 
         frame = new JFrame();
-
+        frame.setMinimumSize(new Dimension(1000,500));
 
         frame.setTitle("SwishMedia");
         frame.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
@@ -48,9 +51,11 @@ public class Main {
         frame.setVisible(true);
 
 
-        LoginController cl=new LoginController(rview,lview,cview,user);
+        LoginController cl=new LoginController(rview,lview,cview,pview,stmt,user);
         RegisterController cr=new RegisterController(rview,lview,user);
         ConfirmedController cc= new ConfirmedController(lview,cview);
+        ProfileController pc = new ProfileController(pview,user);
+
         lview.controlador(cl);
         rview.controlador(cr);
         cview.controlador(cc);
