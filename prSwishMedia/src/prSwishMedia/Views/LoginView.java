@@ -1,5 +1,7 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Controllers.ConfirmedController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +16,12 @@ public class LoginView extends JFrame{
     private JButton registroButton;
     private JLabel Logo;
     private JLabel Error;
+    private JLabel Forgot;
 
-    
+
     public LoginView(){
-        
+        ConfirmedView cv=new ConfirmedView();
+        ConfirmedController cc=new ConfirmedController(this,cv);
         add(panel1);
        /* setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SwishMedia");
@@ -26,6 +30,7 @@ public class LoginView extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);*/
+        Forgot.addMouseListener(cc);
     }
 
     public void controlador(ActionListener ctr){

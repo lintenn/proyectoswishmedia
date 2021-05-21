@@ -1,10 +1,12 @@
 package prSwishMedia;
 
+import prSwishMedia.Controllers.ConfirmedController;
 import prSwishMedia.Controllers.RegisterController;
 import prSwishMedia.ContenidoMultimedia;
 import prSwishMedia.Lista;
 import prSwishMedia.Usuario;
 import prSwishMedia.Controllers.LoginController;
+import prSwishMedia.Views.ConfirmedView;
 import prSwishMedia.Views.LoginView;
 import prSwishMedia.Views.RegisterView;
 
@@ -23,6 +25,7 @@ public class Main {
         Usuario user=new Usuario(1);
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
+        ConfirmedView cview = new ConfirmedView();
         frame = new JFrame();
 
 
@@ -37,10 +40,12 @@ public class Main {
         frame.setVisible(true);
 
 
-        LoginController cl=new LoginController(rview,lview,user);
+        LoginController cl=new LoginController(rview,lview,cview,user);
         RegisterController cr=new RegisterController(rview,lview,user);
+        ConfirmedController cc= new ConfirmedController(lview,cview);
         lview.controlador(cl);
         rview.controlador(cr);
+        cview.controlador(cc);
 
     }
 

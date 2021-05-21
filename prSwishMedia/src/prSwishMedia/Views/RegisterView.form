@@ -22,7 +22,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Comic Sans MS"/>
+            </properties>
           </component>
           <component id="e8480" class="javax.swing.JTextField" binding="email">
             <constraints>
@@ -30,7 +32,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Comic Sans MS"/>
+            </properties>
           </component>
           <component id="2ccc6" class="javax.swing.JLabel">
             <constraints>
@@ -65,7 +69,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Comic Sans MS"/>
+            </properties>
           </component>
           <component id="6e81c" class="javax.swing.JPasswordField" binding="passwordField2" default-binding="true">
             <constraints>
@@ -73,7 +79,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Comic Sans MS"/>
+            </properties>
           </component>
           <component id="f2a51" class="javax.swing.JLabel">
             <constraints>
