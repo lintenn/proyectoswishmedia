@@ -1,6 +1,8 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import java.awt.event.ActionListener;
 
 public class ProfileView {
     private JPanel panel1;
@@ -30,4 +32,20 @@ public class ProfileView {
     private JTextField textField1;
     private JLabel labelInfoCrearLista;
     private JPanel panelFechas;
+
+    public ProfileView(){
+
+    }
+
+    public void controlador(ActionListener ctr, ChangeListener ctr1){
+        buttonCrearLista.addActionListener(ctr);
+        buttonEliminarLista.addActionListener(ctr);
+
+        checkBoxPrivacidad.addChangeListener(ctr1);
+
+        checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
+
+        buttonEliminarLista.setActionCommand("ELIMINAR");
+        buttonCrearLista.setActionCommand("CREAR");
+    }
 }
