@@ -7,6 +7,12 @@ public class Comunicacion {
     private String texto;
     private Date fechaEnvio;
 
+    // Constructor Esencial
+    public Comunicacion(int id, String texto) {
+        this.id = id;
+        this.texto = texto;
+    }
+
     public Comunicacion(int id, String texto, Date fechaEnvio) {
         this.id = id;
         this.texto = texto;
