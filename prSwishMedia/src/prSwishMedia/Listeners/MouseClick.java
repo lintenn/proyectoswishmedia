@@ -2,7 +2,6 @@ package prSwishMedia.Listeners;
 
 import prSwishMedia.Main;
 import prSwishMedia.Views.ConfirmedView;
-import prSwishMedia.Views.LoginView;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

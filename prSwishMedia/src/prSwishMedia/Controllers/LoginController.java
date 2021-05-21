@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class LoginController implements ActionListener, MouseListener {
+public class LoginController implements ActionListener {
 
     private LoginView lview;
     private RegisterView rview;
@@ -46,32 +46,7 @@ public class LoginController implements ActionListener, MouseListener {
             Main.frame.setVisible(true);
         }
 
-
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        Main.frame.setContentPane(cview.getPanel());
-        Main.frame.setVisible(true);
-    }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
