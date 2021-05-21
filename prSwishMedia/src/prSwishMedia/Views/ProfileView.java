@@ -22,10 +22,12 @@ public class ProfileView {
     private JLabel labelFechaNacimiento;
     private JLabel fechaNacimiento;
     private JComboBox comboBoxListas;
-    private JList list1;
     private JLabel labelLista;
     private JButton buttonCrearLista;
     private JButton buttonEliminarLista;
     private JPanel nombreYVisualizaciones;
     private JPanel listasPanel;
+    private JTextField textField1;
+    private JLabel labelInfoCrearLista;
+    private JPanel panelFechas;
 }
