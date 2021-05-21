@@ -2,21 +2,26 @@ package prSwishMedia.Controllers;
 
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.ConfirmedView;
 import prSwishMedia.Views.LoginView;
 import prSwishMedia.Views.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class LoginController implements ActionListener {
+public class LoginController implements ActionListener, MouseListener {
 
     private LoginView lview;
     private RegisterView rview;
+    private ConfirmedView cview;
     private Usuario user;
 
-    public LoginController(RegisterView rv, LoginView lv,Usuario u){
+    public LoginController(RegisterView rv, LoginView lv,ConfirmedView cv,Usuario u){
         lview=lv;
         rview=rv;
+        cview=cv;
         user=u;
     }
     public void actionPerformed(ActionEvent ev){
@@ -41,6 +46,32 @@ public class LoginController implements ActionListener {
             Main.frame.setVisible(true);
         }
 
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Main.frame.setContentPane(cview.getPanel());
+        Main.frame.setVisible(true);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }

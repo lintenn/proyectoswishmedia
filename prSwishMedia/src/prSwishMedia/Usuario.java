@@ -20,15 +20,24 @@ public class Usuario {
     private int numEpisodiosVistos;
     private int numPeliculasVistas;
 
-    public Usuario(int id){
+    public Usuario(int id){ //de prueba
         this.id = id;
     }
 
     // Constructor Esencial
-    public Usuario(int id, String email, String contrasenya) {
+    public Usuario(int id, String nombre, String email, String contrasenya) {
         this.id = id;
+        this.nombre = nombre;
         this.email = email;
         this.contrasenya = contrasenya;
+        this.descripcion = "";
+        this.numListas = 3;
+        this.numPeliculasVistas = 0;
+        this.numSeriesVistas = 0;
+        this.privacidad = false;
+        this.numAmigos=0;
+        this.numComentarios=0;
+        this.numEpisodiosVistos=0;
     }
 
     public Usuario(int id,
