@@ -1,11 +1,13 @@
 package prSwishMedia.Views;
 
 import prSwishMedia.Controllers.ConfirmedController;
+import prSwishMedia.Listeners.MouseClick;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class LoginView extends JFrame{
@@ -20,8 +22,8 @@ public class LoginView extends JFrame{
 
 
     public LoginView(){
-        ConfirmedView cv=new ConfirmedView();
-        ConfirmedController cc=new ConfirmedController(this,cv);
+        ConfirmedView cv = new ConfirmedView();
+        MouseClick mc = new MouseClick();
         add(panel1);
        /* setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SwishMedia");
@@ -30,7 +32,7 @@ public class LoginView extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);*/
-        Forgot.addMouseListener(cc);
+        Forgot.addMouseListener(mc);
     }
 
     public void controlador(ActionListener ctr){
@@ -39,7 +41,6 @@ public class LoginView extends JFrame{
 
         loginButton.setActionCommand("LOGIN");
         registroButton.setActionCommand("REGISTRO");
-
 
     }
 
