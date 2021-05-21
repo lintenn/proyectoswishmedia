@@ -25,12 +25,15 @@ public class RegisterController implements ActionListener {
         String act = ev.getActionCommand();
 
         if(act.equals("REGISTRO")){
-            Gmail g=new Gmail();
-            g.enviarCorreo(rview.getEmail().getText(),"contraseña", "usuario");
+            String nick=rview.getUser().getText();
+            if(!rview.validarMail() || nick.length()<5 || nick.length()>15)
+                rview.clear("Datos erróneos");
 
         }else if(act.equals("VOLVER")) {
             Main.frame.setContentPane(lview.getPanel());
             Main.frame.setVisible(true);
+            rview.clear("");
+
         }
 
 

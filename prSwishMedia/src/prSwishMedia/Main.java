@@ -4,6 +4,7 @@ import prSwishMedia.Controllers.ConfirmedController;
 import prSwishMedia.Controllers.RegisterController;
 import prSwishMedia.ContenidoMultimedia;
 import prSwishMedia.Lista;
+import prSwishMedia.Listeners.MouseClick;
 import prSwishMedia.Usuario;
 import prSwishMedia.Controllers.LoginController;
 import prSwishMedia.Views.ConfirmedView;
@@ -23,9 +24,13 @@ public class Main {
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
         Usuario user=new Usuario(1);
+
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
+        MouseClick mc =new MouseClick(lview,cview);
+        lview.getForgot().addMouseListener(mc);
+
         frame = new JFrame();
 
 

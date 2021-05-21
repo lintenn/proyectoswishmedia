@@ -1,5 +1,6 @@
 package prSwishMedia.Controllers;
 
+import prSwishMedia.Listeners.MouseClick;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
 import prSwishMedia.Views.ConfirmedView;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class LoginController implements ActionListener, MouseListener {
+public class LoginController implements ActionListener {
 
     private LoginView lview;
     private RegisterView rview;
@@ -31,47 +32,17 @@ public class LoginController implements ActionListener, MouseListener {
 
             String pass=new String (lview.getPassword().getPassword());
             if(lview.getUser().getText().equals("") || pass.equals("")){
-                lview.setErrorMessage("Datos erróneos");
-                lview.getUser().setText("");
-                lview.getPassword().cut();
-                lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
+                lview.clear("Datos erróneos");
             }
 
 
         } else if(act.equals("REGISTRO")) {
-            lview.setErrorMessage("");
-            lview.getUser().setText("");
-            lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
             Main.frame.setContentPane(rview.getPanel());
             Main.frame.setVisible(true);
+            lview.clear("");
         }
 
-
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        Main.frame.setContentPane(cview.getPanel());
-        Main.frame.setVisible(true);
-    }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
