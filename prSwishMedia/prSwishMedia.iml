@@ -9,5 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="flatlaf-demo-0.38" level="project" />
     <orderEntry type="library" name="flatlaf-intellij-themes-0.38" level="project" />
+    <orderEntry type="library" name="flatlaf-demo-0.381" level="project" />
+    <orderEntry type="library" name="flatlaf-intellij-themes-0.381" level="project" />
   </component>
 </module>
