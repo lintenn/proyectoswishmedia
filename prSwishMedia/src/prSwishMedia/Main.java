@@ -1,6 +1,8 @@
 package prSwishMedia;
 
 import prSwishMedia.Controllers.RegisterController;
+import prSwishMedia.ContenidoMultimedia;
+import prSwishMedia.Lista;
 import prSwishMedia.Usuario;
 import prSwishMedia.Controllers.LoginController;
 import prSwishMedia.Views.LoginView;
@@ -8,6 +10,7 @@ import prSwishMedia.Views.RegisterView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 
 public class Main {
 
@@ -15,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
 
-        //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
         Usuario user=new Usuario(1);
         LoginView lview = new LoginView();
