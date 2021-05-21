@@ -61,28 +61,9 @@ public class Lista {
 
     public void añadirContenidoMultimedia(ContenidoMultimedia cM){
         contMedia.add(cM);
-<<<<<<< HEAD
     }
 
     public void borrarContenidoMultimedia(ContenidoMultimedia cM){
         contMedia.remove(cM);
-=======
-    }
-
-    public void borrarContenidoMultimedia(ContenidoMultimedia cM){
-        contMedia.remove(cM);
-    }
-
-    public String toString() {
-        String s;
-
-        s = "Películas y series de la lista " + getNombre() + ":\n";
-
-        for (ContenidoMultimedia contMul : contMedia) {
-            s += contMul.getNombre() + "\n";
-        }
-
-        return s;
->>>>>>> Angelo
     }
 }
