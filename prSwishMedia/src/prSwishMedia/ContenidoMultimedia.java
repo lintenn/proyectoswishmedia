@@ -3,7 +3,6 @@ package prSwishMedia;
 import java.util.Date;
 
 public class ContenidoMultimedia {
-    
     private int id; // obligatorio
     private String nombre; // obligatorio
     private String sinopsis;
