@@ -15,4 +15,19 @@ public class ProfileView {
     private JLabel labelPrivacidad;
     private JCheckBox checkBoxPrivacidad;
     private JTextArea textAreaDescripcion;
+    private JLabel labelSeriesVistas;
+    private JLabel numeroSeriesVistas;
+    private JLabel labelFechaCreacion;
+    private JLabel fechaCreacion;
+    private JLabel labelFechaNacimiento;
+    private JLabel fechaNacimiento;
+    private JComboBox comboBoxListas;
+    private JLabel labelLista;
+    private JButton buttonCrearLista;
+    private JButton buttonEliminarLista;
+    private JPanel nombreYVisualizaciones;
+    private JPanel listasPanel;
+    private JTextField textField1;
+    private JLabel labelInfoCrearLista;
+    private JPanel panelFechas;
 }
