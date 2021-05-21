@@ -1,5 +1,6 @@
 package prSwishMedia.Controllers;
 
+import prSwishMedia.Listeners.MouseClick;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
 import prSwishMedia.Views.ConfirmedView;
@@ -31,19 +32,14 @@ public class LoginController implements ActionListener {
 
             String pass=new String (lview.getPassword().getPassword());
             if(lview.getUser().getText().equals("") || pass.equals("")){
-                lview.setErrorMessage("Datos erróneos");
-                lview.getUser().setText("");
-                lview.getPassword().cut();
-                lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
+                lview.clear("Datos erróneos");
             }
 
 
         } else if(act.equals("REGISTRO")) {
-            lview.setErrorMessage("");
-            lview.getUser().setText("");
-            lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
             Main.frame.setContentPane(rview.getPanel());
             Main.frame.setVisible(true);
+            lview.clear("");
         }
 
     }

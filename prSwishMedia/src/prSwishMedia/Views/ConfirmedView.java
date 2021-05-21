@@ -25,7 +25,6 @@ public class ConfirmedView extends JFrame{
     }
 
 
-
     public JTextField getCorreo() {
         return Correo;
     }
