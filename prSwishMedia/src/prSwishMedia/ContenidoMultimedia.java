@@ -157,10 +157,4 @@ public class ContenidoMultimedia {
     public void setAprobado(boolean aprobado) {
         this.aprobado = aprobado;
     }
-
-    public String toString(){
-        return "Título: "+getNombre()+"\n Sinopsis: "+getSinopsis()+"\n Reparto: "+getReparto()+"\n Valoración: "+
-                +getValoracion()+"\n Fecha: "+getFecha()+"\n Género";
-
-    }
 }
