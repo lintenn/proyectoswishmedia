@@ -12,20 +12,19 @@ import prSwishMedia.Views.ProfileView;
 import prSwishMedia.Views.RegisterView;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-
-
-
-
 
 
 
 public class Main {
 
     public static JFrame frame;
+    static Usuario user=null;
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -34,7 +33,7 @@ public class Main {
 
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
-        Usuario user=new Usuario("d");
+
 
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
@@ -68,13 +67,45 @@ public class Main {
 
     }
 
-    public Usuario getUser(String nick){
-       /* Usuario user;
+    public static Usuario getUser() {
+        return user;
+    }
+
+    public static void setUser(String nick, Statement st) throws SQLException {
+        Statement stmt=st;
         String email;
-        users = stmt.executeQuery("SELECT email FROM Usuario WHERE nombre='" + nick + "';");
-        email=users.getObject(1).toString();
-        Usuario user= new Usuario(nick,email,pass);*/
-        return null;
+        String descripcion;
+        Date fechaNac;
+        Date fechaCre;
+        String contraseña;
+        int numList;
+        int numAmigos;
+        boolean priv;
+        int numComentarios;
+        int numSeries;
+        int numCap;
+        int numPel;
+
+        ResultSet conex=stmt.executeQuery("SELECT * FROM Usuario WHERE nombre='" + nick + "';");
+
+        email=conex.getString(2);
+        descripcion=conex.getString(3);
+        fechaNac=conex.getDate(4);
+        fechaCre=conex.getDate(5);
+        contraseña=conex.getString(6);
+        numList=conex.getInt(7);
+        numAmigos=conex.getInt(8);
+        priv=conex.getBoolean(9);
+        numComentarios=conex.getInt(10);
+        numSeries=conex.getInt(11);
+        numCap=conex.getInt(12);
+        numPel=conex.getInt(13);
+
+
+
+
+        Usuario user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
+
     }
 
 }
