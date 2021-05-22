@@ -33,7 +33,7 @@ public class Main {
 
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
-
+        Usuario user=new Usuario("d");
 
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
@@ -100,8 +100,6 @@ public class Main {
         numSeries=conex.getInt(11);
         numCap=conex.getInt(12);
         numPel=conex.getInt(13);
-
-
 
 
         Usuario user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
