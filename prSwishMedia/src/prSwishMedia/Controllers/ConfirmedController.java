@@ -44,6 +44,7 @@ public class ConfirmedController implements ActionListener{
             }
 
         }else if(act.equals("VOLVER")){
+            cview.clear();
             Main.frame.setContentPane(lview.getPanel());
             Main.frame.setVisible(true);
         }
