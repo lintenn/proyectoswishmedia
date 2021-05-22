@@ -36,6 +36,8 @@ public class ProfileView extends JFrame{
     private JLabel labelInfoCrearLista;
     private JPanel panelFechas;
     private JLabel msgEliminarLista;
+    private JButton buttonCerrarSesion;
+    private JButton buttonVolver;
     private Usuario user;
 
     public ProfileView(Usuario user){
