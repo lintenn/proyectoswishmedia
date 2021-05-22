@@ -55,6 +55,9 @@ public class RegisterController implements ActionListener {
 
                 try {
                     conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña) VALUES ('" + nick +  "','"+email+"','" + pass1 + "' )");
+                    rview.clear("Usuario creado con éxito");
+                    Gmail g=new Gmail();
+                    g.enviarCorreoRegistro(email,pass1,nick);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
