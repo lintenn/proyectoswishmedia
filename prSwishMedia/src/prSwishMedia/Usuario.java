@@ -1,11 +1,12 @@
 package prSwishMedia;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Usuario {
-    private int id; // obligatorio
-    private String nombre;
+    private String nombre; // obligatorio
     private String email; // obligatorio
     private String foto;
     private String descripcion;
@@ -14,62 +15,58 @@ public class Usuario {
     private String contrasenya; // obligatorio
     private int numListas;
     private int numAmigos;
-    private String privacidad;
+    private boolean privacidad;
     private int numComentarios;
     private int numSeriesVistas;
     private int numEpisodiosVistos;
     private int numPeliculasVistas;
+    private List<Lista> listasPersonales;
 
-    public Usuario(int id){
-        this.id = id;
+    public Usuario(String nick){ //de prueba
+        nombre = nick;
     }
 
     // Constructor Esencial
-    public Usuario(int id, String email, String contrasenya) {
-        this.id = id;
+    public Usuario( String nombre, String email, String contrasenya) {
+        this.nombre = nombre;
         this.email = email;
         this.contrasenya = contrasenya;
+        this.descripcion = "";
+        this.numListas = 3;
+        this.numPeliculasVistas = 0;
+        this.fechaNacimiento=null;
+        this.numSeriesVistas = 0;
+        this.privacidad = false;
+        this.numAmigos=0;
+        this.numComentarios=0;
+        this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
     }
 
-    public Usuario(int id,
-                    String nombre,
+    public Usuario(String nombre,
                     String email,
-                    String foto,
-                    String descripcion,
                     Date fechaNacimiento,
                     Date fechaCreacion,
-                    String contrasenya,
-                    int numListas,
-                    int numAmigos,
-                    String privacidad,
-                    int numComentarios,
-                    int numSeriesVistas,
-                    int numEpisodiosVistos,
-                    int numPeliculasVistas) {
+                    String contrasenya) {
         this.nombre = nombre;
-        this.id = id;
         this.contrasenya = contrasenya;
-        this.descripcion = descripcion;
+        this.descripcion = "";
         this.email = email;
         this.fechaCreacion = fechaCreacion;
         this.fechaNacimiento = fechaNacimiento;
-        this.foto = foto;
-        this.numAmigos = numAmigos;
-        this.numComentarios = numComentarios;
-        this.numEpisodiosVistos = numEpisodiosVistos;
-        this.numListas = numListas;
-        this.numPeliculasVistas = numPeliculasVistas;
-        this.numSeriesVistas = numSeriesVistas;
-        this.privacidad = privacidad;
+        this.numListas = 3;
+        this.numPeliculasVistas = 0;
+        this.numSeriesVistas = 0;
+        this.privacidad = false;
+        this.numAmigos=0;
+        this.numComentarios=0;
+        this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
     }
 
     // Getters
     public String getNombre() {
         return nombre;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Date getFechaCreacion() {
@@ -120,17 +117,17 @@ public class Usuario {
         return foto;
     }
 
-    public String getPrivacidad() {
+    public boolean getPrivacidad() {
         return privacidad;
+    }
+
+    public List<Lista> getListasPersonales() {
+        return listasPersonales;
     }
 
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setContrasenya(String contrasenya) {
@@ -181,8 +178,11 @@ public class Usuario {
         this.numSeriesVistas = numSeriesVistas;
     }
 
-    public void setPrivacidad(String privacidad) {
+    public void setPrivacidad(boolean privacidad) {
         this.privacidad = privacidad;
     }
 
+    public void setListasPersonales(List<Lista> listasPersonales) {
+        this.listasPersonales = listasPersonales;
+    }
 }
