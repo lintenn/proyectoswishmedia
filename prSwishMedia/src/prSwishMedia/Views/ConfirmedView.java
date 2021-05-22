@@ -44,14 +44,9 @@ public class ConfirmedView extends JFrame{
         return panel1;
     }
 
-    public void setMessage(String s){
-        Message.setForeground(Color.white);
-        Message.setText(s);
-    }
-
-    public void setErrorMessage(String s){
-        Message.setForeground(Color.red);
-        Message.setText(s);
+    public void clear(){
+        Message.setText("");
+        Correo.setText("");
     }
 
 }
