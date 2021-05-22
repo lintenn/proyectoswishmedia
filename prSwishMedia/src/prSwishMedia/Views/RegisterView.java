@@ -67,6 +67,14 @@ public class RegisterView extends JFrame {
         return user;
     }
 
+    public JPasswordField getPassword1() {
+        return passwordField1;
+    }
+    public JPasswordField getPassword2() {
+        return passwordField1;
+    }
+
+
     public void setErrorMessage(String s){
         Error.setForeground(Color.red);
         Error.setText(s);
