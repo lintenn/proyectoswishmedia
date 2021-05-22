@@ -23,16 +23,14 @@ public class LoginController implements ActionListener {
     private RegisterView rview;
     private ConfirmedView cview;
     private ProfileView pview;
-    private Usuario user;
     Statement conexion;
 
-    public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, ProfileView pv, Statement st, Usuario u){
+    public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, ProfileView pv, Statement st){
         lview=lv;
         rview=rv;
         cview=cv;
         pview=pv;
         conexion=st;
-        user=u;
     }
     public void actionPerformed(ActionEvent ev){
         String act=ev.getActionCommand();
@@ -46,6 +44,10 @@ public class LoginController implements ActionListener {
                 if (nick.equals("") || pass.equals("") || !users.next()) {
                     lview.clear("Datos erróneos");
                 }else{
+                    String email;
+                    users = conexion.executeQuery("SELECT email FROM Usuario WHERE nombre='" + nick + "';");
+                    email=users.getObject(1).toString();
+                    Usuario user= new Usuario(nick,email,pass);
                     Main.frame.setContentPane(pview.getPanel());
                     Main.frame.setVisible(true);
                 }
