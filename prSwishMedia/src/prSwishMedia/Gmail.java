@@ -3,6 +3,9 @@ package prSwishMedia;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Base64;
 
 public class Gmail {
@@ -96,7 +99,7 @@ public class Gmail {
 		}
 	}
 
-	public void enviarCorreo(String destinatario, String password, String personaje) {
+	public void enviarCorreo(String email, Statement st) {
 		// Flujo de lectura de teclado:
 		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -128,7 +131,7 @@ public class Gmail {
 		recibir();
 
 		// Ahora los destinos
-		enviar("RCPT TO: <" + destinatario + ">");
+		enviar("RCPT TO: <" + email + ">");
 				recibir();
 
 		// Ahora enviamos el correo: cabeceras + cuerpo
@@ -141,25 +144,105 @@ public class Gmail {
 		enviar("From: " + usuario);
 
 		// TODO: Enviar las cabeceras To: (no hay que recibir respuesta)
-		enviar("To: " + destinatario);
+		enviar("To: " + email);
 		
 		// Leemos el asunto:
-		String asunto = "Recuperar Contraseña";
+		String asunto = "Recuperar password";
 
 		// TODO: enviar la cabecera Subject: (no hay que recibir respuesta)
 		enviar("Subject: " + asunto);
 
 		// Enviamos una l�nea en blanco para separar las cabeceras del cuerpo
 		enviar("\n");
-	
+
+		String nick=null;
+		String pasw=null;
+		try {
+			ResultSet data= st.executeQuery("SELECT nombre,contraseña FROM Usuario WHERE email='" + email + "';");
+			data.next();
+			nick=data.getString(1);
+			pasw=data.getString(2);
+
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+
 		// Ahora el cuerpo que son muchas l�neas
-		String cuerpo = "Para el usuario " + personaje + " y su contraseña es: " + password;
+		String cuerpo = "El password solicitado del usuario " + nick + " es: " + pasw + ".";
 		enviar(cuerpo);
 
 		enviar("\n");
 		enviar(".");
 		recibir();
 		
+		enviar("QUIT");
+		recibir();
+	}
+
+	public void enviarCorreoRegistro(String destinatario, String password, String personaje) {
+		// Flujo de lectura de teclado:
+		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+
+		// Nos conectamos al servidor
+		conectar();
+
+		// ESQUEMA DEL PROTOCOLO SMTP
+
+		// Recibimos el saludo inicial del servidor
+		recibir();
+
+		// Enviamos el EHLO y recibimos su respuesta
+		enviar("EHLO smtp.google.com");
+		recibir();
+
+		enviar("AUTH LOGIN");
+		recibir();
+
+		// Enviamos el usuario y la contrase�a codificadas en Base64 y recibimos ambas respuestas
+		String user = Base64.getEncoder().encodeToString(usuario.getBytes());
+		String pass = Base64.getEncoder().encodeToString(clave.getBytes());
+		enviar(user);
+		recibir();
+		enviar(pass);
+		recibir();
+
+		// TODO: enviar origen del mensaje y su recibir su respuesta
+		enviar("MAIL FROM: <" + usuario + ">");
+		recibir();
+
+		// Ahora los destinos
+		enviar("RCPT TO: <" + destinatario + ">");
+		recibir();
+
+		// Ahora enviamos el correo: cabeceras + cuerpo
+		// TODO: Enviamos el DATA y recibimos la respuesta
+		enviar("DATA");
+		recibir();
+
+		// Cabeceras:
+		// TODO: Enviar la cabecera From: (no hay que recibir respuesta)
+		enviar("From: " + usuario);
+
+		// TODO: Enviar las cabeceras To: (no hay que recibir respuesta)
+		enviar("To: " + destinatario);
+
+		// Leemos el asunto:
+		String asunto = "Bienvenido a SwishMedia";
+
+		// TODO: enviar la cabecera Subject: (no hay que recibir respuesta)
+		enviar("Subject: " + asunto);
+
+		// Enviamos una l�nea en blanco para separar las cabeceras del cuerpo
+		enviar("\n");
+
+		// Ahora el cuerpo que son muchas l�neas
+		String cuerpo = "Bienvenido a SwishMedia " + personaje + ", esperamos que disfrute de nuestro servicio.";
+		enviar(cuerpo);
+
+		enviar("\n");
+		enviar(".");
+		recibir();
+
 		enviar("QUIT");
 		recibir();
 	}

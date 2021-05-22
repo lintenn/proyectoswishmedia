@@ -17,6 +17,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Date;
 
+
+
+
+
+
+
 public class Main {
 
     public static JFrame frame;
@@ -28,7 +34,7 @@ public class Main {
 
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
-        Usuario user=new Usuario(1);
+        Usuario user=new Usuario("d");
 
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
@@ -46,21 +52,29 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(lview.getPanel());
 
-
         // Display the window.
         frame.pack(); //si lo pongo no va el tamaño por defecto
         frame.setVisible(true);
 
 
-        LoginController cl=new LoginController(rview,lview,cview,pview,stmt,user);
-        RegisterController cr=new RegisterController(rview,lview,user);
-        ConfirmedController cc= new ConfirmedController(lview,cview);
+        LoginController cl=new LoginController(rview,lview,cview,pview,stmt);
+        RegisterController cr=new RegisterController(rview,lview,stmt);
+        ConfirmedController cc= new ConfirmedController(lview,cview,stmt);
         ProfileController pc = new ProfileController(pview,user);
 
         lview.controlador(cl);
         rview.controlador(cr);
         cview.controlador(cc);
 
+    }
+
+    public Usuario getUser(String nick){
+       /* Usuario user;
+        String email;
+        users = stmt.executeQuery("SELECT email FROM Usuario WHERE nombre='" + nick + "';");
+        email=users.getObject(1).toString();
+        Usuario user= new Usuario(nick,email,pass);*/
+        return null;
     }
 
 }
