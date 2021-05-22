@@ -59,7 +59,7 @@ public class Main {
 
         LoginController cl=new LoginController(rview,lview,cview,pview,stmt);
         RegisterController cr=new RegisterController(rview,lview,stmt);
-        ConfirmedController cc= new ConfirmedController(lview,cview);
+        ConfirmedController cc= new ConfirmedController(lview,cview,stmt);
         ProfileController pc = new ProfileController(pview,user);
 
         lview.controlador(cl);
