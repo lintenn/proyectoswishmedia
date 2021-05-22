@@ -39,7 +39,7 @@ public class Main {
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
-        ProfileView pview = new ProfileView();
+        ProfileView pview = new ProfileView(user);
 
         MouseClick mc =new MouseClick(lview,cview);
         lview.getForgot().addMouseListener(mc);
