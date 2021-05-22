@@ -1,5 +1,7 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Usuario;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionListener;
@@ -32,9 +34,11 @@ public class ProfileView extends JFrame{
     private JTextField textField1;
     private JLabel labelInfoCrearLista;
     private JPanel panelFechas;
+    private Usuario user;
 
-    public ProfileView(){
+    public ProfileView(Usuario user){
         add(panel1);
+        nombreUsuario.setText(user.getNombre());
     }
 
     public void controlador(ActionListener ctr, ChangeListener ctr1){
