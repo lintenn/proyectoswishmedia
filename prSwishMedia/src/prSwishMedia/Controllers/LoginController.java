@@ -1,73 +1,70 @@
 package prSwishMedia.Controllers;
 
+import prSwishMedia.Listeners.MouseClick;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.ConfirmedView;
 import prSwishMedia.Views.LoginView;
+import prSwishMedia.Views.ProfileView;
 import prSwishMedia.Views.RegisterView;
 
+import javax.swing.plaf.nimbus.State;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class LoginController implements ActionListener, MouseListener {
+public class LoginController implements ActionListener {
 
     private LoginView lview;
     private RegisterView rview;
-    private Usuario user;
+    private ConfirmedView cview;
+    private ProfileView pview;
+    Statement conexion;
 
-    public LoginController(RegisterView rv, LoginView lv,Usuario u){
+    public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, ProfileView pv, Statement st){
         lview=lv;
         rview=rv;
-        user=u;
+        cview=cv;
+        pview=pv;
+        conexion=st;
     }
     public void actionPerformed(ActionEvent ev){
         String act=ev.getActionCommand();
 
         if(act.equals("LOGIN")){
+            String nick=lview.getUser().getText();
+            String pass = new String(lview.getPassword().getPassword());
+            try {
+                ResultSet users = conexion.executeQuery("SELECT nombre FROM Usuario WHERE nombre='" + nick + "'AND contraseña='" + pass + "';");
 
-            String pass=new String (lview.getPassword().getPassword());
-            if(lview.getUser().getText().equals("") || pass.equals("")){
-                lview.setErrorMessage("Datos erróneos");
-                lview.getUser().setText("");
-                lview.getPassword().cut();
-                lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
-            }
+                if (nick.equals("") || pass.equals("") || !users.next()) {
+                    lview.clear("Datos erróneos");
+                }else{
+                    String email;
+                    users = conexion.executeQuery("SELECT email FROM Usuario WHERE nombre='" + nick + "';");
+                    users.next(); // parece que no estaba apuntado a la primera fila, con esto se consigue (tmb con users.first())
+                    email=users.getObject(1).toString();
+                    Usuario user= new Usuario(nick,email,pass);
+                    Main.frame.setContentPane(pview.getPanel());
+                    Main.frame.setVisible(true);
+                }
+
+            }catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
 
 
         } else if(act.equals("REGISTRO")) {
-            lview.setErrorMessage("");
-            lview.getUser().setText("");
-            lview.getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,lview.getPassword().getAccessibleContext().getAccessibleText().getCharCount());
             Main.frame.setContentPane(rview.getPanel());
             Main.frame.setVisible(true);
+            lview.clear("");
         }
 
-
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }

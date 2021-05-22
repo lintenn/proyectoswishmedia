@@ -24,6 +24,11 @@ public class ConfirmedView extends JFrame{
 
     }
 
+
+    public JTextField getCorreo() {
+        return Correo;
+    }
+
     public JPanel getPanel() {
         return panel1;
     }

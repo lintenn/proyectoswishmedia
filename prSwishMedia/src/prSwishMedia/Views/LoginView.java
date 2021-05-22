@@ -1,9 +1,13 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Controllers.ConfirmedController;
+import prSwishMedia.Listeners.MouseClick;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class LoginView extends JFrame{
@@ -14,10 +18,11 @@ public class LoginView extends JFrame{
     private JButton registroButton;
     private JLabel Logo;
     private JLabel Error;
+    private JLabel Forgot;
 
-    
+
     public LoginView(){
-        
+
         add(panel1);
        /* setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SwishMedia");
@@ -26,6 +31,8 @@ public class LoginView extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);*/
+
+
     }
 
     public void controlador(ActionListener ctr){
@@ -35,7 +42,10 @@ public class LoginView extends JFrame{
         loginButton.setActionCommand("LOGIN");
         registroButton.setActionCommand("REGISTRO");
 
+    }
 
+    public JLabel getForgot() {
+        return Forgot;
     }
 
     public JTextField getUser() {
@@ -47,6 +57,11 @@ public class LoginView extends JFrame{
         return password;
     }
 
+    public void clear(String s){
+        user.setText("");
+        getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,getPassword().getAccessibleContext().getAccessibleText().getCharCount());
+        setErrorMessage(s);
+    }
 
 
     public void setErrorMessage(String s){
@@ -57,6 +72,8 @@ public class LoginView extends JFrame{
     public JPanel getPanel(){
         return panel1;
     }
+
+
 
 
 }
