@@ -46,6 +46,7 @@ public class LoginController implements ActionListener {
                 }else{
                     String email;
                     users = conexion.executeQuery("SELECT email FROM Usuario WHERE nombre='" + nick + "';");
+                    users.next(); // parece que no estaba apuntado a la primera fila, con esto se consigue (tmb con users.first())
                     email=users.getObject(1).toString();
                     Usuario user= new Usuario(nick,email,pass);
                     Main.frame.setContentPane(pview.getPanel());

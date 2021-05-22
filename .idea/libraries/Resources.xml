@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Resources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/prSwishMedia/src/Resources/flatlaf-intellij-themes-0.38.jar!/" />
+      <root url="jar://$PROJECT_DIR$/prSwishMedia/src/Resources/mysql-connector-java-5.1.47.jar!/" />
+      <root url="jar://$PROJECT_DIR$/prSwishMedia/src/Resources/flatlaf-demo-0.38.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
