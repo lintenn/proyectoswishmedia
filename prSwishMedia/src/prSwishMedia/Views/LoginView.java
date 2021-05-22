@@ -22,8 +22,7 @@ public class LoginView extends JFrame{
 
 
     public LoginView(){
-        ConfirmedView cv = new ConfirmedView();
-        MouseClick mc = new MouseClick();
+
         add(panel1);
        /* setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("SwishMedia");
@@ -32,7 +31,8 @@ public class LoginView extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);*/
-        Forgot.addMouseListener(mc);
+
+
     }
 
     public void controlador(ActionListener ctr){
@@ -44,6 +44,10 @@ public class LoginView extends JFrame{
 
     }
 
+    public JLabel getForgot() {
+        return Forgot;
+    }
+
     public JTextField getUser() {
         return user;
     }
@@ -53,6 +57,11 @@ public class LoginView extends JFrame{
         return password;
     }
 
+    public void clear(String s){
+        user.setText("");
+        getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,getPassword().getAccessibleContext().getAccessibleText().getCharCount());
+        setErrorMessage(s);
+    }
 
 
     public void setErrorMessage(String s){
@@ -63,6 +72,8 @@ public class LoginView extends JFrame{
     public JPanel getPanel(){
         return panel1;
     }
+
+
 
 
 }

@@ -1,11 +1,12 @@
 package prSwishMedia;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Usuario {
-    private int id; // obligatorio
-    private String nombre;
+    private String nombre; // obligatorio
     private String email; // obligatorio
     private String foto;
     private String descripcion;
@@ -19,35 +20,35 @@ public class Usuario {
     private int numSeriesVistas;
     private int numEpisodiosVistos;
     private int numPeliculasVistas;
+    private List<Lista> listasPersonales;
 
-    public Usuario(int id){ //de prueba
-        this.id = id;
+    public Usuario(String nick){ //de prueba
+        nombre = nick;
     }
 
     // Constructor Esencial
-    public Usuario(int id, String nombre, String email, String contrasenya) {
-        this.id = id;
+    public Usuario( String nombre, String email, String contrasenya) {
         this.nombre = nombre;
         this.email = email;
         this.contrasenya = contrasenya;
         this.descripcion = "";
         this.numListas = 3;
         this.numPeliculasVistas = 0;
+        this.fechaNacimiento=null;
         this.numSeriesVistas = 0;
         this.privacidad = false;
         this.numAmigos=0;
         this.numComentarios=0;
         this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
     }
 
-    public Usuario(int id,
-                    String nombre,
+    public Usuario(String nombre,
                     String email,
                     Date fechaNacimiento,
                     Date fechaCreacion,
                     String contrasenya) {
         this.nombre = nombre;
-        this.id = id;
         this.contrasenya = contrasenya;
         this.descripcion = "";
         this.email = email;
@@ -60,15 +61,12 @@ public class Usuario {
         this.numAmigos=0;
         this.numComentarios=0;
         this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
     }
 
     // Getters
     public String getNombre() {
         return nombre;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Date getFechaCreacion() {
@@ -123,13 +121,13 @@ public class Usuario {
         return privacidad;
     }
 
+    public List<Lista> getListasPersonales() {
+        return listasPersonales;
+    }
+
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setContrasenya(String contrasenya) {
@@ -184,4 +182,7 @@ public class Usuario {
         this.privacidad = privacidad;
     }
 
+    public void setListasPersonales(List<Lista> listasPersonales) {
+        this.listasPersonales = listasPersonales;
+    }
 }
