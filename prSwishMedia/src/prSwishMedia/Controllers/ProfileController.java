@@ -77,7 +77,9 @@ public class ProfileController implements ActionListener, ChangeListener {
 
                 List<Lista> listasSeries1 = user.getListasPersonales();
                 Lista listaEliminada = pview.getListaEliminada();
-                boolean esta=listasSeries1.remove(listaEliminada);
+                boolean esta=false;
+                if(!listaEliminada.getNombre().equals("Pendientes") && !listaEliminada.getNombre().equals("Vistas"))
+                     esta=listasSeries1.remove(listaEliminada);
 
                 if(esta) pview.setMsgEliminarLista("Lista eliminada con éxito");
                     else pview.setMsgEliminarLista("Error al eliminar lista");
