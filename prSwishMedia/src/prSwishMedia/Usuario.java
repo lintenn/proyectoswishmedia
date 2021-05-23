@@ -206,4 +206,10 @@ public class Usuario {
     public void setListasPersonales(List<Lista> listasPersonales) {
         this.listasPersonales = listasPersonales;
     }
+
+
+
+    public void añadirLista(Lista l){
+        listasPersonales.add(l);
+    }
 }

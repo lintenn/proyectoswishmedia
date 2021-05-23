@@ -48,7 +48,7 @@ public class LoginController implements ActionListener {
                     Main.setUser(nick,conexion);
 
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
-                    ProfileView pview = new ProfileView();
+                    ProfileView pview = new ProfileView(conexion);
                     ProfileController pc = new ProfileController(pview,ppview,lview,conexion);
                     PrincipalController ppc = new PrincipalController(pview);
                     pview.controlador(pc);
