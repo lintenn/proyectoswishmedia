@@ -87,25 +87,25 @@ public class Main {
         ResultSet conex=stmt.executeQuery("SELECT * FROM Usuario WHERE nombre='" + nick + "';");
         conex.next();
         email=conex.getString(2);
-        descripcion=conex.getString(4);
+        descripcion=conex.getString(3);
         try{
-            fechaNac=conex.getDate(5);
+            fechaNac=conex.getDate(4);
         }catch (Exception e){
             fechaNac=null;
         }   
         try{
-            fechaCre=conex.getDate(6);
+            fechaCre=conex.getDate(5);
         }catch (Exception e){
             fechaCre=null;
         }
-        contraseña=conex.getString(7);
-        numList=conex.getInt(8);
-        numAmigos=conex.getInt(9);
-        priv=conex.getBoolean(10);
-        numComentarios=conex.getInt(11);
-        numSeries=conex.getInt(12);
-        numCap=conex.getInt(13);
-        numPel=conex.getInt(14);
+        contraseña=conex.getString(6);
+        numList=conex.getInt(7);
+        numAmigos=conex.getInt(8);
+        priv=conex.getBoolean(9);
+        numComentarios=conex.getInt(10);
+        numSeries=conex.getInt(11);
+        numCap=conex.getInt(12);
+        numPel=conex.getInt(13);
 
         user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
      
