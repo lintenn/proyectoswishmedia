@@ -1,6 +1,7 @@
 package prSwishMedia;
 
 import java.util.Date;
+import java.util.List;
 
 public class ContenidoMultimedia {
     private int id; // obligatorio
@@ -9,7 +10,7 @@ public class ContenidoMultimedia {
     private String reparto;
     private double valoracion;
     private Date fecha;
-    private String genero;
+    private List<String> genero;
     private String premios;
     private int rating;
     private String trailer; //enlace del trailer
@@ -33,7 +34,7 @@ public class ContenidoMultimedia {
                     String reparto,
                     double valoracion,
                     Date fecha,
-                    String genero,
+                    List<String> genero,
                     String premios,
                     int rating,
                     String trailer, //enlace del trailer
@@ -80,7 +81,7 @@ public class ContenidoMultimedia {
         return veces_anyadidas;
     }
 
-    public String getGenero() {
+    public List<String> getGenero() {
         return genero;
     }
 
@@ -113,7 +114,7 @@ public class ContenidoMultimedia {
         this.fecha = fecha;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(List<String> genero) {
         this.genero = genero;
     }
 

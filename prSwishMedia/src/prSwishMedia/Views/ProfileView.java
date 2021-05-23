@@ -1,5 +1,6 @@
 package prSwishMedia.Views;
 
+import com.mysql.jdbc.Statement;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
@@ -7,6 +8,8 @@ import prSwishMedia.Usuario;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ProfileView extends JFrame{
     private JPanel panel1;
@@ -39,12 +42,22 @@ public class ProfileView extends JFrame{
     private JLabel msgEliminarLista;
     private JButton volver;
     private JButton logout;
+    private JLabel msgCrearLista;
     private Usuario user;
 
-    public ProfileView(){
+    public ProfileView(Statement st){
         add(panel1);
         user = Main.getUser();
         setInfo();
+
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
+            while(rs.next()){
+                user.añadirLista(new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3)));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         actualizarComboBox();
     }
@@ -105,7 +118,9 @@ public class ProfileView extends JFrame{
     public void setMsgEliminarLista(String error) {
         msgEliminarLista.setText(error);
     }
-
+    public void setMsgCrearLista(String error) {
+        msgCrearLista.setText(error);
+    }
     public String getNombreListaCreada(){ return nombreLista.getText();}
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
     public JPanel getPanel() {

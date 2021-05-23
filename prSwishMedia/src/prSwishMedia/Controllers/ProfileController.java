@@ -1,5 +1,6 @@
 package prSwishMedia.Controllers;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
@@ -17,9 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 public class ProfileController implements ActionListener, ChangeListener {
@@ -46,27 +45,33 @@ public class ProfileController implements ActionListener, ChangeListener {
             case "CREAR":
                 List<Lista> listasSeries = user.getListasPersonales();
                 String nombreLista = pview.getNombreListaCreada();
-                ResultSet idResult=null;
-                int id=0;
-                try {
-                    idResult=conexion.executeQuery("SELECT * FROM (SELECT * FROM Lista ORDER BY ID DESC) WHERE rownum = 1;");
-                    idResult.next();
-                    id = idResult.getInt("id");
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                java.util.Date d = new java.util.Date ();
+                java.sql.Date fecha = new java.sql.Date(d.getTime());
+                int id;
+                if(!nombreExistente(listasSeries,nombreLista)){
+                    System.out.println(nombreExistente(listasSeries,nombreLista));
+                    try {
+                        id=generateID();
+                        conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
+                        Lista nuevaLista=new Lista(id, nombreLista, new Date());
+                        listasSeries.add(nuevaLista);
+
+                        user.setListasPersonales(listasSeries);
+                        pview.setUser(user);
+                        pview.añadirComboBox(nuevaLista);
+                    } catch (MySQLIntegrityConstraintViolationException error){
+                        pview.setMsgCrearLista("ERROR: Nombre usado");
+                        error.printStackTrace();
+                    } catch(SQLException throwables) {
+                        pview.setMsgCrearLista("ERROR: Al añadir a la base de datos");
+                        throwables.printStackTrace();
+                    }
+                }else {
+                    pview.setMsgCrearLista("Nombre existente");
                 }
 
 
 
-                Lista nuevaLista=new Lista(id, nombreLista, new Date());
-                listasSeries.add(nuevaLista);
-
-                user.setListasPersonales(listasSeries);
-
-                pview.setMsgEliminarLista("Lista creada con éxito");
-
-                pview.setUser(user);
-                pview.añadirComboBox(nuevaLista);
                 break;
 
             case "ELIMINAR":
@@ -78,6 +83,11 @@ public class ProfileController implements ActionListener, ChangeListener {
                 if(esta) pview.setMsgEliminarLista("Lista eliminada con éxito");
                     else pview.setMsgEliminarLista("Error al eliminar lista");
 
+                try {
+                    conexion.executeUpdate("DELETE FROM Lista WHERE nombre= '"+listaEliminada.getNombre()+"';" );
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 user.setListasPersonales(listasSeries1);
 
                 pview.setUser(user);
@@ -93,9 +103,40 @@ public class ProfileController implements ActionListener, ChangeListener {
                 Main.frame.setContentPane(lview.getPanel());
                 Main.frame.setVisible(true);
                 pview.setMsgEliminarLista("");
+                pview.setMsgCrearLista("");
                 break;
         }
     }
+
+    private boolean nombreExistente(List<Lista> listasSeries, String nombreLista) {
+        boolean encontrado=false;
+        Iterator it = listasSeries.iterator();
+        Lista actual;
+        while(it.hasNext()){
+            actual= (Lista) it.next();
+            if(actual.getNombre().equals(nombreLista)){
+                encontrado=true;
+            }
+        }
+
+        return encontrado;
+    }
+
+    private int generateID () throws SQLException {
+        ResultSet res = conexion.executeQuery("SELECT MAX(id) FROM Lista;");
+
+        int id=0;
+        try{
+        res.next();
+        id=res.getInt("MAX(id)")+1;
+        }catch (SQLException e) {
+            pview.setMsgEliminarLista("ERROR Base en la base de datos al generar id");
+        }
+
+        return id;
+        }
+
+
 
     @Override
     public void stateChanged(ChangeEvent e) {

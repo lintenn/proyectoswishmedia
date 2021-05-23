@@ -92,7 +92,7 @@ public class Main {
             fechaNac=conex.getDate(5);
         }catch (Exception e){
             fechaNac=null;
-        }
+        }   
         try{
             fechaCre=conex.getDate(6);
         }catch (Exception e){
