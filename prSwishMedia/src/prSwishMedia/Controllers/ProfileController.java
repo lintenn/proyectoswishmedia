@@ -56,10 +56,14 @@ public class ProfileController implements ActionListener, ChangeListener {
                     throwables.printStackTrace();
                 }
 
+
+
                 Lista nuevaLista=new Lista(id, nombreLista, new Date());
                 listasSeries.add(nuevaLista);
 
                 user.setListasPersonales(listasSeries);
+
+                pview.setMsgEliminarLista("Lista creada con éxito");
 
                 pview.setUser(user);
                 pview.añadirComboBox(nuevaLista);
@@ -82,11 +86,13 @@ public class ProfileController implements ActionListener, ChangeListener {
             case "VOLVER":
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
+                pview.setMsgEliminarLista("");
                 break;
             case "LOGOUT":
                 lview.clrPass();
                 Main.frame.setContentPane(lview.getPanel());
                 Main.frame.setVisible(true);
+                pview.setMsgEliminarLista("");
                 break;
         }
     }
