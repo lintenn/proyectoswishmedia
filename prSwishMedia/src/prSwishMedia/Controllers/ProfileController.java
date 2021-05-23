@@ -85,14 +85,16 @@ public class ProfileController implements ActionListener, ChangeListener {
                     else pview.setMsgEliminarLista("Error al eliminar lista");
 
                 try {
-                    conexion.executeUpdate("DELETE FROM Lista WHERE nombre= '"+listaEliminada.getNombre()+"';" );
+                    if(esta)
+                        conexion.executeUpdate("DELETE FROM Lista WHERE nombre= '"+listaEliminada.getNombre()+"';" );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
                 user.setListasPersonales(listasSeries1);
 
                 pview.setUser(user);
-                pview.eliminarComboBox(listaEliminada);
+                if(esta)
+                    pview.eliminarComboBox(listaEliminada);
                 break;
             case "VOLVER":
                 Main.frame.setContentPane(ppview.getPanel());
