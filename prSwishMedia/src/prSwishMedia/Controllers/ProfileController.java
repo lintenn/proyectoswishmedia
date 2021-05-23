@@ -92,11 +92,13 @@ public class ProfileController implements ActionListener, ChangeListener {
             case "VOLVER":
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
+                pview.setMsgEliminarLista("");
                 break;
             case "LOGOUT":
                 lview.clrPass();
                 Main.frame.setContentPane(lview.getPanel());
                 Main.frame.setVisible(true);
+                pview.setMsgEliminarLista("");
                 break;
         }
     }

@@ -107,16 +107,8 @@ public class Main {
         numCap=conex.getInt(13);
         numPel=conex.getInt(14);
 
-        //A BORRAR POSTERIORMENTE CUANDO TENGAMOS IMPLEMENTADO LA FECHA DE CREACION
-        //fechaCre = new Date(); //esta null en la base de datos
-        //fechaNac = new Date(); //esta null en la base de datos
-
-
-        //System.out.println("Fecha creacion: " + fechaCre.toString());
-        //System.out.println("Fecha nacimiento: " + fechaNac.toString()); // esta null
-
-        user = new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
-        //fechaCreacion puede ser null aqui. Da pointerException por eso parece
+        user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
+     
     }
 
 }
