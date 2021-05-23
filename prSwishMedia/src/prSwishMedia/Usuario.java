@@ -1,7 +1,8 @@
 package prSwishMedia;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 
@@ -24,6 +25,8 @@ public class Usuario {
 
     public Usuario(String nick){ //de prueba
         nombre = nick;
+        fechaCreacion=new Date(0);
+        fechaNacimiento=new Date(0);
     }
 
     // Constructor Esencial
@@ -62,6 +65,22 @@ public class Usuario {
         this.numComentarios=0;
         this.numEpisodiosVistos=0;
         this.listasPersonales = new ArrayList<>();
+    }
+
+    public Usuario(String nombre, String email, String descripcion, Date fechaNacimiento, Date fechaCreacion, String contrasenya, int numListas, int numAmigos, boolean privacidad, int numComentarios, int numSeriesVistas, int numEpisodiosVistos, int numPeliculasVistas) {
+        this.nombre = nombre;
+        this.email = email;
+        this.descripcion = descripcion;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaCreacion = fechaCreacion;
+        this.contrasenya = contrasenya;
+        this.numListas = numListas;
+        this.numAmigos = numAmigos;
+        this.privacidad = privacidad;
+        this.numComentarios = numComentarios;
+        this.numSeriesVistas = numSeriesVistas;
+        this.numEpisodiosVistos = numEpisodiosVistos;
+        this.numPeliculasVistas = numPeliculasVistas;
     }
 
     // Getters

@@ -24,14 +24,6 @@ public class LoginView extends JFrame{
     public LoginView(){
 
         add(panel1);
-       /* setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("SwishMedia");
-        setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
-
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);*/
-
 
     }
 
@@ -41,6 +33,11 @@ public class LoginView extends JFrame{
 
         loginButton.setActionCommand("LOGIN");
         registroButton.setActionCommand("REGISTRO");
+
+    }
+
+    public void clrPass(){
+        getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,getPassword().getAccessibleContext().getAccessibleText().getCharCount());
 
     }
 

@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import prSwishMedia.Lista;
+import prSwishMedia.Main;
 import prSwishMedia.Usuario;
 
 import javax.swing.*;
@@ -36,23 +37,19 @@ public class ProfileView extends JFrame{
     private JLabel labelInfoCrearLista;
     private JPanel panelFechas;
     private JLabel msgEliminarLista;
-    private JButton buttonCerrarSesion;
-    private JButton buttonVolver;
+    private JButton volver;
+    private JButton logout;
     private Usuario user;
 
-    public ProfileView(Usuario user){
+    public ProfileView(){
         add(panel1);
-        this.user=user;
-        nombreUsuario.setText(user.getNombre());
-        actualizarComboBox();
-        numCapitulos.setText(String.valueOf(user.getNumEpisodiosVistos()));
-        numeroSeriesVistas.setText(String.valueOf(user.getNumSeriesVistas()));
-        numAmigos.setText(String.valueOf(user.getNumAmigos()));
-        numPeliculas.setText(String.valueOf(user.getNumPeliculasVistas()));
-        nombreUsuario.setText(user.getNombre());
-        fechaNacimiento.setText(String.valueOf(user.getFechaNacimiento()));
-        fechaCreacion.setText(String.valueOf(user.getFechaCreacion()));
-        textAreaDescripcion.setText(user.getDescripcion());
+        user= Main.getUser();
+        setInfo();
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+        setInfo(); //f
     }
 
     private void actualizarComboBox() {
@@ -63,18 +60,40 @@ public class ProfileView extends JFrame{
         }
     }
 
-    public void controlador(ActionListener ctr, ChangeListener ctr1){
+    public void controlador(ActionListener ctr){
         buttonCrearLista.addActionListener(ctr);
         buttonEliminarLista.addActionListener(ctr);
-        checkBoxPrivacidad.addChangeListener(ctr1);
+        volver.addActionListener(ctr);
+        logout.addActionListener(ctr);
 
-        checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
+        //checkBoxPrivacidad.addChangeListener(ctr1);
+
+
+        //checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
+        logout.setActionCommand("LOGOUT");
+        volver.setActionCommand("VOLVER");
         buttonEliminarLista.setActionCommand("ELIMINAR");
         buttonCrearLista.setActionCommand("CREAR");
     }
 
-    public void setMsgEliminarLista(String error){
-        msgEliminarLista.setText(error);};
+    public void setInfo(){
+
+         nombreUsuario.setText(user.getNombre());
+         numAmigos.setText(""+user.getNumAmigos()+"");
+         numCapitulos.setText(user.getNumEpisodiosVistos() + "");
+         numeroSeriesVistas.setText(user.getNumSeriesVistas()+"");
+         numPeliculas.setText(user.getNumPeliculasVistas()+"");
+         fechaCreacion.setText(user.getFechaCreacion().toString());
+         fechaNacimiento.setText(user.getFechaNacimiento().toString());
+
+
+
+    }
+
+    public void setMsgEliminarLista(String error) {
+        msgEliminarLista.setText(error);
+    }
+
     public String getNombreListaCreada(){ return nombreLista.getText();}
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
     public JPanel getPanel() {

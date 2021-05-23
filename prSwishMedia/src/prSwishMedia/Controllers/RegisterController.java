@@ -18,7 +18,6 @@ public class RegisterController implements ActionListener {
     private LoginView lview;
     private RegisterView rview;
     Statement conexion;
-    Usuario user;
 
 
     public RegisterController(RegisterView rv, LoginView lv, Statement st){
@@ -48,14 +47,15 @@ public class RegisterController implements ActionListener {
             } else if( nick.length()<5 || nick.length()>15){
                 rview.clear("Introduce un nombre de usuario entre 5 y 15 caracteres");
             }else if (pass1.length()<6 || pass1.length()>16 || !pass1.equals(pass2) ) {
-                rview.clear("Introduzca una contraseña de entre 6 y 15 caracteres");
+                rview.setErrorMessage("Introduzca una contraseña de entre 6 y 15 caracteres");
+                rview.clrPass();
             }else if(esta){
                 rview.clear("Usuario ya existente");
             }else{
 
-                try {
-                    conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña) VALUES ('" + nick +  "','"+email+"','" + pass1 + "' )");
-                    rview.clear("Usuario creado con éxito");
+                try { //entonces aqui no se ponia lo de las fechas? Porque estoy insertando. Entonces esto lo borro? Ok
+                    conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña,fechaNacimiento,fechaCreacion) VALUES ('" + nick +  "','"+email+"','" + pass1 + "', curdate(), curdate())");
+                    rview.setMessage("Usuario creado con éxito");
                     Gmail g=new Gmail();
                     g.enviarCorreoRegistro(email,pass1,nick);
                 } catch (SQLException throwables) {
