@@ -49,7 +49,6 @@ public class ProfileController implements ActionListener, ChangeListener {
                 java.sql.Date fecha = new java.sql.Date(d.getTime());
                 int id;
                 if(!nombreExistente(listasSeries,nombreLista)){
-                    System.out.println(nombreExistente(listasSeries,nombreLista));
                     try {
                         id=generateID();
                         conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
