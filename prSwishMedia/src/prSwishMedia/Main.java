@@ -32,8 +32,8 @@ public class Main {
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
-        ProfileView pview = new ProfileView();
         PrincipalView ppview=new PrincipalView();
+
 
         MouseClick mc =new MouseClick(lview,cview);
         lview.getForgot().addMouseListener(mc);
@@ -51,25 +51,22 @@ public class Main {
         frame.setVisible(true);
 
 
-        LoginController cl=new LoginController(rview,lview,cview,ppview,stmt);
-        RegisterController cr=new RegisterController(rview,lview,stmt);
-        ConfirmedController cc= new ConfirmedController(lview,cview,stmt);
-        ProfileController pc = new ProfileController(pview,ppview,lview);
-        PrincipalController ppc= new PrincipalController(pview);
-
-        cl.setPfview(pview);
-
+        LoginController cl      = new LoginController(rview,lview,cview,ppview,stmt);
+        RegisterController cr   = new RegisterController(rview,lview,stmt);
+        ConfirmedController cc  = new ConfirmedController(lview,cview,stmt);
 
         lview.controlador(cl);
         rview.controlador(cr);
         cview.controlador(cc);
-        ppview.controlador(ppc);
-        pview.controlador(pc);
+
 
     }
 
     public static Usuario getUser() {
         return user;
+    }
+    public static void setUser(Usuario user){
+        Main.user =user;
     }
 
     public static void setUser(String nick, Statement st) throws SQLException {
@@ -91,8 +88,16 @@ public class Main {
         conex.next();
         email=conex.getString(2);
         descripcion=conex.getString(4);
-        fechaNac=conex.getDate(5);
-        fechaCre=conex.getDate(6);
+        try{
+            fechaNac=conex.getDate(5);
+        }catch (Exception e){
+            fechaNac=null;
+        }
+        try{
+            fechaCre=conex.getDate(6);
+        }catch (Exception e){
+            fechaCre=null;
+        }
         contraseña=conex.getString(7);
         numList=conex.getInt(8);
         numAmigos=conex.getInt(9);
@@ -107,10 +112,10 @@ public class Main {
         //fechaNac = new Date(); //esta null en la base de datos
 
 
-        System.out.println("Fecha creacion: " + fechaCre.toString());
+        //System.out.println("Fecha creacion: " + fechaCre.toString());
         //System.out.println("Fecha nacimiento: " + fechaNac.toString()); // esta null
 
-        user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
+        user = new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
         //fechaCreacion puede ser null aqui. Da pointerException por eso parece
     }
 
