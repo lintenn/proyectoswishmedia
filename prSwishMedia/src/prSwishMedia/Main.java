@@ -12,7 +12,7 @@ import java.awt.*;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 
 
 
@@ -57,6 +57,8 @@ public class Main {
         ProfileController pc = new ProfileController(pview,ppview,lview);
         PrincipalController ppc= new PrincipalController(pview);
 
+        cl.setPfview(pview);
+
 
         lview.controlador(cl);
         rview.controlador(cr);
@@ -88,22 +90,28 @@ public class Main {
         ResultSet conex=stmt.executeQuery("SELECT * FROM Usuario WHERE nombre='" + nick + "';");
         conex.next();
         email=conex.getString(2);
-        descripcion=conex.getString(3);
-        fechaNac=conex.getDate(4);
-        fechaCre=conex.getDate(5);
-        contraseña=conex.getString(6);
-        numList=conex.getInt(7);
-        numAmigos=conex.getInt(8);
-        priv=conex.getBoolean(9);
-        numComentarios=conex.getInt(10);
-        numSeries=conex.getInt(11);
-        numCap=conex.getInt(12);
-        numPel=conex.getInt(13);
+        descripcion=conex.getString(4);
+        fechaNac=conex.getDate(5);
+        fechaCre=conex.getDate(6);
+        contraseña=conex.getString(7);
+        numList=conex.getInt(8);
+        numAmigos=conex.getInt(9);
+        priv=conex.getBoolean(10);
+        numComentarios=conex.getInt(11);
+        numSeries=conex.getInt(12);
+        numCap=conex.getInt(13);
+        numPel=conex.getInt(14);
 
-        
+        //A BORRAR POSTERIORMENTE CUANDO TENGAMOS IMPLEMENTADO LA FECHA DE CREACION
+        //fechaCre = new Date(); //esta null en la base de datos
+        //fechaNac = new Date(); //esta null en la base de datos
+
+
+        System.out.println("Fecha creacion: " + fechaCre.toString());
+        //System.out.println("Fecha nacimiento: " + fechaNac.toString()); // esta null
 
         user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
-
+        //fechaCreacion puede ser null aqui. Da pointerException por eso parece
     }
 
 }

@@ -21,6 +21,7 @@ public class LoginController implements ActionListener {
     private ConfirmedView cview;
     private PrincipalView ppview;
     Statement conexion;
+    private ProfileView pfview; //temp
 
     public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, PrincipalView pv, Statement st){
         lview=lv;
@@ -29,6 +30,12 @@ public class LoginController implements ActionListener {
         ppview=pv;
         conexion=st;
     }
+
+    public void setPfview(ProfileView pfview) {
+        this.pfview = pfview;
+    }
+
+
     public void actionPerformed(ActionEvent ev){
         String act=ev.getActionCommand();
 
@@ -43,6 +50,7 @@ public class LoginController implements ActionListener {
                     lview.clrPass();
                 }else{
                     Main.setUser(nick,conexion);
+                    pfview.setUser(Main.getUser()); //temp
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
                 }
@@ -57,6 +65,8 @@ public class LoginController implements ActionListener {
             Main.frame.setVisible(true);
             lview.clear("");
         }
+
+
 
     }
 
