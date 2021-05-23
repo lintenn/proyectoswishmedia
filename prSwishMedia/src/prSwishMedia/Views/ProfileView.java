@@ -43,8 +43,10 @@ public class ProfileView extends JFrame{
 
     public ProfileView(){
         add(panel1);
-        user= Main.getUser();
+        user = Main.getUser();
         setInfo();
+
+        actualizarComboBox();
     }
 
     public void setUser(Usuario user) {
@@ -52,11 +54,20 @@ public class ProfileView extends JFrame{
         setInfo(); //f
     }
 
-    private void actualizarComboBox() {
+    public void añadirComboBox(Lista l){
+        comboBoxListas.addItem(l);
+    }
+    public void eliminarComboBox(Lista l){
+        comboBoxListas.removeItem(l);
+    }
+
+    public void actualizarComboBox() {
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){
                 comboBoxListas.addItem(l);
             }
+        }else {
+            System.out.println("LISTA VACIA");
         }
     }
 
@@ -83,8 +94,9 @@ public class ProfileView extends JFrame{
          numCapitulos.setText(user.getNumEpisodiosVistos() + "");
          numeroSeriesVistas.setText(user.getNumSeriesVistas()+"");
          numPeliculas.setText(user.getNumPeliculasVistas()+"");
-         fechaCreacion.setText(user.getFechaCreacion().toString());
-         fechaNacimiento.setText(user.getFechaNacimiento().toString());
+         if(user.getFechaCreacion()!=null)fechaCreacion.setText(user.getFechaCreacion().toString());
+
+         if(user.getFechaNacimiento()!=null)fechaNacimiento.setText(user.getFechaNacimiento().toString());
 
 
 
