@@ -84,7 +84,7 @@ public class Main {
         int numCap;
         int numPel;
 
-        ResultSet conex=stmt.executeQuery("SELECT FROM Usuario WHERE nombre='" + nick + "';");
+        ResultSet conex=stmt.executeQuery("SELECT * FROM Usuario WHERE nombre='" + nick + "';");
         conex.next();
         email=conex.getString(2);
         descripcion=conex.getString(4);
@@ -92,7 +92,7 @@ public class Main {
             fechaNac=conex.getDate(5);
         }catch (Exception e){
             fechaNac=null;
-        }
+        }   
         try{
             fechaCre=conex.getDate(6);
         }catch (Exception e){
