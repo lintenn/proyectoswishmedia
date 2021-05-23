@@ -46,23 +46,28 @@ public class ProfileController implements ActionListener, ChangeListener {
             case "CREAR":
                 List<Lista> listasSeries = user.getListasPersonales();
                 String nombreLista = pview.getNombreListaCreada();
-                ResultSet idResult=null;
+                java.util.Date d = new java.util.Date ();
+
+
+                java.sql.Date fecha = new java.sql.Date(d.getTime());
+                System.out.println(fecha);
+
                 int id=0;
+
                 try {
-                    idResult=conexion.executeQuery("SELECT * FROM (SELECT * FROM Lista ORDER BY ID DESC) WHERE rownum = 1;");
-                    idResult.next();
-                    id = idResult.getInt("id");
+                    id=generateID();
+                    conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
+                    Lista nuevaLista=new Lista(id, nombreLista, new Date());
+                    listasSeries.add(nuevaLista);
+
+                    user.setListasPersonales(listasSeries);
+                    pview.setUser(user);
+                    pview.añadirComboBox(nuevaLista);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
-                Lista nuevaLista=new Lista(id, nombreLista, new Date());
-                listasSeries.add(nuevaLista);
 
-                user.setListasPersonales(listasSeries);
-
-                pview.setUser(user);
-                pview.añadirComboBox(nuevaLista);
                 break;
 
             case "ELIMINAR":
@@ -74,6 +79,11 @@ public class ProfileController implements ActionListener, ChangeListener {
                 if(esta) pview.setMsgEliminarLista("Lista eliminada con éxito");
                     else pview.setMsgEliminarLista("Error al eliminar lista");
 
+                try {
+                    conexion.executeUpdate("DELETE FROM Lista WHERE nombre= '"+listaEliminada.getNombre()+"';" );
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 user.setListasPersonales(listasSeries1);
 
                 pview.setUser(user);
@@ -90,6 +100,23 @@ public class ProfileController implements ActionListener, ChangeListener {
                 break;
         }
     }
+
+    private int generateID () throws SQLException {
+        ResultSet res = conexion.executeQuery("SELECT MAX(id) FROM Lista;");
+
+        int id=0;
+        try{
+        res.next();
+        id=res.getInt("MAX(id)")+1;
+        System.out.println(id);
+        }catch (SQLException e) {
+            pview.setMsgEliminarLista("ERROR Base en la base de datos al generar id");
+        }
+
+        return id;
+        }
+
+
 
     @Override
     public void stateChanged(ChangeEvent e) {
