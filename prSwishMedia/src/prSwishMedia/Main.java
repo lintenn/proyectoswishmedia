@@ -84,7 +84,7 @@ public class Main {
         int numCap;
         int numPel;
 
-        ResultSet conex=stmt.executeQuery("SELECT º FROM Usuario WHERE nombre='" + nick + "';");
+        ResultSet conex=stmt.executeQuery("SELECT FROM Usuario WHERE nombre='" + nick + "';");
         conex.next();
         email=conex.getString(2);
         descripcion=conex.getString(4);
