@@ -16,15 +16,15 @@ public class Lista {
         this.id = id;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
-        numCont=0;
+        numCont = 0;
     }
 
-    public Lista(List<ContenidoMultimedia> list,int id, String nombre, Date fechaCreacion) {
+    public Lista(List<ContenidoMultimedia> list, int id, String nombre, Date fechaCreacion) {
         contMedia = list;
         this.id = id;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
-        numCont=0;
+        numCont = 0;
     }
 
     public List<ContenidoMultimedia> getContMedia() {
@@ -59,15 +59,15 @@ public class Lista {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public void añadirContenidoMultimedia(ContenidoMultimedia cM){
+    public void añadirContenidoMultimedia(ContenidoMultimedia cM) {
         contMedia.add(cM);
     }
 
-    public void borrarContenidoMultimedia(ContenidoMultimedia cM){
+    public void borrarContenidoMultimedia(ContenidoMultimedia cM) {
         contMedia.remove(cM);
     }
 
-    public String toString() {
+    public String mostrarLista() {
         String s;
 
         s = "Películas y series de la lista " + getNombre() + ":\n";
@@ -77,5 +77,11 @@ public class Lista {
         }
 
         return s;
+    }
+
+
+    public String toString() {
+        return getNombre();
+
     }
 }

@@ -27,6 +27,7 @@ public class Usuario {
         nombre = nick;
         fechaCreacion=new Date(0);
         fechaNacimiento=new Date(0);
+        listasPersonales=new ArrayList<>();
     }
 
     // Constructor Esencial
@@ -81,6 +82,7 @@ public class Usuario {
         this.numSeriesVistas = numSeriesVistas;
         this.numEpisodiosVistos = numEpisodiosVistos;
         this.numPeliculasVistas = numPeliculasVistas;
+        this.listasPersonales = new ArrayList<>();
     }
 
     // Getters
