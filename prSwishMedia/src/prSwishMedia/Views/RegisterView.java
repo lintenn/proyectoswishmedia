@@ -19,13 +19,7 @@ public class RegisterView extends JFrame {
     public RegisterView(){
 
         add(panel1);
-        /*setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("SwishMedia");
-        setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
 
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(false);*/
     }
 
     public void controlador(ActionListener ctr){
@@ -34,6 +28,12 @@ public class RegisterView extends JFrame {
 
         registroButton.setActionCommand("REGISTRO");
         volverButton.setActionCommand("VOLVER");
+
+    }
+
+    public void clrPass(){
+        passwordField1.getAccessibleContext().getAccessibleEditableText().delete(0,passwordField1.getAccessibleContext().getAccessibleText().getCharCount());
+        passwordField2.getAccessibleContext().getAccessibleEditableText().delete(0,passwordField2.getAccessibleContext().getAccessibleText().getCharCount());
 
     }
 
@@ -71,9 +71,13 @@ public class RegisterView extends JFrame {
         return passwordField1;
     }
     public JPasswordField getPassword2() {
-        return passwordField1;
+        return passwordField2;
     }
 
+    public void setMessage(String s){
+        Error.setForeground(Color.white);
+        Error.setText(s);
+    }
 
     public void setErrorMessage(String s){
         Error.setForeground(Color.red);
