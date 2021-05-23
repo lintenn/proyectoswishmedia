@@ -24,6 +24,8 @@ public class Usuario {
 
     public Usuario(String nick){ //de prueba
         nombre = nick;
+        fechaCreacion=new Date();
+        fechaNacimiento=new Date();
     }
 
     // Constructor Esencial

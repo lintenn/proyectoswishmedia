@@ -36,6 +36,11 @@ public class LoginView extends JFrame{
 
     }
 
+    public void clrPass(){
+        getPassword().getAccessibleContext().getAccessibleEditableText().delete(0,getPassword().getAccessibleContext().getAccessibleText().getCharCount());
+
+    }
+
     public JLabel getForgot() {
         return Forgot;
     }

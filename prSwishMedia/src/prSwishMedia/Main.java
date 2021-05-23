@@ -1,15 +1,10 @@
 package prSwishMedia;
 
+import com.kitfox.svg.Use;
 import com.mysql.jdbc.Statement;
-import prSwishMedia.Controllers.ConfirmedController;
-import prSwishMedia.Controllers.ProfileController;
-import prSwishMedia.Controllers.RegisterController;
+import prSwishMedia.Controllers.*;
 import prSwishMedia.Listeners.MouseClick;
-import prSwishMedia.Controllers.LoginController;
-import prSwishMedia.Views.ConfirmedView;
-import prSwishMedia.Views.LoginView;
-import prSwishMedia.Views.ProfileView;
-import prSwishMedia.Views.RegisterView;
+import prSwishMedia.Views.*;
 
 import javax.swing.*;
 import javax.swing.plaf.nimbus.State;
@@ -24,7 +19,7 @@ import java.util.Date;
 public class Main {
 
     public static JFrame frame;
-    static Usuario user=null;
+    static Usuario user=new Usuario("d");
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -33,12 +28,12 @@ public class Main {
 
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
-        Usuario user=new Usuario("d");
 
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
-        ProfileView pview = new ProfileView(user);
+        ProfileView pview = new ProfileView();
+        PrincipalView ppview=new PrincipalView();
 
         MouseClick mc =new MouseClick(lview,cview);
         lview.getForgot().addMouseListener(mc);
@@ -56,14 +51,18 @@ public class Main {
         frame.setVisible(true);
 
 
-        LoginController cl=new LoginController(rview,lview,cview,pview,stmt);
+        LoginController cl=new LoginController(rview,lview,cview,ppview,stmt);
         RegisterController cr=new RegisterController(rview,lview,stmt);
         ConfirmedController cc= new ConfirmedController(lview,cview,stmt);
-        ProfileController pc = new ProfileController(pview,user);
+        ProfileController pc = new ProfileController(pview,ppview,lview);
+        PrincipalController ppc= new PrincipalController(pview);
+
 
         lview.controlador(cl);
         rview.controlador(cr);
         cview.controlador(cc);
+        ppview.controlador(ppc);
+        pview.controlador(pc);
 
     }
 
@@ -87,7 +86,7 @@ public class Main {
         int numPel;
 
         ResultSet conex=stmt.executeQuery("SELECT * FROM Usuario WHERE nombre='" + nick + "';");
-
+        conex.next();
         email=conex.getString(2);
         descripcion=conex.getString(3);
         fechaNac=conex.getDate(4);
@@ -101,8 +100,9 @@ public class Main {
         numCap=conex.getInt(12);
         numPel=conex.getInt(13);
 
+        
 
-        Usuario user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
+        user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
 
     }
 
