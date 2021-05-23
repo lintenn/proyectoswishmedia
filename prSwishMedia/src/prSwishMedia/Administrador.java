@@ -1,6 +1,6 @@
 package prSwishMedia;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Administrador extends Usuario {
 

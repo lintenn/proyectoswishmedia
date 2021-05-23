@@ -47,6 +47,11 @@ public class ProfileView extends JFrame{
         setInfo();
     }
 
+    public void setUser(Usuario user) {
+        this.user = user;
+        setInfo(); //f
+    }
+
     private void actualizarComboBox() {
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){

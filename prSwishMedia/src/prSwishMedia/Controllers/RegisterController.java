@@ -53,8 +53,8 @@ public class RegisterController implements ActionListener {
                 rview.clear("Usuario ya existente");
             }else{
 
-                try {
-                    conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña) VALUES ('" + nick +  "','"+email+"','" + pass1 + "' )");
+                try { //entonces aqui no se ponia lo de las fechas? Porque estoy insertando. Entonces esto lo borro? Ok
+                    conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña,fechaNacimiento,fechaCreacion) VALUES ('" + nick +  "','"+email+"','" + pass1 + "', curdate(), curdate())");
                     rview.setMessage("Usuario creado con éxito");
                     Gmail g=new Gmail();
                     g.enviarCorreoRegistro(email,pass1,nick);

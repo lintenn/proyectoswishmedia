@@ -1,7 +1,8 @@
 package prSwishMedia;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 
@@ -24,8 +25,8 @@ public class Usuario {
 
     public Usuario(String nick){ //de prueba
         nombre = nick;
-        fechaCreacion=new Date();
-        fechaNacimiento=new Date();
+        fechaCreacion=new Date(0);
+        fechaNacimiento=new Date(0);
     }
 
     // Constructor Esencial
