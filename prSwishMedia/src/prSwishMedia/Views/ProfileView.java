@@ -39,6 +39,7 @@ public class ProfileView extends JFrame{
     private JLabel msgEliminarLista;
     private JButton volver;
     private JButton logout;
+    private JLabel msgCrearLista;
     private Usuario user;
 
     public ProfileView(){
@@ -105,7 +106,9 @@ public class ProfileView extends JFrame{
     public void setMsgEliminarLista(String error) {
         msgEliminarLista.setText(error);
     }
-
+    public void setMsgCrearLista(String error) {
+        msgCrearLista.setText(error);
+    }
     public String getNombreListaCreada(){ return nombreLista.getText();}
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
     public JPanel getPanel() {
