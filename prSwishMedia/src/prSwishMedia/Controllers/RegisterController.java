@@ -56,7 +56,7 @@ public class RegisterController implements ActionListener {
                 try { //entonces aqui no se ponia lo de las fechas? Porque estoy insertando. Entonces esto lo borro? Ok
                     conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña,fechaNacimiento,fechaCreacion) VALUES ('" + nick +  "','"+email+"','" + pass1 + "', curdate(), curdate())");
                     conexion.executeUpdate("INSERT INTO Lista (id,nombre,fechaCreacion,Nombreusuario) VALUES ("+generateID()+",'Vistas',curdate(),'"+nick+"')");
-                    conexion.executeUpdate("INSERT INTO Lista (id,nombre,fechaCreacion,Nombreusuario) VALUES ("+generateID()+",'Pendientes por ver',curdate(),'"+nick+"')");
+                    conexion.executeUpdate("INSERT INTO Lista (id,nombre,fechaCreacion,Nombreusuario) VALUES ("+generateID()+",'Pendientes',curdate(),'"+nick+"')");
                     rview.setMessage("Usuario creado con éxito");
                     Gmail g=new Gmail();
                     g.enviarCorreoRegistro(email,pass1,nick);
