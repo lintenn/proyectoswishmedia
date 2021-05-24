@@ -120,26 +120,29 @@ public class ProfileController implements ActionListener {
                     throwables.printStackTrace();
                 }
                 break;
-            case "FECHA":
-                int dia=pview.getDiaN();
+            case "FECHAMES":
                 int mes=pview.getMesN();
                 int anyo= pview.getAnyoN();
-                if(dia==29&&mes==2&&(anyo%4!=0)){
-                    pview.setMsgModificarFN("ERROR: No puede ser 29 de febrero en un año no bisiesto");
-                } else if(dia>29&&mes==2){
-                    pview.setMsgModificarFN("ERROR: No puede haber un día mayor a 29 en febrero");
-                } else if(dia==31&&(mes==4||mes==6||mes==9||mes==11)){
-                    pview.setMsgModificarFN("ERROR: No puede haber 31 días en abril, junio, septiembre o noviembre");
+                if(mes==2&&(anyo%4!=0)){
+                   pview.updateDay(28);
+                } else if(mes==2){
+                    pview.updateDay(29);
+                } else if(mes==4||mes==6||mes==9||mes==11){
+                    pview.updateDay(30);
                 } else{
-                    java.util.Date date2 = new Date(anyo,mes,dia);
-                    java.sql.Date date = new Date(date2.getTime());
-                    pview.setMsgModificarFN("Día válido");
-                    try {
-                        conexion.executeUpdate("UPDATE Usuario SET fechaNacimiento= '"+anyo+"-"+mes+"-"+dia+"' where nombre='"+user.getNombre()+"';");
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
+                    pview.updateDay(31);
                 }
+                break;
+            case "FECHA":
+                 int dia=pview.getDiaN();
+                 mes=pview.getMesN();
+                 anyo= pview.getAnyoN();
+                 try {
+                     conexion.executeUpdate("UPDATE Usuario SET fechaNacimiento= '"+anyo+"-"+mes+"-"+dia+"' where nombre='"+user.getNombre()+"';");
+                 } catch (SQLException throwables) {
+                     throwables.printStackTrace();
+                 }
+
                 break;
         }
     }
