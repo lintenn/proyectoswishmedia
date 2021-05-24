@@ -10,6 +10,9 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import java.sql.SQLOutput;
 
 public class ProfileView extends JFrame{
     private JPanel panel1;
@@ -44,18 +47,21 @@ public class ProfileView extends JFrame{
     private JButton logout;
     private JLabel msgCrearLista;
     private Usuario user;
+    private KeyListener listener;
+    private Statement stmt;
+
 
     public ProfileView(Statement st){
         add(panel1);
         user = Main.getUser();
         setInfo();
-
+        stmt = st;
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
             while(rs.next()){
                 user.añadirLista(new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3)));
             }
-            ResultSet rs2 = st.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
+            ResultSet rs2 = stmt.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
             rs2.next();
             if(rs2.getInt(1)==1){
                 checkBoxPrivacidad.setSelected(true);
@@ -63,7 +69,9 @@ public class ProfileView extends JFrame{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+        listener = new MyKeyListener();
+        textAreaDescripcion.addKeyListener(listener);
+        textAreaDescripcion.setFocusable(true);
         actualizarComboBox();
     }
 
@@ -104,7 +112,7 @@ public class ProfileView extends JFrame{
     }
 
     public void setInfo(){
-
+         textAreaDescripcion.setText(user.getDescripcion());
          nombreUsuario.setText(user.getNombre());
          numAmigos.setText(""+user.getNumAmigos()+"");
          numCapitulos.setText(user.getNumEpisodiosVistos() + "");
@@ -128,5 +136,27 @@ public class ProfileView extends JFrame{
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
     public JPanel getPanel() {
         return panel1;
+    }
+
+    public class MyKeyListener implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(KeyEvent.getKeyText(e.getKeyCode()).equals("Intro")){
+                try {
+                    stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
     }
 }
