@@ -30,9 +30,11 @@ public class LoginView extends JFrame{
     public void controlador(ActionListener ctr){
         loginButton.addActionListener(ctr);
         registroButton.addActionListener(ctr);
+        password.addActionListener(ctr);
 
         loginButton.setActionCommand("LOGIN");
         registroButton.setActionCommand("REGISTRO");
+        password.setActionCommand("LOGIN");
 
     }
 
