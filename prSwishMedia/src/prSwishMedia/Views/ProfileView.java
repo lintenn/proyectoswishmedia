@@ -235,6 +235,7 @@ public class ProfileView extends JFrame{
     }
 
     public void updateDay(int n) {
+        int x = comboBoxDia.getSelectedIndex();
         try {
             comboBoxDia.removeAllItems();
         }catch (NullPointerException e){
@@ -243,7 +244,9 @@ public class ProfileView extends JFrame{
         for(int i=0;i<n;i++){
             comboBoxDia.addItem(i+1);
         }
-
+        if(x<=n){
+            comboBoxDia.setSelectedIndex(x);
+        }
     }
 
 }
