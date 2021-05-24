@@ -255,7 +255,9 @@
           </component>
           <component id="dcdbc" class="javax.swing.JButton" binding="buttonEliminarLista">
             <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="216" height="20"/>
+              </grid>
             </constraints>
             <properties>
               <text value="Eliminar lista seleccionada"/>
@@ -283,7 +285,7 @@
           <component id="b5510" class="javax.swing.JButton" binding="buttonCrearLista">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="216" height="30"/>
+                <preferred-size width="216" height="20"/>
               </grid>
             </constraints>
             <properties>
