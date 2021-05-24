@@ -51,6 +51,14 @@ public class PrincipalView extends JFrame{
         Perfil.setActionCommand("PROFILE");
     }
 
+    public void añadirContenido(int idList){
+
+
+        if()
+
+    }
+
+
     public JPanel getPanel() {
         return panel1;
     }
@@ -86,22 +94,5 @@ public class PrincipalView extends JFrame{
         }
 
     }
-/*
-    public void setUser(Usuario u){
-        user = u;
 
-        try {
-            ResultSet rs = st.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
-            while(rs.next()){
-                user.añadirLista(new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3)));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-
-        actualizarComboBox();
-    }
-
- */
 }
