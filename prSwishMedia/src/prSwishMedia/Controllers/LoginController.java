@@ -34,6 +34,7 @@ public class LoginController implements ActionListener {
         String act=ev.getActionCommand();
 
         if(act.equals("LOGIN")){
+
             String nick=lview.getUser().getText();
             String pass = new String(lview.getPassword().getPassword());
             try {
@@ -48,6 +49,7 @@ public class LoginController implements ActionListener {
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
                     PrincipalView ppview=new PrincipalView(conexion);
                     PrincipalController ppc = new PrincipalController(lview, ppview,conexion);
+                    ppview.añadirContenido(-2);
                     ppview.controlador(ppc);
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);

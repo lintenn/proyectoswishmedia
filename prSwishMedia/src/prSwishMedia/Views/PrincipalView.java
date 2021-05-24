@@ -7,6 +7,7 @@ import prSwishMedia.Pelicula;
 import prSwishMedia.Usuario;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,16 +32,15 @@ public class PrincipalView extends JFrame{
     private JButton BuscarS;
     private JButton BuscarL;
     private JButton BuscarU;
-    private JList Contenido;
+    private JScrollPane Pelis;
+    private JPanel listaPelis;
     private Usuario user;
     private Statement st;
 
     public PrincipalView(Statement st){
         user = Main.getUser();
         this.st = st;
-
-        Pelicula p=new Pelicula(1,"Frankestein",true);
-        
+        listaPelis=new JPanel();
 
     }
 
@@ -53,8 +53,26 @@ public class PrincipalView extends JFrame{
 
     public void añadirContenido(int idList){
 
+        if(idList==-2){
 
-        if()
+            try {
+                ResultSet count= st.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on idPelicula=idContenidoMultimedia;");
+                count.next();
+                int cont=count.getInt(1);
+                ResultSet peli= st.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on idPelicula=idContenidoMultimedia;");
+                listaPelis.setLayout(new GridLayout(cont, 0, 0, 0));
+                while(peli.next()) {
+                    listaPelis.add(new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), peli.getInt("valoracion"), comboBox1).getPanel());
+                    //listaPelis.add(new JSeparator());
+                }
+                Pelis.setViewportView(listaPelis);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
 
     }
 
@@ -95,4 +113,7 @@ public class PrincipalView extends JFrame{
 
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
