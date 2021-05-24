@@ -145,7 +145,7 @@ public class ProfileView extends JFrame{
 
         @Override
         public void keyPressed(KeyEvent e) {
-            if(KeyEvent.getKeyText(e.getKeyCode()).equals("Intro")){
+            if(KeyEvent.getKeyText(e.getKeyCode()).equals("Intro")||KeyEvent.getKeyText(e.getKeyCode()).equals("Enter")){
                 try {
                     stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
                 } catch (SQLException throwables) {
