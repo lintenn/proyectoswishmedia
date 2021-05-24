@@ -29,6 +29,7 @@ public class PrincipalView extends JFrame{
     private JButton BuscarS;
     private JButton BuscarL;
     private JButton BuscarU;
+    private JScrollPane Contenido;
     private Usuario user;
     private Statement st;
 
