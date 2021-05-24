@@ -25,6 +25,10 @@ public class PrincipalView extends JFrame{
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
+    private JButton Buscar;
+    private JButton BuscarS;
+    private JButton BuscarL;
+    private JButton BuscarU;
     private Usuario user;
     private Statement st;
 
