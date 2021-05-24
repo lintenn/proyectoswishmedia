@@ -153,7 +153,6 @@ public class ProfileView extends JFrame{
          //if(user.getFechaNacimiento()!=null)fechaNacimiento.setText(user.getFechaNacimiento().toString());
 
 
-
     }
 
     public void setMsgModificarLista(String error) {
