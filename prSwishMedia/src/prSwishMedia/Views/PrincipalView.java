@@ -3,6 +3,7 @@ package prSwishMedia.Views;
 import com.mysql.jdbc.Statement;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
+import prSwishMedia.Pelicula;
 import prSwishMedia.Usuario;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ public class PrincipalView extends JFrame{
     private JButton BuscarS;
     private JButton BuscarL;
     private JButton BuscarU;
+    private JList Contenido;
     private Usuario user;
     private Statement st;
 
@@ -36,6 +38,8 @@ public class PrincipalView extends JFrame{
         user = Main.getUser();
         this.st = st;
 
+        Pelicula p=new Pelicula(1,"Frankestein",true);
+        
 
     }
 
