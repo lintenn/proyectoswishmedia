@@ -32,7 +32,7 @@ public class Main {
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
-        PrincipalView ppview=new PrincipalView(stmt);
+
 
 
         MouseClick mc =new MouseClick(lview,cview);
@@ -51,7 +51,7 @@ public class Main {
         frame.setVisible(true);
 
 
-        LoginController cl      = new LoginController(rview,lview,cview,ppview,stmt);
+        LoginController cl      = new LoginController(rview,lview,cview,stmt);
         RegisterController cr   = new RegisterController(rview,lview,stmt);
         ConfirmedController cc  = new ConfirmedController(lview,cview,stmt);
 
