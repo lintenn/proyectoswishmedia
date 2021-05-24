@@ -51,13 +51,17 @@ public class ProfileController implements ActionListener, ChangeListener {
                 if(!nombreExistente(listasSeries,nombreLista)){
                     try {
                         id=generateID();
-                        conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
-                        Lista nuevaLista=new Lista(id, nombreLista, new Date());
-                        listasSeries.add(nuevaLista);
+                        if(!nombreLista.equals("")){
+                            conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
+                            Lista nuevaLista=new Lista(id, nombreLista, new Date());
+                            listasSeries.add(nuevaLista);
 
-                        user.setListasPersonales(listasSeries);
-                        pview.setUser(user);
-                        pview.añadirComboBox(nuevaLista);
+                            user.setListasPersonales(listasSeries);
+                            pview.setUser(user);
+                            pview.añadirComboBox(nuevaLista);
+                        } else{
+                            pview.setMsgCrearLista("ERROR: Tiene que introducir un nombre");
+                        }
                     } catch (MySQLIntegrityConstraintViolationException error){
                         pview.setMsgCrearLista("ERROR: Nombre usado");
                         error.printStackTrace();
@@ -121,6 +125,7 @@ public class ProfileController implements ActionListener, ChangeListener {
                     throwables.printStackTrace();
                 }
                 break;
+
         }
     }
 
