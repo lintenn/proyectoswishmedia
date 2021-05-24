@@ -43,10 +43,9 @@ public class ProfileView extends JFrame{
     private JTextField nombreLista;
     private JLabel labelInfoCrearLista;
     private JPanel panelFechas;
-    private JLabel msgEliminarLista;
     private JButton volver;
     private JButton logout;
-    private JLabel msgCrearLista;
+    private JLabel msgInfomodificarLista;
     private Usuario user;
     private KeyListener listener;
     private Statement stmt;
@@ -124,12 +123,10 @@ public class ProfileView extends JFrame{
 
     }
 
-    public void setMsgEliminarLista(String error) {
-        msgEliminarLista.setText(error);
+    public void setMsgModificarLista(String error) {
+        msgInfomodificarLista.setText(error);
     }
-    public void setMsgCrearLista(String error) {
-        msgCrearLista.setText(error);
-    }
+
     public String getNombreListaCreada(){ return nombreLista.getText();}
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
     public JPanel getPanel() {

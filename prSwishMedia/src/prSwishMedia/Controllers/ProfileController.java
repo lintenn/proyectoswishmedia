@@ -51,21 +51,21 @@ public class ProfileController implements ActionListener {
                             conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
                             Lista nuevaLista=new Lista(id, nombreLista, new Date());
                             listasSeries.add(nuevaLista);
-
+                            pview.setMsgModificarLista("Lista creada con éxito");
                             user.setListasPersonales(listasSeries);
                             pview.añadirComboBox(nuevaLista);
                         } else{
-                            pview.setMsgCrearLista("ERROR: Tiene que introducir un nombre");
+                            pview.setMsgModificarLista("ERROR: Tiene que introducir un nombre");
                         }
                     } catch (MySQLIntegrityConstraintViolationException error){
-                        pview.setMsgCrearLista("ERROR: Nombre usado");
+                        pview.setMsgModificarLista("ERROR: Nombre usado");
                         error.printStackTrace();
                     } catch(SQLException throwables) {
-                        pview.setMsgCrearLista("ERROR: Al añadir a la base de datos");
+                        pview.setMsgModificarLista("ERROR: Al añadir a la base de datos");
                         throwables.printStackTrace();
                     }
                 }else {
-                    pview.setMsgCrearLista("Nombre existente");
+                    pview.setMsgModificarLista("Nombre existente");
                 }
 
                 break;
@@ -78,8 +78,8 @@ public class ProfileController implements ActionListener {
                 if(!listaEliminada.getNombre().equals("Pendientes") && !listaEliminada.getNombre().equals("Vistas"))
                      esta=listasSeries1.remove(listaEliminada);
 
-                if(esta) pview.setMsgEliminarLista("Lista eliminada con éxito");
-                    else pview.setMsgEliminarLista("Error al eliminar lista");
+                if(esta) pview.setMsgModificarLista("Lista eliminada con éxito");
+                    else pview.setMsgModificarLista("Error al eliminar lista");
 
                 try {
                     if(esta)
@@ -90,20 +90,20 @@ public class ProfileController implements ActionListener {
                 user.setListasPersonales(listasSeries1);
                 if(esta)
                     pview.eliminarComboBox(listaEliminada);
+                    pview.setMsgModificarLista("Lista eliminada con éxito");
                 break;
             case "VOLVER":
                 ppview.setUser(user);
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
-                pview.setMsgEliminarLista("");
-                pview.setMsgCrearLista("");
+                pview.setMsgModificarLista("");
                 break;
             case "LOGOUT":
                 lview.clrPass();
                 Main.frame.setContentPane(lview.getPanel());
                 Main.frame.setVisible(true);
-                pview.setMsgEliminarLista("");
-                pview.setMsgCrearLista("");
+                pview.setMsgModificarLista("");
+
                 break;
             case "PRIVACIDAD":
                 try {
@@ -144,7 +144,7 @@ public class ProfileController implements ActionListener {
         res.next();
         id=res.getInt("MAX(id)")+1;
         }catch (SQLException e) {
-            pview.setMsgEliminarLista("ERROR Base en la base de datos al generar id");
+            pview.setMsgModificarLista("ERROR Base en la base de datos al generar id");
         }
 
         return id;
