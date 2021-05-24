@@ -108,6 +108,19 @@ public class ProfileController implements ActionListener, ChangeListener {
                 pview.setMsgEliminarLista("");
                 pview.setMsgCrearLista("");
                 break;
+            case "PRIVACIDAD":
+                try {
+                    ResultSet rs = conexion.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
+                    rs.next();
+                    if(rs.getInt(1)==0){
+                        conexion.executeUpdate("UPDATE Usuario SET privacidad=1 where nombre = '"+user.getNombre()+"';");
+                    } else{
+                        conexion.executeUpdate("UPDATE Usuario SET privacidad=0 where nombre = '"+user.getNombre()+"';");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
         }
     }
 
