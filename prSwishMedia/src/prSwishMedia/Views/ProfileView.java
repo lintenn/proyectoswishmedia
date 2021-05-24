@@ -46,7 +46,6 @@ public class ProfileView extends JFrame{
     private JComboBox comboBoxAnyo;
     private JComboBox comboBoxMes;
     private JComboBox comboBoxDia;
-    private JLabel errorN;
     private Usuario user;
     private KeyListener listener;
     private Statement stmt;
@@ -58,10 +57,7 @@ public class ProfileView extends JFrame{
         setInfo();
         stmt = st;
         try {
-            /*ResultSet rs = stmt.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
-            while(rs.next()){
-                user.añadirLista(new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3)));
-            }*/
+
             ResultSet rs2 = stmt.executeQuery("SELECT privacidad,fechaNacimiento FROM Usuario where nombre = '"+user.getNombre()+"';");
             rs2.next();
             if(rs2.getInt(1)==1){
@@ -136,8 +132,8 @@ public class ProfileView extends JFrame{
         volver.setActionCommand("VOLVER");
         buttonEliminarLista.setActionCommand("ELIMINAR");
         buttonCrearLista.setActionCommand("CREAR");
-        comboBoxAnyo.setActionCommand("FECHA");
-        comboBoxMes.setActionCommand("FECHA");
+        comboBoxAnyo.setActionCommand("FECHAMES");
+        comboBoxMes.setActionCommand("FECHAMES");
         comboBoxDia.setActionCommand("FECHA");
     }
 
@@ -150,16 +146,10 @@ public class ProfileView extends JFrame{
          numPeliculas.setText(user.getNumPeliculasVistas()+"");
          if(user.getFechaCreacion()!=null)fechaCreacion.setText(user.getFechaCreacion().toString());
 
-         //if(user.getFechaNacimiento()!=null)fechaNacimiento.setText(user.getFechaNacimiento().toString());
-
-
     }
 
     public void setMsgModificarLista(String error) {
         msgInfomodificarLista.setText(error);
-    }
-    public void setMsgModificarFN(String error) {
-        errorN.setText(error);
     }
     public String getNombreListaCreada(){ return nombreLista.getText();}
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
@@ -243,4 +233,20 @@ public class ProfileView extends JFrame{
 
         }
     }
+
+    public void updateDay(int n) {
+        int x = comboBoxDia.getSelectedIndex();
+        try {
+            comboBoxDia.removeAllItems();
+        }catch (NullPointerException e){
+
+        }
+        for(int i=0;i<n;i++){
+            comboBoxDia.addItem(i+1);
+        }
+        if(x<=n){
+            comboBoxDia.setSelectedIndex(x);
+        }
+    }
+
 }
