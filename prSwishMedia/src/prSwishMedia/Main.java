@@ -32,7 +32,7 @@ public class Main {
         LoginView lview = new LoginView();
         RegisterView rview = new RegisterView();
         ConfirmedView cview = new ConfirmedView();
-        PrincipalView ppview=new PrincipalView();
+        PrincipalView ppview=new PrincipalView(stmt);
 
 
         MouseClick mc =new MouseClick(lview,cview);
@@ -58,7 +58,6 @@ public class Main {
         lview.controlador(cl);
         rview.controlador(cr);
         cview.controlador(cc);
-
 
     }
 

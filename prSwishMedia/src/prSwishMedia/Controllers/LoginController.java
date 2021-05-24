@@ -53,15 +53,14 @@ public class LoginController implements ActionListener {
                     PrincipalController ppc = new PrincipalController(pview);
                     pview.controlador(pc);
                     ppview.controlador(ppc);
-
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
                 }
-
+                Main.setUser(lview.getUser().getText(),conexion);
+                ppview.setUser(Main.getUser());
             }catch (SQLException throwables) {
                     throwables.printStackTrace();
-                }
-
+            }
 
         } else if(act.equals("REGISTRO")) {
             Main.frame.setContentPane(rview.getPanel());
