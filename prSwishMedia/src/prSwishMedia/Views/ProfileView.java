@@ -1,6 +1,6 @@
 package prSwishMedia.Views;
 
-import com.mysql.jdbc.Statement;
+
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLOutput;
+import java.sql.Statement;
 
 public class ProfileView extends JFrame{
     private JPanel panel1;
@@ -56,6 +57,7 @@ public class ProfileView extends JFrame{
         user = Main.getUser();
         setInfo();
         stmt = st;
+        /*
         try {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
             while(rs.next()){
@@ -69,15 +71,11 @@ public class ProfileView extends JFrame{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        */
         listener = new MyKeyListener();
         textAreaDescripcion.addKeyListener(listener);
         textAreaDescripcion.setFocusable(true);
         actualizarComboBox();
-    }
-
-    public void setUser(Usuario user) {
-        this.user = user;
-        setInfo(); //f
     }
 
     public void añadirComboBox(Lista l){
