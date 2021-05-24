@@ -56,12 +56,11 @@ public class ProfileView extends JFrame{
         user = Main.getUser();
         setInfo();
         stmt = st;
-        /*
         try {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
+            /*ResultSet rs = stmt.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
             while(rs.next()){
                 user.añadirLista(new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3)));
-            }
+            }*/
             ResultSet rs2 = stmt.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
             rs2.next();
             if(rs2.getInt(1)==1){
@@ -70,7 +69,6 @@ public class ProfileView extends JFrame{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        */
         listener = new MyKeyListener();
         textAreaDescripcion.addKeyListener(listener);
         textAreaDescripcion.setFocusable(true);
@@ -140,7 +138,7 @@ public class ProfileView extends JFrame{
 
         @Override
         public void keyPressed(KeyEvent e) {
-            if(KeyEvent.getKeyText(e.getKeyCode()).equals("Intro")||KeyEvent.getKeyText(e.getKeyCode()).equals("Enter")){
+            if(e.getKeyCode()==10){
                 try {
                     stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
                 } catch (SQLException throwables) {
