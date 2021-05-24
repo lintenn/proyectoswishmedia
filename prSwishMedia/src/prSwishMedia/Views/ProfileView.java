@@ -55,6 +55,11 @@ public class ProfileView extends JFrame{
             while(rs.next()){
                 user.añadirLista(new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3)));
             }
+            ResultSet rs2 = st.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
+            rs2.next();
+            if(rs2.getInt(1)==1){
+                checkBoxPrivacidad.setSelected(true);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -89,11 +94,9 @@ public class ProfileView extends JFrame{
         buttonEliminarLista.addActionListener(ctr);
         volver.addActionListener(ctr);
         logout.addActionListener(ctr);
+        checkBoxPrivacidad.addActionListener(ctr);
 
-        //checkBoxPrivacidad.addChangeListener(ctr1);
-
-
-        //checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
+        checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
         logout.setActionCommand("LOGOUT");
         volver.setActionCommand("VOLVER");
         buttonEliminarLista.setActionCommand("ELIMINAR");
