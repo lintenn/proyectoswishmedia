@@ -54,7 +54,7 @@ public class RegisterController implements ActionListener {
             }else{
 
                 try { //entonces aqui no se ponia lo de las fechas? Porque estoy insertando. Entonces esto lo borro? Ok
-                    conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña,fechaNacimiento,fechaCreacion,numlistas,numseriesvistas,numepisodiosvistos,numpeliculasvistas,numamigos,numcomentarios,privacidad,descripcion) " + "VALUES ('" + nick +  "','"+email+"','" + pass1 + "', curdate(), curdate(),0,0,0,0,0,0,'false','')");
+                    conexion.executeUpdate("INSERT INTO Usuario (nombre,email,contraseña,fechaNacimiento,fechaCreacion,numlistas,numseriesvistas,numepisodiosvistos,numpeliculasvistas,numamigos,numcomentarios,privacidad,descripcion) " + "VALUES ('" + nick +  "','"+email+"','" + pass1 + "', curdate(), curdate(),0,0,0,0,0,0,0,'')");
                     conexion.executeUpdate("INSERT INTO Lista (id,nombre,fechaCreacion,Nombreusuario) VALUES ("+generateID()+",'Vistas',curdate(),'"+nick+"')");
                     conexion.executeUpdate("INSERT INTO Lista (id,nombre,fechaCreacion,Nombreusuario) VALUES ("+generateID()+",'Pendientes',curdate(),'"+nick+"')");
                     rview.setMessage("Usuario creado con éxito");
