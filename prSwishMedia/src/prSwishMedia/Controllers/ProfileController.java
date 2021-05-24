@@ -88,9 +88,10 @@ public class ProfileController implements ActionListener {
                     throwables.printStackTrace();
                 }
                 user.setListasPersonales(listasSeries1);
-                if(esta)
+                if(esta){
                     pview.eliminarComboBox(listaEliminada);
                     pview.setMsgModificarLista("Lista eliminada con éxito");
+                }
                 break;
             case "VOLVER":
                 ppview.setUser(user);
