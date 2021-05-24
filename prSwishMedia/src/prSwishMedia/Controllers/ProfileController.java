@@ -49,16 +49,19 @@ public class ProfileController implements ActionListener, ChangeListener {
                 java.sql.Date fecha = new java.sql.Date(d.getTime());
                 int id;
                 if(!nombreExistente(listasSeries,nombreLista)){
-                    System.out.println(nombreExistente(listasSeries,nombreLista));
                     try {
                         id=generateID();
-                        conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
-                        Lista nuevaLista=new Lista(id, nombreLista, new Date());
-                        listasSeries.add(nuevaLista);
+                        if(!nombreLista.equals("")){
+                            conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
+                            Lista nuevaLista=new Lista(id, nombreLista, new Date());
+                            listasSeries.add(nuevaLista);
 
-                        user.setListasPersonales(listasSeries);
-                        pview.setUser(user);
-                        pview.añadirComboBox(nuevaLista);
+                            user.setListasPersonales(listasSeries);
+                            pview.setUser(user);
+                            pview.añadirComboBox(nuevaLista);
+                        } else{
+                            pview.setMsgCrearLista("ERROR: Tiene que introducir un nombre");
+                        }
                     } catch (MySQLIntegrityConstraintViolationException error){
                         pview.setMsgCrearLista("ERROR: Nombre usado");
                         error.printStackTrace();
@@ -78,20 +81,24 @@ public class ProfileController implements ActionListener, ChangeListener {
 
                 List<Lista> listasSeries1 = user.getListasPersonales();
                 Lista listaEliminada = pview.getListaEliminada();
-                boolean esta=listasSeries1.remove(listaEliminada);
+                boolean esta=false;
+                if(!listaEliminada.getNombre().equals("Pendientes") && !listaEliminada.getNombre().equals("Vistas"))
+                     esta=listasSeries1.remove(listaEliminada);
 
                 if(esta) pview.setMsgEliminarLista("Lista eliminada con éxito");
                     else pview.setMsgEliminarLista("Error al eliminar lista");
 
                 try {
-                    conexion.executeUpdate("DELETE FROM Lista WHERE nombre= '"+listaEliminada.getNombre()+"';" );
+                    if(esta)
+                        conexion.executeUpdate("DELETE FROM Lista WHERE nombre= '"+listaEliminada.getNombre()+"';" );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
                 user.setListasPersonales(listasSeries1);
 
                 pview.setUser(user);
-                pview.eliminarComboBox(listaEliminada);
+                if(esta)
+                    pview.eliminarComboBox(listaEliminada);
                 break;
             case "VOLVER":
                 Main.frame.setContentPane(ppview.getPanel());
@@ -105,6 +112,20 @@ public class ProfileController implements ActionListener, ChangeListener {
                 pview.setMsgEliminarLista("");
                 pview.setMsgCrearLista("");
                 break;
+            case "PRIVACIDAD":
+                try {
+                    ResultSet rs = conexion.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
+                    rs.next();
+                    if(rs.getInt(1)==0){
+                        conexion.executeUpdate("UPDATE Usuario SET privacidad=1 where nombre = '"+user.getNombre()+"';");
+                    } else{
+                        conexion.executeUpdate("UPDATE Usuario SET privacidad=0 where nombre = '"+user.getNombre()+"';");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
+
         }
     }
 
@@ -134,7 +155,7 @@ public class ProfileController implements ActionListener, ChangeListener {
         }
 
         return id;
-        }
+    }
 
 
 

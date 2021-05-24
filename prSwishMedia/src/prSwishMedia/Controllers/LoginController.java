@@ -48,20 +48,19 @@ public class LoginController implements ActionListener {
                     Main.setUser(nick,conexion);
 
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
-                    ProfileView pview = new ProfileView();
+                    ProfileView pview = new ProfileView(conexion);
                     ProfileController pc = new ProfileController(pview,ppview,lview,conexion);
                     PrincipalController ppc = new PrincipalController(pview);
                     pview.controlador(pc);
                     ppview.controlador(ppc);
-
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
                 }
-
+                Main.setUser(lview.getUser().getText(),conexion);
+                ppview.setUser(Main.getUser());
             }catch (SQLException throwables) {
                     throwables.printStackTrace();
-                }
-
+            }
 
         } else if(act.equals("REGISTRO")) {
             Main.frame.setContentPane(rview.getPanel());
