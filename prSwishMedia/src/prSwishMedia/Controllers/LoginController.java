@@ -19,15 +19,13 @@ public class LoginController implements ActionListener {
     private LoginView lview;
     private RegisterView rview;
     private ConfirmedView cview;
-    private PrincipalView ppview;
     Statement conexion;
 
 
-    public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, PrincipalView ppv, Statement st){
+    public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, Statement st){
         lview=lv;
         rview=rv;
         cview=cv;
-        ppview=ppv;
         conexion=st;
     }
 
@@ -48,16 +46,14 @@ public class LoginController implements ActionListener {
                     Main.setUser(nick,conexion);
 
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
-                    ProfileView pview = new ProfileView(conexion);
-                    ProfileController pc = new ProfileController(pview,ppview,lview,conexion);
-                    PrincipalController ppc = new PrincipalController(pview);
-                    pview.controlador(pc);
+                    PrincipalView ppview=new PrincipalView(conexion);
+                    PrincipalController ppc = new PrincipalController(lview, ppview,conexion);
                     ppview.controlador(ppc);
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
+                    ppview.setUser(Main.getUser());
                 }
-                Main.setUser(lview.getUser().getText(),conexion);
-                ppview.setUser(Main.getUser());
+
             }catch (SQLException throwables) {
                     throwables.printStackTrace();
             }

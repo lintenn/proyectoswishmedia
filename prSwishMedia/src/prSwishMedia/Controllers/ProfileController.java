@@ -8,11 +8,7 @@ import prSwishMedia.Views.LoginView;
 import prSwishMedia.Views.PrincipalView;
 import prSwishMedia.Views.ProfileView;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.nimbus.State;
-import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -21,7 +17,7 @@ import java.sql.Statement;
 import java.util.*;
 import java.util.List;
 
-public class ProfileController implements ActionListener, ChangeListener {
+public class ProfileController implements ActionListener {
 
     private ProfileView pview;
     private PrincipalView ppview;
@@ -57,7 +53,6 @@ public class ProfileController implements ActionListener, ChangeListener {
                             listasSeries.add(nuevaLista);
 
                             user.setListasPersonales(listasSeries);
-                            pview.setUser(user);
                             pview.añadirComboBox(nuevaLista);
                         } else{
                             pview.setMsgCrearLista("ERROR: Tiene que introducir un nombre");
@@ -72,8 +67,6 @@ public class ProfileController implements ActionListener, ChangeListener {
                 }else {
                     pview.setMsgCrearLista("Nombre existente");
                 }
-
-
 
                 break;
 
@@ -95,15 +88,15 @@ public class ProfileController implements ActionListener, ChangeListener {
                     throwables.printStackTrace();
                 }
                 user.setListasPersonales(listasSeries1);
-
-                pview.setUser(user);
                 if(esta)
                     pview.eliminarComboBox(listaEliminada);
                 break;
             case "VOLVER":
+                ppview.setUser(user);
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
                 pview.setMsgEliminarLista("");
+                pview.setMsgCrearLista("");
                 break;
             case "LOGOUT":
                 lview.clrPass();
@@ -159,16 +152,4 @@ public class ProfileController implements ActionListener, ChangeListener {
 
 
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        AbstractButton checkPrivacidad = (AbstractButton) e.getSource();
-        ButtonModel buttonModelPrivacidad= (ButtonModel) checkPrivacidad;
-        boolean privacidadTick=buttonModelPrivacidad.isPressed();
-
-        if (privacidadTick){
-            user.setPrivacidad(true);
-        }
-
-
-    }
 }

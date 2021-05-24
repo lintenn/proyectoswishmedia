@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class PrincipalView extends JFrame{
@@ -18,7 +19,7 @@ public class PrincipalView extends JFrame{
     private JTabbedPane tabbedPane1;
     private JPanel Películas;
     private JPanel Series;
-    private JComboBox comboBox1;
+    private JComboBox<Lista> comboBox1;
     private JPanel Listas;
     private JLabel Logo;
     private JPanel Usuarios;
@@ -55,6 +56,8 @@ public class PrincipalView extends JFrame{
     }
 
     public void actualizarComboBox() {
+        comboBox1.removeAll();
+
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){
                 comboBox1.addItem(l);
@@ -66,6 +69,27 @@ public class PrincipalView extends JFrame{
 
     public void setUser(Usuario u){
         user = u;
+        ArrayList<Lista> listaActualizada = new ArrayList<>();
+        Lista actual;
+        
+        comboBox1.removeAllItems();
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
+            while(rs.next()){
+                actual=new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3));
+                listaActualizada.add(actual);
+                comboBox1.addItem(actual);
+            }
+            user.setListasPersonales(listaActualizada);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+/*
+    public void setUser(Usuario u){
+        user = u;
+
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
             while(rs.next()){
@@ -74,6 +98,10 @@ public class PrincipalView extends JFrame{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
         actualizarComboBox();
     }
+
+ */
 }
