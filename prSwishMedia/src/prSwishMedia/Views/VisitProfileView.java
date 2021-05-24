@@ -1,6 +1,10 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Main;
+import prSwishMedia.Usuario;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class VisitProfileView extends JFrame{
     private JPanel panel1;
@@ -23,12 +27,30 @@ public class VisitProfileView extends JFrame{
     private JLabel fechaCreacion;
     private JLabel fechaNacimiento;
     private JButton volver;
-    private JPanel listasPanel;
-    private JLabel labelLista;
-    private JComboBox comboBoxListas;
     private JTextArea textAreaDescripcion;
+    private Usuario user;
 
     public  VisitProfileView(){
         add(panel1);
+        setInfo();
     }
+
+    public void setInfo(){
+        textAreaDescripcion.setText(user.getDescripcion());
+        nombreUsuario.setText(user.getNombre());
+        numAmigos.setText(""+user.getNumAmigos()+"");
+        numCapitulos.setText(user.getNumEpisodiosVistos() + "");
+        numeroSeriesVistas.setText(user.getNumSeriesVistas()+"");
+        numPeliculas.setText(user.getNumPeliculasVistas()+"");
+        if(user.getFechaCreacion()!=null)fechaCreacion.setText(user.getFechaCreacion().toString());
+        if(user.getFechaNacimiento()!=null)fechaNacimiento.setText(user.getFechaNacimiento().toString());
+
+        if(user.getPrivacidad()){
+            checkBoxPrivacidad.setEnabled(true);
+        }else{
+            checkBoxPrivacidad.setEnabled(false);
+        }
+
+    }
+
 }
