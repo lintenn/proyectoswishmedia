@@ -14,7 +14,8 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ProfileController implements ActionListener {
@@ -49,7 +50,7 @@ public class ProfileController implements ActionListener {
                         id=generateID();
                         if(!nombreLista.equals("")){
                             conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
-                            Lista nuevaLista=new Lista(id, nombreLista, new Date());
+                            Lista nuevaLista=new Lista(id, nombreLista, d);
                             listasSeries.add(nuevaLista);
                             pview.setMsgModificarLista("Lista creada con éxito");
                             user.setListasPersonales(listasSeries);
@@ -119,7 +120,27 @@ public class ProfileController implements ActionListener {
                     throwables.printStackTrace();
                 }
                 break;
-
+            case "FECHA":
+                int dia=pview.getDiaN();
+                int mes=pview.getMesN();
+                int anyo= pview.getAnyoN();
+                if(dia==29&&mes==2&&(anyo%4!=0)){
+                    pview.setMsgModificarFN("ERROR: No puede ser 29 de febrero en un año no bisiesto");
+                } else if(dia>29&&mes==2){
+                    pview.setMsgModificarFN("ERROR: No puede haber un día mayor a 29 en febrero");
+                } else if(dia==31&&(mes==4||mes==6||mes==9||mes==11)){
+                    pview.setMsgModificarFN("ERROR: No puede haber 31 días en abril, junio, septiembre o noviembre");
+                } else{
+                    java.util.Date date2 = new Date(anyo,mes,dia);
+                    java.sql.Date date = new Date(date2.getTime());
+                    pview.setMsgModificarFN("Día válido");
+                    try {
+                        conexion.executeUpdate("UPDATE Usuario SET fechaNacimiento= '"+anyo+"-"+mes+"-"+dia+"' where nombre='"+user.getNombre()+"';");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+                break;
         }
     }
 
