@@ -49,11 +49,11 @@ public class LoginController implements ActionListener {
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
                     PrincipalView ppview=new PrincipalView(conexion);
                     PrincipalController ppc = new PrincipalController(lview, ppview,conexion);
+                    ppview.setUser(Main.getUser());
                     ppview.añadirContenido(-2);
                     ppview.controlador(ppc);
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
-                    ppview.setUser(Main.getUser());
                 }
 
             }catch (SQLException throwables) {

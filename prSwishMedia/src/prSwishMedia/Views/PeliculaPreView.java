@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import javax.swing.event.ListDataListener;
 
 public class PeliculaPreView extends JFrame{
     private JPanel panel1;
@@ -14,7 +15,11 @@ public class PeliculaPreView extends JFrame{
     public PeliculaPreView(String nombre, int imagen,String sinopsis,String genero,int valoracion, JComboBox listas){
         Nombre.setText(nombre);
         Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg"));
-        Listas=listas;
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for(int i=0; i<listas.getItemCount();i++){
+            model.addElement(listas.getItemAt(i));
+        }
+        Listas.setModel(model);
         Sinopsis.setText(sinopsis);
         Genero.setText(genero);
         Valoración.setText(Integer.toString(valoracion));
@@ -22,5 +27,8 @@ public class PeliculaPreView extends JFrame{
 
     public JPanel getPanel() {
         return panel1;
+    }
+
+    public void cambiar(JComboBox listas){
     }
 }
