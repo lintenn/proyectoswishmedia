@@ -1,6 +1,8 @@
+package prSwishMedia.Views;
+
 import javax.swing.*;
 
-public class Pelicula {
+public class PeliculaView extends JFrame{
 
     private JPanel panelPrincipal;
     private JPanel panelSuperior;
@@ -19,7 +21,11 @@ public class Pelicula {
     private JPanel panelComentarios;
     private JLabel back;
 
-    public JPanel get(){
+    public PeliculaView(){
+        add(panelPrincipal);
+    }
+
+    public JPanel getPanel(){
         return panelPrincipal;
     }
 

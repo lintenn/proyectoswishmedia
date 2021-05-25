@@ -13,8 +13,17 @@ public class SeriePreView extends JFrame{
     private JLabel valoracion;
     private JLabel numTemporadas;
 
-    public SeriePreView(){
-        add(panel1);
+    public SeriePreView(String nombre, int imagen,String sinopsis,int valoracion, JComboBox listas, int numTemporadas){
+        Nombre.setText(nombre);
+        Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for(int i=0; i<listas.getItemCount();i++){
+            model.addElement(listas.getItemAt(i));
+        }
+        comboBox1.setModel(model);
+        Sinopsis.setText(sinopsis);
+        this.valoracion.setText(Integer.toString(valoracion));
+        this.numTemporadas.setText(Integer.toString(numTemporadas));
 
     }
     public Object getValoracion(){
@@ -36,4 +45,7 @@ public class SeriePreView extends JFrame{
         Sinopsis.setText(s);
     }
 
+    public JPanel getPanel() {
+        return panel1;
+    }
 }

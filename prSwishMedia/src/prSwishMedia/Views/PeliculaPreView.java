@@ -29,6 +29,4 @@ public class PeliculaPreView extends JFrame{
         return panel1;
     }
 
-    public void cambiar(JComboBox listas){
-    }
 }
