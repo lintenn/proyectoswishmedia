@@ -50,7 +50,8 @@ public class LoginController implements ActionListener {
                     PrincipalView ppview=new PrincipalView(conexion);
                     PrincipalController ppc = new PrincipalController(lview, ppview,conexion);
                     ppview.setUser(Main.getUser());
-                    ppview.añadirContenido(-2);
+                    ppview.añadirContenidoPelicula(-2);
+                    ppview.añadirContenidoSerie(-2);
                     ppview.controlador(ppc);
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
