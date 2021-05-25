@@ -29,4 +29,5 @@ public class PeliculaPreView extends JFrame{
         return panel1;
     }
 
+
 }
