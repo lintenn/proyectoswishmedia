@@ -56,13 +56,13 @@ public class PrincipalView extends JFrame{
         if(idList==-2){
 
             try {
-                ResultSet count= st.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on idPelicula=idContenidoMultimedia;");
+                ResultSet count= st.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                 count.next();
                 int cont=count.getInt(1);
-                ResultSet peli= st.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on idPelicula=idContenidoMultimedia;");
+                ResultSet peli= st.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                 listaPelis.setLayout(new GridLayout(cont, 0, 0, 0));
                 while(peli.next()) {
-                    listaPelis.add(new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), peli.getInt("valoracion"), comboBox1).getPanel());
+                    listaPelis.add(new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0, comboBox1).getPanel());
                     //listaPelis.add(new JSeparator());
                 }
                 Pelis.setViewportView(listaPelis);

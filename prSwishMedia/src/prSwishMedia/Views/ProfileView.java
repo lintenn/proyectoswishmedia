@@ -98,6 +98,14 @@ public class ProfileView extends JFrame{
         comboBoxAnyo.setSelectedIndex(Integer.parseInt(parts[0])-1900);
         comboBoxMes.setSelectedIndex(Integer.parseInt(parts[1])-1);
         comboBoxDia.setSelectedIndex(Integer.parseInt(parts[2])-1);
+
+        if(Integer.parseInt(parts[1])==2 && Integer.parseInt(parts[0])%4!=0){
+            updateDay(28);
+        } else if(Integer.parseInt(parts[1])==2){
+            updateDay(28);
+        } else if(Integer.parseInt(parts[1])==4 || Integer.parseInt(parts[1])==6 || Integer.parseInt(parts[1])==9 || Integer.parseInt(parts[1])==11){
+            updateDay(30);
+        }
     }
 
     public void añadirComboBox(Lista l){
@@ -127,6 +135,7 @@ public class ProfileView extends JFrame{
         comboBoxMes.addActionListener(ctr);
         comboBoxDia.addActionListener(ctr);
 
+        
         checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
         logout.setActionCommand("LOGOUT");
         volver.setActionCommand("VOLVER");
@@ -148,6 +157,10 @@ public class ProfileView extends JFrame{
 
     }
 
+    public void setDescripcion(String descripcion){
+        textAreaDescripcion.setText(descripcion);
+    }
+    
     public void setMsgModificarLista(String error) {
         msgInfomodificarLista.setText(error);
     }
@@ -215,13 +228,19 @@ public class ProfileView extends JFrame{
     public class MyKeyListener implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
+            if(textAreaDescripcion.getText().length()==60){
+                e.consume();
+            }
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getKeyCode()==10){
+                e.consume();
                 try {
                     stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
+                    user.setDescripcion(textAreaDescripcion.getText());
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
