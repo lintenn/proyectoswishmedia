@@ -52,7 +52,7 @@ public class PrincipalView extends JFrame{
     }
 
     public void añadirContenido(int idList){
-
+        listaPelis.removeAll();
         if(idList==-2){
 
             try {
