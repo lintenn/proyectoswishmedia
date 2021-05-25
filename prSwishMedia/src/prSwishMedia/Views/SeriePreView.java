@@ -7,6 +7,9 @@ public class SeriePreView extends JFrame{
     private JLabel Imagen;
     private JLabel Nombre;
     private JTextPane Sinopsis;
+    private JComboBox Listas;
+    private JLabel Genero;
+    private JLabel Valoración;
     private JLabel labelnumTemporada;
     private JComboBox comboBox1;
     private JLabel msgInfo;
