@@ -21,8 +21,15 @@ public class PeliculaView extends JFrame{
     private JPanel panelComentarios;
     private JLabel back;
 
-    public PeliculaView(){
-        add(panelPrincipal);
+    public PeliculaView(String nombre, int valoracion, String fecha, int duración, String género, String sinopsis, String reparto){
+        nombrePelicula.setText(nombre);
+        valoracionPelicula.setText(Integer.toString(valoracion));
+        fechaPelicula.setText(fecha);
+        peliculaDuracion.setText(Integer.toString(duración));
+        peliculaGénero.setText(género);
+        sinopsisPelicula.setText(sinopsis);
+        repartoPelicula.setText(reparto);
+
     }
 
     public JPanel getPanel(){

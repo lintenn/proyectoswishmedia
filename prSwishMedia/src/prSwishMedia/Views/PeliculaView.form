@@ -106,7 +106,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="LogoSwish100x100.png"/>
+              <icon value="Resources/LogoSwish100x100.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -278,7 +278,7 @@
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <icon value="back.png"/>
+                  <icon value="Resources/back.png"/>
                   <text value=""/>
                 </properties>
               </component>

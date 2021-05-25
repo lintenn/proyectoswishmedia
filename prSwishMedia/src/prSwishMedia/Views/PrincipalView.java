@@ -68,19 +68,15 @@ public class PrincipalView extends JFrame{
                 listaPelis.setLayout(new GridLayout(cont, 0, 0, 0));
                 while(peli.next()) {
                     PeliculaPreView pelipv = new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0, comboBox1);
-                    listener = new MiMouseListener();
+                    listener = new MiMouseListener(pelipv,peli.getInt(1));
                     pelipv.getPanel().addMouseListener(listener);
                     listaPelis.add(pelipv.getPanel());
                 }
                 Pelis.setViewportView(listaPelis);
-
-
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
         }
-
     }
     public void añadirContenidoSerie(int idList){
         listaSeries.removeAll();
@@ -94,8 +90,8 @@ public class PrincipalView extends JFrame{
                 listaSeries.setLayout(new GridLayout(cont, 0, 0, 0));
                 while(peli.next()) {
                     SeriePreView seriepv = new SeriePreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0, comboBox1, peli.getInt("numTemporadas"));
-                    listener = new MiMouseListener();
-                    seriepv.getPanel().addMouseListener(listener);
+                    //listener = new MiMouseListener();
+                   // seriepv.getPanel().addMouseListener(listener);
                     listaSeries.add(seriepv.getPanel());
                 }
                 SeriesPanel.setViewportView(listaSeries);
@@ -143,7 +139,6 @@ public class PrincipalView extends JFrame{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     private void createUIComponents() {
@@ -151,11 +146,24 @@ public class PrincipalView extends JFrame{
     }
 
     public class MiMouseListener implements MouseListener {
+        PeliculaPreView pview;
+        int id;
+        public MiMouseListener(PeliculaPreView pelipv, int anInt) {
+            pview=pelipv;
+            id=anInt;
+        }
+
         @Override
         public void mouseClicked(MouseEvent e) {
-            PeliculaView peliview = new PeliculaView();
-            Main.frame.setContentPane(peliview.getPanel());
-            Main.frame.setVisible(true);
+            try {
+                ResultSet resst = st.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia="+id+";");
+                resst.next();
+                PeliculaView peliview = new PeliculaView(resst.getString("nombre"),0,resst.getString("fecha_estreno"),resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                Main.frame.setContentPane(peliview.getPanel());
+                Main.frame.setVisible(true);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
         @Override
