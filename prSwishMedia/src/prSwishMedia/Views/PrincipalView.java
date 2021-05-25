@@ -41,7 +41,7 @@ public class PrincipalView extends JFrame{
         user = Main.getUser();
         this.st = st;
         listaPelis=new JPanel();
-
+        actualizarComboBox();
     }
 
     public void controlador(ActionListener ctr){
@@ -62,8 +62,9 @@ public class PrincipalView extends JFrame{
                 ResultSet peli= st.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                 listaPelis.setLayout(new GridLayout(cont, 0, 0, 0));
                 while(peli.next()) {
-                    listaPelis.add(new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), peli.getInt("valoracion"), comboBox1).getPanel());
-                    //listaPelis.add(new JSeparator());
+                    PeliculaPreView pelipv = new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0, comboBox1);
+                    pelipv.cambiar(comboBox1);
+                    listaPelis.add(pelipv.getPanel());
                 }
                 Pelis.setViewportView(listaPelis);
 

@@ -135,6 +135,7 @@ public class ProfileView extends JFrame{
         comboBoxMes.addActionListener(ctr);
         comboBoxDia.addActionListener(ctr);
 
+        
         checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
         logout.setActionCommand("LOGOUT");
         volver.setActionCommand("VOLVER");
@@ -156,6 +157,10 @@ public class ProfileView extends JFrame{
 
     }
 
+    public void setDescripcion(String descripcion){
+        textAreaDescripcion.setText(descripcion);
+    }
+    
     public void setMsgModificarLista(String error) {
         msgInfomodificarLista.setText(error);
     }
@@ -234,6 +239,8 @@ public class ProfileView extends JFrame{
                 e.consume();
                 try {
                     stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
+                    user.setDescripcion(textAreaDescripcion.getText());
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
