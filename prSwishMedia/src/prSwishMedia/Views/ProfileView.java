@@ -135,6 +135,7 @@ public class ProfileView extends JFrame{
         comboBoxMes.addActionListener(ctr);
         comboBoxDia.addActionListener(ctr);
 
+        
         checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
         logout.setActionCommand("LOGOUT");
         volver.setActionCommand("VOLVER");
