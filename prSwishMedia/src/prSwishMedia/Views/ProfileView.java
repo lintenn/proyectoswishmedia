@@ -46,67 +46,14 @@ public class ProfileView extends JFrame{
     private JComboBox comboBoxAnyo;
     private JComboBox comboBoxMes;
     private JComboBox comboBoxDia;
-    private Usuario user;
-    private KeyListener listener;
-    private Statement stmt;
 
 
     public ProfileView(Statement st){
         add(panel1);
-        user = Main.getUser();
-        setInfo();
-        stmt = st;
-        try {
-
-            ResultSet rs2 = stmt.executeQuery("SELECT privacidad,fechaNacimiento FROM Usuario where nombre = '"+user.getNombre()+"';");
-            rs2.next();
-            if(rs2.getInt(1)==1){
-                checkBoxPrivacidad.setSelected(true);
-            }
-            actualizarComboBoxFechaN(rs2.getString(2));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        listener = new MyKeyListener();
-        textAreaDescripcion.addKeyListener(listener);
         textAreaDescripcion.setFocusable(true);
-        actualizarComboBox();
+
     }
 
-    public void actualizarComboBoxFechaN(String date) {
-        for(int i=1; i<=31; i++){
-            comboBoxDia.addItem(i);
-        }
-        for(int i=1900; i<=2021; i++){
-            comboBoxAnyo.addItem(i);
-        }
-        comboBoxMes.addItem("Enero");
-        comboBoxMes.addItem("Febrero");
-        comboBoxMes.addItem("Marzo");
-        comboBoxMes.addItem("Abril");
-        comboBoxMes.addItem("Mayo");
-        comboBoxMes.addItem("Junio");
-        comboBoxMes.addItem("Julio");
-        comboBoxMes.addItem("Agosto");
-        comboBoxMes.addItem("Septiembre");
-        comboBoxMes.addItem("Octubre");
-        comboBoxMes.addItem("Noviembre");
-        comboBoxMes.addItem("Diciembre");
-
-        String[] parts = date.split("-");
-
-        comboBoxAnyo.setSelectedIndex(Integer.parseInt(parts[0])-1900);
-        comboBoxMes.setSelectedIndex(Integer.parseInt(parts[1])-1);
-        comboBoxDia.setSelectedIndex(Integer.parseInt(parts[2])-1);
-
-        if(Integer.parseInt(parts[1])==2 && Integer.parseInt(parts[0])%4!=0){
-            updateDay(28);
-        } else if(Integer.parseInt(parts[1])==2){
-            updateDay(28);
-        } else if(Integer.parseInt(parts[1])==4 || Integer.parseInt(parts[1])==6 || Integer.parseInt(parts[1])==9 || Integer.parseInt(parts[1])==11){
-            updateDay(30);
-        }
-    }
 
     public void añadirComboBox(Lista l){
         comboBoxListas.addItem(l);
@@ -114,16 +61,29 @@ public class ProfileView extends JFrame{
     public void eliminarComboBox(Lista l){
         comboBoxListas.removeItem(l);
     }
-
-    public void actualizarComboBox() {
-        if(user.getListasPersonales()!=null){
-            for(Lista l: user.getListasPersonales()){
-                comboBoxListas.addItem(l);
-            }
-        }else {
-            System.out.println("LISTA VACIA");
-        }
+    public void añadirComboBoxMes(String l){
+        comboBoxMes.addItem(l);
     }
+    public void eliminarComboBoxMes(String l){
+        comboBoxMes.removeItem(l);
+    }
+    public void añadirComboBoxDia(int l){
+        comboBoxDia.addItem(l);
+    }
+    public void eliminarComboBoxDia(int l){
+        comboBoxDia.removeItem(l);
+    }
+    public void añadirComboBoxAnyo(int l){
+        comboBoxAnyo.addItem(l);
+    }
+    public void eliminarComboBoxAnyo(int l){
+        comboBoxAnyo.removeItem(l);
+    }
+    public void eliminarComboBoxTodoDia(){comboBoxDia.removeAllItems();}
+    public int getSelectedIndexComboBoxDia(){return  comboBoxDia.getSelectedIndex();}
+    public void setSetSelectedIndexComboBoxDia(int x){comboBoxDia.setSelectedIndex(x);}
+    public void setSetSelectedIndexComboBoxMes(int x){comboBoxMes.setSelectedIndex(x);}
+    public void setSetSelectedIndexComboBoxAnyo(int x){comboBoxAnyo.setSelectedIndex(x);}
 
     public void controlador(ActionListener ctr){
         buttonCrearLista.addActionListener(ctr);
@@ -134,7 +94,7 @@ public class ProfileView extends JFrame{
         comboBoxAnyo.addActionListener(ctr);
         comboBoxMes.addActionListener(ctr);
         comboBoxDia.addActionListener(ctr);
-
+        textAreaDescripcion.addKeyListener((KeyListener) ctr);
         
         checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
         logout.setActionCommand("LOGOUT");
@@ -146,26 +106,24 @@ public class ProfileView extends JFrame{
         comboBoxDia.setActionCommand("FECHA");
     }
 
-    public void setInfo(){
-         textAreaDescripcion.setText(user.getDescripcion());
-         nombreUsuario.setText(user.getNombre());
-         numAmigos.setText(""+user.getNumAmigos()+"");
-         numCapitulos.setText(user.getNumEpisodiosVistos() + "");
-         numeroSeriesVistas.setText(user.getNumSeriesVistas()+"");
-         numPeliculas.setText(user.getNumPeliculasVistas()+"");
-         if(user.getFechaCreacion()!=null)fechaCreacion.setText(user.getFechaCreacion().toString());
-
-    }
 
     public void setDescripcion(String descripcion){
         textAreaDescripcion.setText(descripcion);
     }
-    
+    public void setNombreUsuario(String nombre){nombreUsuario.setText(nombre);}
+    public void setNumCapitulos(int num){numCapitulos.setText(String.valueOf(num));}
+    public void setNumSeriesVistas(int num){numeroSeriesVistas.setText(String.valueOf(num));}
+    public void setNumPeliculas(int num){numPeliculas.setText(String.valueOf(num));}
+    public void setFechaCreacion(String date){fechaCreacion.setText(date);}
+    public void setNumAmigos(int num){numAmigos.setText(String.valueOf(num));}
+    public void setCheckBoxPrivacidad(boolean valor) {checkBoxPrivacidad.setSelected(valor); }
     public void setMsgModificarLista(String error) {
         msgInfomodificarLista.setText(error);
     }
     public String getNombreListaCreada(){ return nombreLista.getText();}
+    public String getDescripcion(){return textAreaDescripcion.getText();}
     public Lista getListaEliminada(){ return (Lista) comboBoxListas.getSelectedItem(); }
+
     public JPanel getPanel() {
         return panel1;
     }
@@ -223,49 +181,5 @@ public class ProfileView extends JFrame{
     }
 
 
-
-
-    public class MyKeyListener implements KeyListener {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            if(textAreaDescripcion.getText().length()==60){
-                e.consume();
-            }
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if(e.getKeyCode()==10){
-                e.consume();
-                try {
-                    stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
-                    user.setDescripcion(textAreaDescripcion.getText());
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-    }
-
-    public void updateDay(int n) {
-        int x = comboBoxDia.getSelectedIndex();
-        try {
-            comboBoxDia.removeAllItems();
-        }catch (NullPointerException e){
-
-        }
-        for(int i=0;i<n;i++){
-            comboBoxDia.addItem(i+1);
-        }
-        if(x<=n){
-            comboBoxDia.setSelectedIndex(x);
-        }
-    }
 
 }
