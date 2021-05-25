@@ -215,11 +215,15 @@ public class ProfileView extends JFrame{
     public class MyKeyListener implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
+            if(textAreaDescripcion.getText().length()==60){
+                e.consume();
+            }
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getKeyCode()==10){
+                e.consume();
                 try {
                     stmt.executeUpdate("UPDATE Usuario SET descripcion = '"+textAreaDescripcion.getText()+"' where nombre = '"+user.getNombre()+"';");
                 } catch (SQLException throwables) {
