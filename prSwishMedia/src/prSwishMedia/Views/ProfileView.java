@@ -98,6 +98,14 @@ public class ProfileView extends JFrame{
         comboBoxAnyo.setSelectedIndex(Integer.parseInt(parts[0])-1900);
         comboBoxMes.setSelectedIndex(Integer.parseInt(parts[1])-1);
         comboBoxDia.setSelectedIndex(Integer.parseInt(parts[2])-1);
+
+        if(Integer.parseInt(parts[1])==2 && Integer.parseInt(parts[0])%4!=0){
+            updateDay(28);
+        } else if(Integer.parseInt(parts[1])==2){
+            updateDay(28);
+        } else if(Integer.parseInt(parts[1])==4 || Integer.parseInt(parts[1])==6 || Integer.parseInt(parts[1])==9 || Integer.parseInt(parts[1])==11){
+            updateDay(30);
+        }
     }
 
     public void añadirComboBox(Lista l){
