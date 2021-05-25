@@ -11,6 +11,8 @@ import prSwishMedia.Views.ProfileView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,7 +20,7 @@ import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class ProfileController implements ActionListener {
+public class ProfileController implements ActionListener, KeyListener {
 
     private ProfileView pview;
     private PrincipalView ppview;
@@ -32,9 +34,87 @@ public class ProfileController implements ActionListener {
         ppview=ppv;
         user=Main.getUser();
         conexion=st;
+        setInfo();
+    }
+    public void setInfo(){
+        pview.setDescripcion(user.getDescripcion());
+        pview.setNombreUsuario(user.getNombre());
+        pview.setNumAmigos(user.getNumAmigos());
+        pview.setNumCapitulos(user.getNumEpisodiosVistos());
+        pview.setNumSeriesVistas(user.getNumSeriesVistas());
+        pview.setNumPeliculas(user.getNumPeliculasVistas());
+        if(user.getFechaCreacion()!=null)pview.setFechaCreacion(user.getFechaCreacion().toString());
+        actualizarComboBox();
+        fechaPrivacidad();
     }
 
+    private void fechaPrivacidad() {
 
+
+        pview.setCheckBoxPrivacidad(user.getPrivacidad());
+
+        actualizarComboBoxFechaN(user.getFechaNacimiento().toString());
+
+    }
+    public void actualizarComboBoxFechaN(String date) {
+        for(int i=1; i<=31; i++){
+            pview.añadirComboBoxDia(i);
+        }
+        for(int i=1900; i<=2021; i++){
+            pview.añadirComboBoxAnyo(i);
+        }
+        pview.añadirComboBoxMes("Enero");
+        pview.añadirComboBoxMes("Febrero");
+        pview.añadirComboBoxMes("Marzo");
+        pview.añadirComboBoxMes("Abril");
+        pview.añadirComboBoxMes("Mayo");
+        pview.añadirComboBoxMes("Junio");
+        pview.añadirComboBoxMes("Julio");
+        pview.añadirComboBoxMes("Agosto");
+        pview.añadirComboBoxMes("Septiembre");
+        pview.añadirComboBoxMes("Octubre");
+        pview.añadirComboBoxMes("Noviembre");
+        pview.añadirComboBoxMes("Diciembre");
+
+        String[] parts = date.split("-");
+
+        pview.setSetSelectedIndexComboBoxAnyo(Integer.parseInt(parts[0])-1900);
+        pview.setSetSelectedIndexComboBoxMes(Integer.parseInt(parts[1])-1);
+        pview.setSetSelectedIndexComboBoxDia(Integer.parseInt(parts[2])-1);
+
+        if(Integer.parseInt(parts[1])==2 && Integer.parseInt(parts[0])%4!=0){
+            updateDay(28);
+        } else if(Integer.parseInt(parts[1])==2){
+            updateDay(28);
+        } else if(Integer.parseInt(parts[1])==4 || Integer.parseInt(parts[1])==6 || Integer.parseInt(parts[1])==9 || Integer.parseInt(parts[1])==11){
+            updateDay(30);
+        }
+    }
+
+    public void updateDay(int n) {
+        int x = pview.getSelectedIndexComboBoxDia();
+        try {
+            pview.eliminarComboBoxTodoDia();
+        }catch (NullPointerException e){
+
+        }
+        for(int i=0;i<n;i++){
+            pview.añadirComboBoxDia(i+1);
+        }
+        if(x<=n){
+            pview.setSetSelectedIndexComboBoxDia(x);
+        }
+    }
+
+    public void actualizarComboBox() {
+        if(user.getListasPersonales()!=null){
+            for(Lista l: user.getListasPersonales()){
+                pview.añadirComboBox(l);
+            }
+        }else {
+            System.out.println("LISTA VACIA");
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String act=e.getActionCommand();
@@ -112,10 +192,14 @@ public class ProfileController implements ActionListener {
                 try {
                     ResultSet rs = conexion.executeQuery("SELECT privacidad FROM Usuario where nombre = '"+user.getNombre()+"';");
                     rs.next();
-                    if(rs.getInt(1)==0){
+                    int value=rs.getInt(1);
+
+                    if(value==0){
                         conexion.executeUpdate("UPDATE Usuario SET privacidad=1 where nombre = '"+user.getNombre()+"';");
+                        user.setPrivacidad(true);
                     } else{
                         conexion.executeUpdate("UPDATE Usuario SET privacidad=0 where nombre = '"+user.getNombre()+"';");
+                        user.setPrivacidad(false);
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -125,13 +209,13 @@ public class ProfileController implements ActionListener {
                 int mes=pview.getMesN();
                 int anyo= pview.getAnyoN();
                 if(mes==2&&(anyo%4!=0)){
-                   pview.updateDay(28);
+                   updateDay(28);
                 } else if(mes==2){
-                    pview.updateDay(29);
+                    updateDay(29);
                 } else if(mes==4||mes==6||mes==9||mes==11){
-                    pview.updateDay(30);
+                    updateDay(30);
                 } else{
-                    pview.updateDay(31);
+                    updateDay(31);
                 }
                 break;
             case "FECHA":
@@ -177,5 +261,29 @@ public class ProfileController implements ActionListener {
     }
 
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if(pview.getDescripcion().length()==60){
+            e.consume();
+        }
+    }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==10){
+            e.consume();
+            try {
+                conexion.executeUpdate("UPDATE Usuario SET descripcion = '"+pview.getDescripcion()+"' where nombre = '"+user.getNombre()+"';");
+                user.setDescripcion(pview.getDescripcion());
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
