@@ -12,7 +12,10 @@ import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PrincipalController implements ActionListener {
@@ -181,10 +184,16 @@ public class PrincipalController implements ActionListener {
             try {
                 ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia="+id+";");
                 resst.next();
-                PeliculaView peliview = new PeliculaView(resst.getString("nombre"),0,resst.getString("fecha_estreno"),resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                String fechaEstreno=resst.getString("fecha_estreno");
+                Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaEstreno);
+                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,date,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                PeliculaView peliview = new PeliculaView();
+                PeliculaController peliculaController=new PeliculaController(ppView,peliview,pelicula);
+                peliview.controller(peliculaController);
+
                 Main.frame.setContentPane(peliview.getPanel());
                 Main.frame.setVisible(true);
-            } catch (SQLException throwables) {
+            } catch (SQLException | ParseException throwables) {
                 throwables.printStackTrace();
             }
         }

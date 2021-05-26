@@ -230,7 +230,7 @@
           <borderPainted value="false"/>
           <contentAreaFilled value="false"/>
           <icon value="Resources/back.png"/>
-          <opaque value="true"/>
+          <opaque value="false"/>
           <text value=""/>
         </properties>
       </component>
