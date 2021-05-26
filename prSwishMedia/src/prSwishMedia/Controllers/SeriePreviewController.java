@@ -3,6 +3,8 @@ package prSwishMedia.Controllers;
 import prSwishMedia.ContenidoMultimedia;
 import prSwishMedia.Serie;
 import prSwishMedia.Views.SeriePreView;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -14,11 +16,14 @@ public class SeriePreviewController implements ActionListener{
     private SeriePreView pvSerie;
     private Serie contenido;
 
-    public SeriePreviewController(SeriePreView sv){
+    public SeriePreviewController(Serie s, SeriePreView sv, JComboBox comboBox){
         pvSerie=sv;
+        contenido=s;
         pvSerie.setNombre(contenido.getNombre());
         pvSerie.setSinopsis(contenido.getSinopsis());
         pvSerie.setImagen(contenido.getId());
+        pvSerie.setComboBox(comboBox);
+        pvSerie.setValoracion(contenido.getValoracion());
         pvSerie.setNumTemporadas(contenido.getNumTemporadas());
     }
 
@@ -36,5 +41,8 @@ public class SeriePreviewController implements ActionListener{
                 pvSerie.setMsgInfo("Valorada con éxito");
                 break;
         }
+    }
+    public void actualizarComboBox(JComboBox l){
+        pvSerie.setComboBox(l);
     }
 }
