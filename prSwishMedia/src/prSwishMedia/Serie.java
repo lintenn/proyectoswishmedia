@@ -12,7 +12,7 @@ public class Serie extends ContenidoMultimedia {
         super(id, nombre, aprobado);
     }
 
-    public Serie(int id, String nombre, String sinopsis, String reparto, double valoracion, Date fecha, String genero, String premios, int rating, String trailer, int veces_anyadidas, int ranking, boolean aprobado, int numCapitulos, int numTemporadas, double duracionMedia) {
+    public Serie(int id, String nombre, String sinopsis, String reparto, double valoracion, String fecha, String genero, String premios, int rating, String trailer, int veces_anyadidas, int ranking, boolean aprobado, int numCapitulos, int numTemporadas, double duracionMedia) {
         super(id, nombre, sinopsis, reparto, valoracion, fecha, genero, premios, rating, trailer, veces_anyadidas, ranking, aprobado);
         this.duracionMedia = duracionMedia;
         this.numCapitulos = numCapitulos;
