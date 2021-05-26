@@ -34,8 +34,8 @@ public class PrincipalController implements ActionListener {
         user=u;
         listapvC=new ArrayList<>();
         listasvC=new ArrayList<>();
-        añadirContenidoPelicula(-2);
-        añadirContenidoSerie(-2);
+        añadirContenido(-2);
+        añadirContenido(-1);
         setLista();
     }
 
@@ -55,10 +55,10 @@ public class PrincipalController implements ActionListener {
        }
     }
 
-    public void añadirContenidoPelicula(int idList){
-        ppView.removeAllListas();
-        if(idList==-2){
+    public void añadirContenido(int idList){
 
+        if(idList==-2){
+            ppView.removeAllListas();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                 count.next();
@@ -97,14 +97,8 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }
-    }
-
-
-    public void añadirContenidoSerie(int idList){
-        ppView.removeAllListasSerie();
-        if(idList==-2){
-
+        }else if(idList==-1){
+            ppView.removeAllListasSerie();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 count.next();
@@ -128,22 +122,6 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
-        }
-
-    }
-
-
-
-    public void actualizarComboBox() {
-        ppView.removeAllComboBox();
-        if(user.getListasPersonales()!=null){
-            for(Lista l: user.getListasPersonales()){
-                System.out.println(l.toString());
-                ppView.addItemComboBox1(l);
-            }
-        }else {
-            System.out.println("LISTA VACIA");
         }
     }
 
