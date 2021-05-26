@@ -5,11 +5,11 @@ import prSwishMedia.Views.PeliculaView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PeliculaController implements ActionListener {
+public class ContenidoMultimediaController implements ActionListener {
 
     private PeliculaView peliculaView;
 
-    public PeliculaController(PeliculaView peliculaView){
+    public ContenidoMultimediaController(PeliculaView peliculaView){
         this.peliculaView=peliculaView;
     }
 
