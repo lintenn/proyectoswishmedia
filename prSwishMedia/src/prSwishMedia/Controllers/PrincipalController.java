@@ -188,9 +188,8 @@ public class PrincipalController implements ActionListener {
                 Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaEstreno);
                 Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,date,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
                 PeliculaView peliview = new PeliculaView();
-                PeliculaController peliculaController=new PeliculaController(ppView,peliview,pelicula);
-                peliview.controller(peliculaController);
-
+                PeliculaController peliculaController=new PeliculaController(peliview,user,conexion,pelicula,ppView,id);
+                peliview.controlador(peliculaController);
                 Main.frame.setContentPane(peliview.getPanel());
                 Main.frame.setVisible(true);
             } catch (SQLException | ParseException throwables) {
