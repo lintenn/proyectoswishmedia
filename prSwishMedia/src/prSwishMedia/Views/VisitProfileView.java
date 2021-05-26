@@ -32,25 +32,21 @@ public class VisitProfileView extends JFrame{
 
     public  VisitProfileView(){
         add(panel1);
-        setInfo();
-    }
-
-    public void setInfo(){
-        textAreaDescripcion.setText(user.getDescripcion());
-        nombreUsuario.setText(user.getNombre());
-        numAmigos.setText(""+user.getNumAmigos()+"");
-        numCapitulos.setText(user.getNumEpisodiosVistos() + "");
-        numeroSeriesVistas.setText(user.getNumSeriesVistas()+"");
-        numPeliculas.setText(user.getNumPeliculasVistas()+"");
-        if(user.getFechaCreacion()!=null)fechaCreacion.setText(user.getFechaCreacion().toString());
-        if(user.getFechaNacimiento()!=null)fechaNacimiento.setText(user.getFechaNacimiento().toString());
-
-        if(user.getPrivacidad()){
-            checkBoxPrivacidad.setEnabled(true);
-        }else{
-            checkBoxPrivacidad.setEnabled(false);
-        }
 
     }
+
+    public void setDescripcion(String descripcion){
+        textAreaDescripcion.setText(descripcion);
+    }
+    public void setNombreUsuario(String nombre){nombreUsuario.setText(nombre);}
+    public void setNumCapitulos(int num){numCapitulos.setText(String.valueOf(num));}
+    public void setNumSeriesVistas(int num){numeroSeriesVistas.setText(String.valueOf(num));}
+    public void setNumPeliculas(int num){numPeliculas.setText(String.valueOf(num));}
+    public void setFechaCreacion(String date){fechaCreacion.setText(date);}
+    public void setNumAmigos(int num){numAmigos.setText(String.valueOf(num));}
+    public void setFechaNacimiento(String date){fechaNacimiento.setText(date);}
+
+    public void setCheckBoxPrivacidad(boolean valor) {checkBoxPrivacidad.setSelected(valor); }
+
 
 }
