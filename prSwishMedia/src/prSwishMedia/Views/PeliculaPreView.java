@@ -25,6 +25,11 @@ public class PeliculaPreView extends JFrame{
         Valoración.setText(Integer.toString(valoracion));
     }
 
+    // Método para actualizar la valoracion media
+    public void setValoracion(int valoracion) {
+        Valoración.setText(Integer.toString(valoracion));
+    }
+
     public JPanel getPanel() {
         return panel1;
     }
