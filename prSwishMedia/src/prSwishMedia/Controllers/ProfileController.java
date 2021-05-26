@@ -28,11 +28,11 @@ public class ProfileController implements ActionListener, KeyListener {
     private Usuario user;
     private Statement conexion;
 
-    public ProfileController(ProfileView vp, PrincipalView ppv, LoginView lv, Statement st){
+    public ProfileController(ProfileView vp, PrincipalView ppv, LoginView lv, Statement st,Usuario u){
         lview=lv;
         pview=vp;
         ppview=ppv;
-        user=Main.getUser();
+        user=u;
         conexion=st;
         setInfo();
     }
@@ -109,6 +109,7 @@ public class ProfileController implements ActionListener, KeyListener {
     public void actualizarComboBox() {
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){
+
                 pview.añadirComboBox(l);
             }
         }else {
@@ -175,10 +176,10 @@ public class ProfileController implements ActionListener, KeyListener {
                 }
                 break;
             case "VOLVER":
-                ppview.setUser(user);
-                ppview.añadirContenidoPelicula(-2);
-                ppview.añadirContenidoSerie(-2);
-                Main.frame.setContentPane(ppview.getPanel());
+                PrincipalView principalViewnueva=new PrincipalView();
+                PrincipalController ppc=new PrincipalController(lview,principalViewnueva,conexion,user);
+                principalViewnueva.controlador(ppc);
+                Main.frame.setContentPane(principalViewnueva.getPanel());
                 Main.frame.setVisible(true);
                 pview.setMsgModificarLista("");
                 break;
