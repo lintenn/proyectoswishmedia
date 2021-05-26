@@ -14,6 +14,7 @@ public class PrincipalController implements ActionListener {
     LoginView lview;
     Statement conexion;
     PrincipalView ppView;
+
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st){
         conexion=st;
         lview=lv;
