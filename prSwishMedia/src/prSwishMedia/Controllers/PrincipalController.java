@@ -1,8 +1,7 @@
 package prSwishMedia.Controllers;
 
-import prSwishMedia.Lista;
-import prSwishMedia.Main;
-import prSwishMedia.Usuario;
+import com.kitfox.svg.A;
+import prSwishMedia.*;
 import prSwishMedia.Views.*;
 
 import java.awt.*;
@@ -13,7 +12,11 @@ import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class PrincipalController implements ActionListener {
 
@@ -21,14 +24,19 @@ public class PrincipalController implements ActionListener {
     Statement conexion;
     PrincipalView ppView;
     Usuario user;
+    List<PeliculaPreViewController> listapvC;
+    List<SeriePreviewController> listasvC;
+
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st, Usuario u){
         conexion=st;
         lview=lv;
         ppView=ppv;
         user=u;
-        setLista();
+        listapvC=new ArrayList<>();
+        listasvC=new ArrayList<>();
         añadirContenidoPelicula(-2);
         añadirContenidoSerie(-2);
+        setLista();
     }
 
 
@@ -37,7 +45,7 @@ public class PrincipalController implements ActionListener {
 
         if(act.equals("PROFILE")){
             ProfileView pview = new ProfileView(conexion);
-            ProfileController pc = new ProfileController(pview,ppView,lview,conexion,user);
+            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,user);
             pview.controlador(pc);
 
             Main.frame.setContentPane(pview.getPanel());
@@ -64,9 +72,14 @@ public class PrincipalController implements ActionListener {
                     // si no, se borra la informacion de la anterior consulta
                     listaids.add(peli.getInt("idContenidoMultimedia"));
 
-                    PeliculaPreView pelipv = new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0, ppView.getComboBox1());
+                    Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
+                    PeliculaPreView pelipv = new PeliculaPreView();
+                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,ppView.getComboBox1());
+                    listapvC.add(peliPvController);
 
+                    pelipv.controlador(peliPvController);
                     listapelipv.add(pelipv);
+
                     MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
                     pelipv.getPanel().addMouseListener(listener);
                     ppView.addListaPelis(pelipv.getPanel());
@@ -97,7 +110,12 @@ public class PrincipalController implements ActionListener {
                 ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 ppView.setLayoutListasSerie(cont);
                 while(peli.next()) {
-                    SeriePreView seriepv = new SeriePreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0, ppView.getComboBox1(), peli.getInt("numTemporadas"));
+                    Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0,peli.getInt("numTemporadas"));
+                    SeriePreView seriepv = new SeriePreView();
+                    SeriePreviewController seriepvC = new SeriePreviewController(serie,seriepv,ppView.getComboBox1());
+                    listasvC.add(seriepvC);
+                    seriepv.controlador(seriepvC);
+
                     //MiMouseListener listener = new MiMouseListener();
                     //seriepv.getPanel().addMouseListener(listener);
                     ppView.addListaSerie(seriepv.getPanel());
@@ -141,6 +159,16 @@ public class PrincipalController implements ActionListener {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        setListaPreViews();
+    }
+
+    private void setListaPreViews() {
+        for(PeliculaPreViewController l: listapvC){
+            l.actualizarComboBox(ppView.getComboBox1());
+        }
+        for(SeriePreviewController l: listasvC){
+            l.actualizarComboBox(ppView.getComboBox1());
+        }
     }
 
     public class MiMouseListener implements MouseListener {
@@ -156,10 +184,16 @@ public class PrincipalController implements ActionListener {
             try {
                 ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia="+id+";");
                 resst.next();
-                PeliculaView peliview = new PeliculaView(resst.getString("nombre"),0,resst.getString("fecha_estreno"),resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                String fechaEstreno=resst.getString("fecha_estreno");
+                Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaEstreno);
+                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,date,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                PeliculaView peliview = new PeliculaView();
+                PeliculaController peliculaController=new PeliculaController(ppView,peliview,pelicula);
+                peliview.controller(peliculaController);
+
                 Main.frame.setContentPane(peliview.getPanel());
                 Main.frame.setVisible(true);
-            } catch (SQLException throwables) {
+            } catch (SQLException | ParseException throwables) {
                 throwables.printStackTrace();
             }
         }

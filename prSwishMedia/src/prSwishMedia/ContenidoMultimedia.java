@@ -10,7 +10,7 @@ public class ContenidoMultimedia {
     private String reparto;
     private double valoracion;
     private Date fecha;
-    private List<String> genero;
+    private String genero;
     private String premios;
     private int rating;
     private String trailer; //enlace del trailer
@@ -34,7 +34,7 @@ public class ContenidoMultimedia {
                     String reparto,
                     double valoracion,
                     Date fecha,
-                    List<String> genero,
+                    String genero,
                     String premios,
                     int rating,
                     String trailer, //enlace del trailer
@@ -55,6 +55,33 @@ public class ContenidoMultimedia {
         this.veces_anyadidas = veces_anyadidas;
         this.aprobado = aprobado;
     }
+
+    public ContenidoMultimedia(String nombre,int imagen, String sinopsis, String genero, int valoracion) {
+
+        this.nombre = nombre;
+        this.id=imagen;
+        this.genero = genero;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+
+    }
+
+    public ContenidoMultimedia(String nombre, int imagen, String sinopsis, int valoracion) {
+        this.nombre = nombre;
+        this.id=imagen;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+    }
+
+    public ContenidoMultimedia(String nombre, int valoracion, Date fecha_estreno, String genero, String sinopsis, String reparto) {
+        this.nombre = nombre;
+        this.fecha = fecha_estreno ;
+        this.genero=genero;
+        this.reparto=reparto;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+    }
+
 
     // Getters
     public Date getFecha() {
@@ -81,7 +108,7 @@ public class ContenidoMultimedia {
         return veces_anyadidas;
     }
 
-    public List<String> getGenero() {
+    public String getGenero() {
         return genero;
     }
 
@@ -114,7 +141,7 @@ public class ContenidoMultimedia {
         this.fecha = fecha;
     }
 
-    public void setGenero(List<String> genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 
