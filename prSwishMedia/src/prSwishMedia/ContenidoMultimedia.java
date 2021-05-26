@@ -66,6 +66,14 @@ public class ContenidoMultimedia {
 
     }
 
+    public ContenidoMultimedia(String nombre, int imagen, String sinopsis, int valoracion) {
+        this.nombre = nombre;
+        this.id=imagen;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+    }
+
+
     // Getters
     public Date getFecha() {
         return fecha;
