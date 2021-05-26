@@ -66,12 +66,29 @@ public class PrincipalView extends JFrame{
                 int cont=count.getInt(1);
                 ResultSet peli= st.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                 listaPelis.setLayout(new GridLayout(cont, 0, 0, 0));
+
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de pelipv
+                ArrayList<Integer> listaids = new ArrayList<>();
+                ArrayList<PeliculaPreView> listapelipv = new ArrayList<>();
                 while(peli.next()) {
+                    // Necesitamos guardar las variables antes de hacer una nueva consulta,
+                    // si no, se borra la informacion de la anterior consulta
+                    listaids.add(peli.getInt("idContenidoMultimedia"));
+
                     PeliculaPreView pelipv = new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0, comboBox1);
+
+                    listapelipv.add(pelipv);
                     listener = new MiMouseListener(pelipv,peli.getInt(1));
                     pelipv.getPanel().addMouseListener(listener);
                     listaPelis.add(pelipv.getPanel());
                 }
+                for (int i = 0; i < listaids.size(); i++) {
+                    //Por cada peli generamos su valoracion media
+                    ResultSet valmed = st.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaids.get(i) + ";");
+                    valmed.next(); //apuntamos
+                    listapelipv.get(i).setValoracion(valmed.getInt(1));
+                }
+
                 Pelis.setViewportView(listaPelis);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
