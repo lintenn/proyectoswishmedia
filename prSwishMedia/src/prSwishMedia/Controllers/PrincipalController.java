@@ -1,9 +1,7 @@
 package prSwishMedia.Controllers;
 
-import prSwishMedia.Lista;
-import prSwishMedia.Main;
-import prSwishMedia.Pelicula;
-import prSwishMedia.Usuario;
+import com.kitfox.svg.A;
+import prSwishMedia.*;
 import prSwishMedia.Views.*;
 
 import java.awt.*;
@@ -24,6 +22,7 @@ public class PrincipalController implements ActionListener {
     PrincipalView ppView;
     Usuario user;
     List<PeliculaPreViewController> listapvC;
+    List<SeriePreviewController> listasvC;
 
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st, Usuario u){
         conexion=st;
@@ -31,9 +30,10 @@ public class PrincipalController implements ActionListener {
         ppView=ppv;
         user=u;
         listapvC=new ArrayList<>();
-        setLista();
+        listasvC=new ArrayList<>();
         añadirContenidoPelicula(-2);
         añadirContenidoSerie(-2);
+        setLista();
     }
 
 
@@ -107,7 +107,12 @@ public class PrincipalController implements ActionListener {
                 ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 ppView.setLayoutListasSerie(cont);
                 while(peli.next()) {
-                    SeriePreView seriepv = new SeriePreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0, ppView.getComboBox1(), peli.getInt("numTemporadas"));
+                    Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0,peli.getInt("numTemporadas"));
+                    SeriePreView seriepv = new SeriePreView();
+                    SeriePreviewController seriepvC = new SeriePreviewController(serie,seriepv,ppView.getComboBox1());
+                    listasvC.add(seriepvC);
+                    seriepv.controlador(seriepvC);
+
                     //MiMouseListener listener = new MiMouseListener();
                     //seriepv.getPanel().addMouseListener(listener);
                     ppView.addListaSerie(seriepv.getPanel());
@@ -156,6 +161,9 @@ public class PrincipalController implements ActionListener {
 
     private void setListaPreViews() {
         for(PeliculaPreViewController l: listapvC){
+            l.actualizarComboBox(ppView.getComboBox1());
+        }
+        for(SeriePreviewController l: listasvC){
             l.actualizarComboBox(ppView.getComboBox1());
         }
     }

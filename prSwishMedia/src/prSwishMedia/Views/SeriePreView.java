@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class SeriePreView extends JFrame{
     private JPanel panel1;
@@ -14,30 +15,30 @@ public class SeriePreView extends JFrame{
     private JLabel valoracion;
     private JLabel numTemporadas;
 
-    public SeriePreView(String nombre, int imagen,String sinopsis,int valoracion, JComboBox listas, int numTemporadas){
-        Nombre.setText(nombre);
-        Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg"));
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        for(int i=0; i<listas.getItemCount();i++){
-            model.addElement(listas.getItemAt(i));
-        }
-        comboBox1.setModel(model);
-        Sinopsis.setText(sinopsis);
-        this.valoracion.setText(Integer.toString(valoracion));
-        this.numTemporadas.setText(Integer.toString(numTemporadas));
+    public SeriePreView(){
+
+    }
+
+    public void controlador(ActionListener ctr){
 
     }
     public Object getValoracion(){
         return comboBox1.getSelectedItem();
     }
-    public void setNumTemporadas(int n){
-        labelnumTemporada.setText("Número temporadas: "+String.valueOf(n));
-    }
+
+
     public void setMsgInfo(String msg){
         msgInfo.setText(msg);
     }
     public void setImagen(int id){
-
+        Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+id +".jpg"));
+    }
+    public void setComboBox(JComboBox listas){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for(int i=0; i<listas.getItemCount();i++){
+            model.addElement(listas.getItemAt(i));
+        }
+        comboBox1.setModel(model);
     }
     public void setNombre(String n){
         Nombre.setText(n);
@@ -45,7 +46,10 @@ public class SeriePreView extends JFrame{
     public void setSinopsis(String s){
         Sinopsis.setText(s);
     }
-
+    public void setValoracion(double v) {
+        valoracion.setText(Double.toString(v));
+    }
+    public void setNumTemporadas(int num){numTemporadas.setText(String.valueOf(num));}
     public JPanel getPanel() {
         return panel1;
     }
