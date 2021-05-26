@@ -20,6 +20,7 @@ public class PeliculaView extends JFrame{
     private JComboBox valorarPelicula;
     private JPanel panelComentarios;
     private JLabel back;
+    private JComboBox comboBox1;
 
     public PeliculaView(String nombre, int valoracion, String fecha, int duración, String género, String sinopsis, String reparto){
         nombrePelicula.setText(nombre);
