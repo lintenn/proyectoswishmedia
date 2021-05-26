@@ -11,7 +11,7 @@ public class Pelicula extends ContenidoMultimedia {
         super(id, nombre, aprobado);
     }
 
-    public Pelicula(int id, String nombre, String sinopsis, String reparto, double valoracion, Date fecha, String genero, String premios, int rating, String trailer, int veces_anyadidas, int ranking, boolean aprobado, int duracion) {
+    public Pelicula(int id, String nombre, String sinopsis, String reparto, double valoracion, String fecha, String genero, String premios, int rating, String trailer, int veces_anyadidas, int ranking, boolean aprobado, int duracion) {
         super(id, nombre, sinopsis, reparto, valoracion, fecha, genero, premios, rating, trailer, veces_anyadidas, ranking, aprobado);
         this.duracion = duracion;
     }
@@ -20,7 +20,7 @@ public class Pelicula extends ContenidoMultimedia {
         super(nombre, imagen,sinopsis,genero,valoracion);
     }
 
-    public Pelicula(String nombre, int i, Date fecha_estreno, int duracion, String genero, String sinopsis, String reparto) {
+    public Pelicula(String nombre, int i, String fecha_estreno, int duracion, String genero, String sinopsis, String reparto) {
         super(nombre,i,fecha_estreno,genero,sinopsis,reparto);
         this.duracion=duracion;
     }
