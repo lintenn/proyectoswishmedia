@@ -18,11 +18,12 @@ public class VisitProfileController {
     private Statement conexion;
     private Usuario user;
 
-    public VisitProfileController(VisitProfileView vp, PrincipalView ppv, Statement st){
+    public VisitProfileController(VisitProfileView vp, PrincipalView ppv, Statement st, Usuario u){
         vpview=vp;
         ppview=ppv;
-        user=Main.getUser();
+        user=u;
         conexion=st;
+        setInfo();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -33,5 +34,23 @@ public class VisitProfileController {
                 Main.frame.setVisible(true);
                 break;
         }
+    }
+
+    public void setInfo(){
+        vpview.setDescripcion(user.getDescripcion());
+        vpview.setDescripcion(user.getNombre());
+        vpview.setNumAmigos(user.getNumAmigos());
+        vpview.setNumCapitulos(user.getNumEpisodiosVistos());
+        vpview.setNumSeriesVistas(user.getNumSeriesVistas());
+        vpview.setNumPeliculas(user.getNumPeliculasVistas());
+        if(user.getFechaCreacion()!=null)vpview.setFechaCreacion(user.getFechaCreacion().toString());
+        if(user.getFechaNacimiento()!=null)vpview.setFechaNacimiento(user.getFechaNacimiento().toString());
+
+        if(user.getPrivacidad()){
+            vpview.setCheckBoxPrivacidad(true);
+        }else{
+            vpview.setCheckBoxPrivacidad(false);
+        }
+
     }
 }

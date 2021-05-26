@@ -47,11 +47,8 @@ public class LoginController implements ActionListener {
                     Main.setUser(nick,conexion);
 
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
-                    PrincipalView ppview=new PrincipalView(conexion);
-                    PrincipalController ppc = new PrincipalController(lview, ppview,conexion);
-                    ppview.setUser(Main.getUser());
-                    ppview.añadirContenidoPelicula(-2);
-                    ppview.añadirContenidoSerie(-2);
+                    PrincipalView ppview=new PrincipalView();
+                    PrincipalController ppc = new PrincipalController(lview, ppview,conexion, Main.getUser());
                     ppview.controlador(ppc);
                     Main.frame.setContentPane(ppview.getPanel());
                     Main.frame.setVisible(true);
