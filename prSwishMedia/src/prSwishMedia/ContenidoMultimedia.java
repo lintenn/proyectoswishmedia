@@ -9,7 +9,7 @@ public class ContenidoMultimedia {
     private String sinopsis;
     private String reparto;
     private double valoracion;
-    private Date fecha;
+    private String fecha;
     private String genero;
     private String premios;
     private int rating;
@@ -33,7 +33,7 @@ public class ContenidoMultimedia {
                     String sinopsis,
                     String reparto,
                     double valoracion,
-                    Date fecha,
+                    String fecha,
                     String genero,
                     String premios,
                     int rating,
@@ -73,7 +73,7 @@ public class ContenidoMultimedia {
         this.valoracion = valoracion;
     }
 
-    public ContenidoMultimedia(String nombre, int valoracion, Date fecha_estreno, String genero, String sinopsis, String reparto) {
+    public ContenidoMultimedia(String nombre, int valoracion, String fecha_estreno, String genero, String sinopsis, String reparto) {
         this.nombre = nombre;
         this.fecha = fecha_estreno ;
         this.genero=genero;
@@ -84,7 +84,7 @@ public class ContenidoMultimedia {
 
 
     // Getters
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
@@ -137,7 +137,7 @@ public class ContenidoMultimedia {
     }
 
     // Setters
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

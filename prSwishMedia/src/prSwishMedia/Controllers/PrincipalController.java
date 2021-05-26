@@ -50,7 +50,9 @@ public class PrincipalController implements ActionListener {
 
             Main.frame.setContentPane(pview.getPanel());
             Main.frame.setVisible(true);
-        }
+        }else if(act.equals("LISTA")){
+            //añadirContenidoListas(ppView.getListaSeleccionada());
+       }
     }
 
     public void añadirContenidoPelicula(int idList){
@@ -74,7 +76,7 @@ public class PrincipalController implements ActionListener {
 
                     Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
                     PeliculaPreView pelipv = new PeliculaPreView();
-                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,ppView.getComboBox1());
+                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,user,conexion,ppView.getComboBox1());
                     listapvC.add(peliPvController);
 
                     pelipv.controlador(peliPvController);
@@ -131,6 +133,8 @@ public class PrincipalController implements ActionListener {
 
     }
 
+
+
     public void actualizarComboBox() {
         ppView.removeAllComboBox();
         if(user.getListasPersonales()!=null){
@@ -186,7 +190,7 @@ public class PrincipalController implements ActionListener {
                 resst.next();
                 String fechaEstreno=resst.getString("fecha_estreno");
                 Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaEstreno);
-                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,date,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
                 PeliculaView peliview = new PeliculaView();
                 PeliculaController peliculaController=new PeliculaController(peliview,user,conexion,pelicula,ppView,id);
                 peliview.controlador(peliculaController);

@@ -38,8 +38,9 @@ public class PrincipalView extends JFrame{
 
     public void controlador(ActionListener ctr){
         Perfil.addActionListener(ctr);
+        comboBox1.addActionListener(ctr);
 
-
+        comboBox1.setActionCommand("LISTA");
         Perfil.setActionCommand("PROFILE");
     }
 
@@ -67,7 +68,7 @@ public class PrincipalView extends JFrame{
     public JPanel getPanel() {
         return panel1;
     }
-
+    public Lista getListaSeleccionada(){return (Lista) comboBox1.getSelectedItem(); }
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
