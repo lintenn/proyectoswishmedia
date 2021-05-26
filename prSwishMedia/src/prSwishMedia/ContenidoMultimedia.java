@@ -73,6 +73,15 @@ public class ContenidoMultimedia {
         this.valoracion = valoracion;
     }
 
+    public ContenidoMultimedia(String nombre, int valoracion, Date fecha_estreno, String genero, String sinopsis, String reparto) {
+        this.nombre = nombre;
+        this.fecha = fecha_estreno ;
+        this.genero=genero;
+        this.reparto=reparto;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+    }
+
 
     // Getters
     public Date getFecha() {
