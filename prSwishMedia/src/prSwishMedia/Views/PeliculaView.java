@@ -1,6 +1,8 @@
 package prSwishMedia.Views;
 
+import javax.security.auth.login.AccountNotFoundException;
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class PeliculaView extends JFrame{
 
@@ -21,6 +23,7 @@ public class PeliculaView extends JFrame{
     private JPanel panelComentarios;
     private JLabel back;
     private JComboBox comboBox1;
+    private JLabel peliculaImagen;
 
     public PeliculaView(String nombre, int valoracion, String fecha, int duración, String género, String sinopsis, String reparto){
         nombrePelicula.setText(nombre);
@@ -37,4 +40,8 @@ public class PeliculaView extends JFrame{
         return panelPrincipal;
     }
 
+    public void controller(ActionListener ctr){
+        trailerPelicula.addActionListener(ctr);
+        trailerPelicula.setActionCommand("TRAILER");
+    }
 }
