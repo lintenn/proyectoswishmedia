@@ -107,7 +107,11 @@ public class PeliculaController implements ActionListener, KeyListener {
             ResultSet rs3 = conexion.executeQuery("SELECT COUNT(*) FROM Comentario, Comunicación where IDContenido="+IDContenido+" and Comentario.ID=Comunicación.ID");
             rs3.next();
             int cont = rs3.getInt(1);
-            listaComentarios.setLayout(new GridLayout(cont,0,0,0));
+            if(cont==0){
+                listaComentarios.setLayout(new GridLayout(1,0,0,0));
+            } else {
+                listaComentarios.setLayout(new GridLayout(cont,0,0,0));
+            }
             ResultSet rs2 = conexion.executeQuery("SELECT * FROM Comunicación, Comentario where IDContenido="+IDContenido+" and Comentario.ID=Comunicación.ID");
             while(rs2.next()){
                 if(user.getNombre().equals(rs2.getString("Usuario"))){
@@ -137,7 +141,6 @@ public class PeliculaController implements ActionListener, KeyListener {
         if(e.getKeyCode()==222){
             e.consume();
         } else if(e.getKeyCode()==10&&porderEntregar){
-            System.out.println("hola");
             e.consume();
             try {
                 introducirComentario();
