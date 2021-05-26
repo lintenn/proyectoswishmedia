@@ -26,14 +26,16 @@ public class ProfileController implements ActionListener, KeyListener {
     private PrincipalView ppview;
     private LoginView lview;
     private Usuario user;
+    private PrincipalController pcc;
     private Statement conexion;
 
-    public ProfileController(ProfileView vp, PrincipalView ppv, LoginView lv, Statement st,Usuario u){
+    public ProfileController(PrincipalController principalController, ProfileView vp, PrincipalView ppv, LoginView lv, Statement st, Usuario u){
         lview=lv;
         pview=vp;
         ppview=ppv;
         user=u;
         conexion=st;
+        pcc=principalController;
         setInfo();
     }
     public void setInfo(){
@@ -176,10 +178,8 @@ public class ProfileController implements ActionListener, KeyListener {
                 }
                 break;
             case "VOLVER":
-                PrincipalView principalViewnueva=new PrincipalView();
-                PrincipalController ppc=new PrincipalController(lview,principalViewnueva,conexion,user);
-                principalViewnueva.controlador(ppc);
-                Main.frame.setContentPane(principalViewnueva.getPanel());
+                pcc.setLista();
+                Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
                 pview.setMsgModificarLista("");
                 break;

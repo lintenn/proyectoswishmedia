@@ -2,6 +2,7 @@ package prSwishMedia.Controllers;
 
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
+import prSwishMedia.Pelicula;
 import prSwishMedia.Usuario;
 import prSwishMedia.Views.*;
 
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PrincipalController implements ActionListener {
 
@@ -21,11 +23,14 @@ public class PrincipalController implements ActionListener {
     Statement conexion;
     PrincipalView ppView;
     Usuario user;
+    List<PeliculaPreViewController> listapvC;
+
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st, Usuario u){
         conexion=st;
         lview=lv;
         ppView=ppv;
         user=u;
+        listapvC=new ArrayList<>();
         setLista();
         añadirContenidoPelicula(-2);
         añadirContenidoSerie(-2);
@@ -37,7 +42,7 @@ public class PrincipalController implements ActionListener {
 
         if(act.equals("PROFILE")){
             ProfileView pview = new ProfileView(conexion);
-            ProfileController pc = new ProfileController(pview,ppView,lview,conexion,user);
+            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,user);
             pview.controlador(pc);
 
             Main.frame.setContentPane(pview.getPanel());
@@ -64,9 +69,14 @@ public class PrincipalController implements ActionListener {
                     // si no, se borra la informacion de la anterior consulta
                     listaids.add(peli.getInt("idContenidoMultimedia"));
 
-                    PeliculaPreView pelipv = new PeliculaPreView(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0, ppView.getComboBox1());
+                    Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
+                    PeliculaPreView pelipv = new PeliculaPreView();
+                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,ppView.getComboBox1());
+                    listapvC.add(peliPvController);
 
+                    pelipv.controlador(peliPvController);
                     listapelipv.add(pelipv);
+
                     MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
                     pelipv.getPanel().addMouseListener(listener);
                     ppView.addListaPelis(pelipv.getPanel());
@@ -140,6 +150,13 @@ public class PrincipalController implements ActionListener {
             user.setListasPersonales(listaActualizada);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+        setListaPreViews();
+    }
+
+    private void setListaPreViews() {
+        for(PeliculaPreViewController l: listapvC){
+            l.actualizarComboBox(ppView.getComboBox1());
         }
     }
 
