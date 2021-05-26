@@ -1,18 +1,10 @@
 package prSwishMedia.Views;
 
-import com.mysql.jdbc.Statement;
 import prSwishMedia.Lista;
-import prSwishMedia.Listeners.MouseClick;
-import prSwishMedia.Main;
-import prSwishMedia.Pelicula;
-import prSwishMedia.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class PrincipalView extends JFrame{
