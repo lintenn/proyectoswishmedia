@@ -17,16 +17,16 @@ public class PrincipalView extends JFrame{
     private JPanel Listas;
     private JLabel Logo;
     private JPanel Usuarios;
-    private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
-    private JButton Buscar;
     private JButton BuscarS;
     private JButton BuscarL;
     private JButton BuscarU;
     private JScrollPane Pelis;
     private JScrollPane SeriesPanel;
+    private JButton BuscarP;
+    private JScrollPane ListaUsers;
     private JPanel listaPelis;
     private JPanel listaSeries;
 
