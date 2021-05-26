@@ -3,7 +3,7 @@ package prSwishMedia.Views;
 import javax.swing.*;
 import java.awt.*;
 
-public class ComentarioView extends JFrame{
+public class ComentariosDeOtros extends JFrame{
     FondoPanel fondo = new FondoPanel();
     private JTextArea textArea1;
     private JPanel panel1;
@@ -14,7 +14,7 @@ public class ComentarioView extends JFrame{
     private JLabel NombrePerfil;
     private JLabel FechaEntrega;
 
-    public ComentarioView(String comentario, int nomg, int mg, String nombre, String fecha){
+    public ComentariosDeOtros(String comentario, int nomg, int mg, String nombre, String fecha){
         textArea1.setText(comentario);
         numNoMegusta.setText(Integer.toString(nomg));
         numMegusta.setText(Integer.toString(mg));
@@ -34,7 +34,7 @@ public class ComentarioView extends JFrame{
         private Image imagen;
 
         public void paint(Graphics g){
-            imagen = new ImageIcon(getClass().getResource("/Resources/comentarioPersonal.png")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/Resources/comentariodeotro.png")).getImage();
 
             g.drawImage(imagen,0,0,getWidth(), getHeight(),this);
 
