@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class ComentarioView {
+public class ComentarioView extends JFrame{
     private JTextArea textArea1;
     private JPanel panel1;
     private JButton button1;
