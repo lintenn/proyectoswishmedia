@@ -92,7 +92,7 @@ public class PrincipalController implements ActionListener {
                     ppView.addListaUser(userpv.getPanel());
                 }
 
-                ppView.setViewportViewScroll(ppView.getListaUsers());
+                ppView.setViewportViewScrollUser(ppView.getListaUsers());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -249,12 +249,12 @@ public class PrincipalController implements ActionListener {
         for(SeriePreviewController l: listasvC){
             l.actualizarComboBox(ppView.getComboBox1());
         }
-
+        setListaPreViewsContenido();
     }
 
     public void setListaPreViewsContenido() {
         for(ContenidoMultimediaPreViewController l:listasSyPC){
-            l.actualizarComBox(ppView.getComboBox1());
+            l.actualizarComboBox(ppView.getComboBox1());
         }
     }
 
