@@ -26,39 +26,47 @@ public class PrincipalView extends JFrame{
     private JScrollPane Pelis;
     private JScrollPane SeriesPanel;
     private JButton BuscarP;
-    private JScrollPane ListaUsers;
+    private JScrollPane UsersPanel;
     private JPanel listaPelis;
     private JPanel listaSeries;
+    private JPanel listaUsers;
 
 
     public PrincipalView(){
         listaPelis=new JPanel();
         listaSeries=new JPanel();
+        listaUsers=new JPanel();
     }
 
     public void controlador(ActionListener ctr){
         Perfil.addActionListener(ctr);
+        comboBox1.addActionListener(ctr);
 
-
+        comboBox1.setActionCommand("LISTA");
         Perfil.setActionCommand("PROFILE");
     }
 
     public void removeAllListas(){listaPelis.removeAll();}
     public void removeAllListasSerie(){listaSeries.removeAll();}
+    public void removeAlllistasUsers(){ listaUsers.removeAll();}
 
     public void setLayoutListas(int cont){listaPelis.setLayout(new GridLayout(cont,0,0,0));}
     public void setLayoutListasSerie(int cont){listaSeries.setLayout(new GridLayout(cont,0,0,0));}
+    public void setLayoutListasUsers(int cont){ listaUsers.setLayout(new GridLayout(cont,0,0,0));}
 
     public void getPanelPeli(PeliculaPreView pv){listaPelis.add(pv);}
 
     public void addListaPelis(JPanel panel){listaPelis.add(panel);}
     public void addListaSerie(JPanel panel){listaSeries.add(panel);}
+    public void addListaUser(JPanel panel){ listaUsers.add(panel);}
 
     public JPanel getListaPelis(){return listaPelis;}
     public JPanel getListaSeries(){return listaSeries;}
+    public JPanel getListaUsers(){ return listaUsers;}
 
     public void setViewportViewScroll(JPanel panel){Pelis.setViewportView(panel);};
     public void setViewportViewScrollSerie(JPanel panel){SeriesPanel.setViewportView(panel);};
+    public void setViewportViewScrollUser(JPanel panel){UsersPanel.setViewportView(panel);};
 
     public JComboBox getComboBox1(){return comboBox1;}
     public void setModelComboBox(ComboBoxModel<Lista> cbL){comboBox1.setModel(cbL);}
@@ -67,7 +75,7 @@ public class PrincipalView extends JFrame{
     public JPanel getPanel() {
         return panel1;
     }
-
+    public Lista getListaSeleccionada(){return (Lista) comboBox1.getSelectedItem(); }
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
