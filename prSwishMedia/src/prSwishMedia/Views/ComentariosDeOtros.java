@@ -34,7 +34,7 @@ public class ComentariosDeOtros extends JFrame{
         private Image imagen;
 
         public void paint(Graphics g){
-            imagen = new ImageIcon(getClass().getResource("/Resources/comentariodeotro.png")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/Resources/Sin_título2(1).png")).getImage();
 
             g.drawImage(imagen,0,0,getWidth(), getHeight(),this);
 

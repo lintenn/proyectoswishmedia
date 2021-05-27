@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public class PeliculaPreViewController implements ActionListener {
+public class PeliculaPreViewController extends ContenidoMultimediaPreViewController implements ActionListener {
 
     private PrincipalView ppview;
     private PeliculaPreView peliPv;
@@ -56,6 +56,7 @@ public class PeliculaPreViewController implements ActionListener {
     public void actualizarComboBox(JComboBox l){
         peliPv.setComboBox(l);
     }
+
     public void setInfo(){
         peliPv.setNombre(pelicula.getNombre());
         peliPv.setImagen(pelicula.getId());

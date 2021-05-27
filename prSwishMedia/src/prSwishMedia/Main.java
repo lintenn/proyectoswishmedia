@@ -25,7 +25,8 @@ public class Main {
         Class.forName("com.mysql.jdbc.Driver");
         java.sql.Connection conexion = DriverManager.getConnection("jdbc:mysql://iis2021.cobadwnzalab.eu-central-1.rds.amazonaws.com:3306/grupoG","usuarioG","gorgonezhao");
         Statement stmt = (Statement) conexion.createStatement();
-
+        Statement stmt1 = (Statement) conexion.createStatement();
+        Statement stmt2 = (Statement) conexion.createStatement();
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme");
 
@@ -51,7 +52,7 @@ public class Main {
         frame.setVisible(true);
 
 
-        LoginController cl      = new LoginController(rview,lview,cview,stmt);
+        LoginController cl      = new LoginController(rview,lview,cview,stmt,stmt1,stmt2);
         RegisterController cr   = new RegisterController(rview,lview,stmt);
         ConfirmedController cc  = new ConfirmedController(lview,cview,stmt);
 

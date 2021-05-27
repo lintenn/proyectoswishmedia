@@ -1,9 +1,11 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Lista;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class SeriePreView extends JFrame{
+public class SeriePreView extends ContenidoMultimediaPreView{
     private JPanel panel1;
     private JLabel Imagen;
     private JLabel Nombre;
@@ -20,6 +22,8 @@ public class SeriePreView extends JFrame{
     }
 
     public void controlador(ActionListener ctr){
+        comboBox1.addActionListener(ctr);
+        comboBox1.setActionCommand("AÑADIR");
 
     }
     public Object getValoracion(){
@@ -46,6 +50,7 @@ public class SeriePreView extends JFrame{
     public void setSinopsis(String s){
         Sinopsis.setText(s);
     }
+    public void setGenero(String genero) { Genero.setText(genero); }
     public void setValoracion(double v) {
         valoracion.setText(Double.toString(v));
     }
@@ -53,4 +58,6 @@ public class SeriePreView extends JFrame{
     public JPanel getPanel() {
         return panel1;
     }
+
+    public Lista getSelectedComboBox() {return (Lista) comboBox1.getSelectedItem(); }
 }
