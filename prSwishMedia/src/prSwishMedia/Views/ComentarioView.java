@@ -2,6 +2,7 @@ package prSwishMedia.Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ComentarioView extends JFrame{
     FondoPanel fondo = new FondoPanel();
@@ -13,6 +14,7 @@ public class ComentarioView extends JFrame{
     private JLabel numMegusta;
     private JLabel NombrePerfil;
     private JLabel FechaEntrega;
+    private JButton button2;
 
     public ComentarioView(String comentario, int nomg, int mg, String nombre, String fecha){
         textArea1.setText(comentario);
@@ -20,6 +22,12 @@ public class ComentarioView extends JFrame{
         numMegusta.setText(Integer.toString(mg));
         NombrePerfil.setText(nombre);
         FechaEntrega.setText(fecha);
+    }
+
+    public void controlador(ActionListener ctr){
+        button2.addActionListener(ctr);
+
+        button2.setActionCommand("BORRAR");
     }
 
     private void createUIComponents() {
