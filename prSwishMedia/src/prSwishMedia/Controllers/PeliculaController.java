@@ -66,7 +66,7 @@ public class PeliculaController implements ActionListener, KeyListener {
                 Main.frame.setVisible(true);
                 break;
             case ("TRAILER"):
-                System.out.println("trailer");
+                openWebPage("https://youtu.be/dQw4w9WgXcQ");
                 break;
             case ("ENVIAR"):
                 try {
@@ -152,5 +152,14 @@ public class PeliculaController implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void openWebPage(String url){
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        }
+        catch (java.io.IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
