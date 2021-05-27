@@ -92,7 +92,7 @@ public class PrincipalController implements ActionListener {
                     ppView.addListaUser(userpv.getPanel());
                 }
 
-                ppView.setViewportViewScroll(ppView.getListaUsers());
+                ppView.setViewportViewScrollUser(ppView.getListaUsers());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
