@@ -17,16 +17,16 @@ public class PrincipalView extends JFrame{
     private JPanel Listas;
     private JLabel Logo;
     private JPanel Usuarios;
-    private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
-    private JButton Buscar;
     private JButton BuscarS;
     private JButton BuscarL;
     private JButton BuscarU;
     private JScrollPane Pelis;
     private JScrollPane SeriesPanel;
+    private JButton BuscarP;
+    private JScrollPane ListaUsers;
     private JPanel listaPelis;
     private JPanel listaSeries;
 
@@ -38,8 +38,9 @@ public class PrincipalView extends JFrame{
 
     public void controlador(ActionListener ctr){
         Perfil.addActionListener(ctr);
+        comboBox1.addActionListener(ctr);
 
-
+        comboBox1.setActionCommand("LISTA");
         Perfil.setActionCommand("PROFILE");
     }
 
@@ -67,7 +68,7 @@ public class PrincipalView extends JFrame{
     public JPanel getPanel() {
         return panel1;
     }
-
+    public Lista getListaSeleccionada(){return (Lista) comboBox1.getSelectedItem(); }
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }

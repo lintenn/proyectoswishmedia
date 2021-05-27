@@ -34,8 +34,8 @@ public class PrincipalController implements ActionListener {
         user=u;
         listapvC=new ArrayList<>();
         listasvC=new ArrayList<>();
-        añadirContenidoPelicula(-2);
-        añadirContenidoSerie(-2);
+        añadirContenido(-2);
+        añadirContenido(-1);
         setLista();
     }
 
@@ -50,13 +50,15 @@ public class PrincipalController implements ActionListener {
 
             Main.frame.setContentPane(pview.getPanel());
             Main.frame.setVisible(true);
-        }
+        }else if(act.equals("LISTA")){
+            //añadirContenidoListas(ppView.getListaSeleccionada());
+       }
     }
 
-    public void añadirContenidoPelicula(int idList){
-        ppView.removeAllListas();
-        if(idList==-2){
+    public void añadirContenido(int idList){
 
+        if(idList==-2){
+            ppView.removeAllListas();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                 count.next();
@@ -74,7 +76,7 @@ public class PrincipalController implements ActionListener {
 
                     Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
                     PeliculaPreView pelipv = new PeliculaPreView();
-                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,ppView.getComboBox1());
+                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,user,conexion,ppView.getComboBox1());
                     listapvC.add(peliPvController);
 
                     pelipv.controlador(peliPvController);
@@ -95,14 +97,8 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }
-    }
-
-
-    public void añadirContenidoSerie(int idList){
-        ppView.removeAllListasSerie();
-        if(idList==-2){
-
+        }else if(idList==-1){
+            ppView.removeAllListasSerie();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 count.next();
@@ -126,20 +122,6 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
-        }
-
-    }
-
-    public void actualizarComboBox() {
-        ppView.removeAllComboBox();
-        if(user.getListasPersonales()!=null){
-            for(Lista l: user.getListasPersonales()){
-                System.out.println(l.toString());
-                ppView.addItemComboBox1(l);
-            }
-        }else {
-            System.out.println("LISTA VACIA");
         }
     }
 
@@ -186,7 +168,7 @@ public class PrincipalController implements ActionListener {
                 resst.next();
                 String fechaEstreno=resst.getString("fecha_estreno");
                 Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaEstreno);
-                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,date,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
+                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
                 PeliculaView peliview = new PeliculaView();
                 PeliculaController peliculaController=new PeliculaController(peliview,user,conexion,pelicula,ppView,id);
                 peliview.controlador(peliculaController);
