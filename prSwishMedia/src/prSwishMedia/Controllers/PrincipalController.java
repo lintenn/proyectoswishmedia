@@ -173,7 +173,7 @@ public class PrincipalController implements ActionListener {
                 ResultSet count = conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+idList+";");
                 count.next();
                 int cont=count.getInt(1);
-                if(cont==0) {
+                if(cont!=0) {
 
                     count = conexion1.executeQuery("SELECT * FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista=" + idList + ";");
                     ppView.setLayoutListasContenido(cont);
