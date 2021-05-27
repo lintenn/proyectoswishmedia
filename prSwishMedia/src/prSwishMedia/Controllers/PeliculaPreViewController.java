@@ -56,6 +56,7 @@ public class PeliculaPreViewController extends ContenidoMultimediaPreViewControl
     public void actualizarComboBox(JComboBox l){
         peliPv.setComboBox(l);
     }
+
     public void setInfo(){
         peliPv.setNombre(pelicula.getNombre());
         peliPv.setImagen(pelicula.getId());

@@ -26,6 +26,7 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
         contenido=s;
         user=u;
         conexion=st;
+        pvSerie.setGenero(contenido.getGenero());
         pvSerie.setNombre(contenido.getNombre());
         pvSerie.setSinopsis(contenido.getSinopsis());
         pvSerie.setImagen(contenido.getId());
