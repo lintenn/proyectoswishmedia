@@ -3,12 +3,18 @@
   <grid id="27dc6" binding="panel1" custom-create="true" default-binding="true" layout-manager="GridLayoutManager" row-count="5" column-count="18" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="39" y="20" width="650" height="219"/>
+      <xy x="39" y="20" width="670" height="219"/>
     </constraints>
     <properties>
-      <focusTraversalPolicyProvider value="false"/>
+      <autoscrolls value="true"/>
+      <focusCycleRoot value="true"/>
+      <focusTraversalPolicyProvider value="true"/>
       <font size="10"/>
-      <preferredSize width="442" height="134"/>
+      <inheritsPopupMenu value="true"/>
+      <maximumSize width="-1" height="134"/>
+      <minimumSize width="-1" height="134"/>
+      <preferredSize width="-1" height="134"/>
+      <requestFocusEnabled value="true"/>
     </properties>
     <border type="none"/>
     <children>
@@ -67,7 +73,7 @@
           </grid>
         </constraints>
         <properties>
-          <font name="Comic Sans MS" size="16" style="1"/>
+          <font name="Comic Sans MS" size="18" style="1"/>
           <foreground color="-16777216"/>
           <text value=""/>
         </properties>

@@ -5,7 +5,9 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
 
 public class PeliculaView extends JFrame{
 
@@ -29,12 +31,13 @@ public class PeliculaView extends JFrame{
     private JButton back;
     private JScrollPane ComentariosPanel;
     private JButton buttonenviar;
+    private JTextField textField1;
+    private JTextArea textArea1;
     private JTextField textFieldComentarios;
     private String nombrePeli;
 
     public PeliculaView(){
-
-
+        ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
     public void setNombrePelicula(String nombre) {
@@ -74,11 +77,12 @@ public class PeliculaView extends JFrame{
         back.addActionListener(ctr);
         trailerPelicula.addActionListener(ctr);
         buttonenviar.addActionListener(ctr);
-        textFieldComentarios.addKeyListener((KeyListener) ctr);
+        textField1.addKeyListener((KeyListener) ctr);
 
         trailerPelicula.setActionCommand("TRAILER");
         back.setActionCommand("VOLVER");
         buttonenviar.setActionCommand("ENVIAR");
+
     }
 
     public String getNombre(){
@@ -92,5 +96,14 @@ public class PeliculaView extends JFrame{
     public JTextField getTextFieldComentarios(){
         return textFieldComentarios;
     }
+
+    public JTextField getTextField1(){
+        return textField1;
+    }
+
+    public void setTextField1(String s){
+        textField1.setText(s);
+    }
+
 
 }
