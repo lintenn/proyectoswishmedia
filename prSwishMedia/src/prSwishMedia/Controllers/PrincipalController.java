@@ -173,40 +173,41 @@ public class PrincipalController implements ActionListener {
                 ResultSet count = conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+idList+";");
                 count.next();
                 int cont=count.getInt(1);
+                if(cont==0) {
 
-                count = conexion1.executeQuery("SELECT * FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+idList+";");
-                ppView.setLayoutListasContenido(cont);
-                while (count.next()){
-                    int id=count.getInt("idContenidoMultimedia");
-                    ResultSet count2 = conexion.executeQuery("SELECT COUNT(*) FROM Serie WHERE idContenidoMultimedia="+id+";");
-                    count2.next();
-                    int numSerie=count2.getInt("COUNT(*)");
+                    count = conexion1.executeQuery("SELECT * FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista=" + idList + ";");
+                    ppView.setLayoutListasContenido(cont);
+                    while (count.next()) {
+                        int id = count.getInt("idContenidoMultimedia");
+                        ResultSet count2 = conexion.executeQuery("SELECT COUNT(*) FROM Serie WHERE idContenidoMultimedia=" + id + ";");
+                        count2.next();
+                        int numSerie = count2.getInt("COUNT(*)");
 
-                    if(numSerie==1){
-                        count3=conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia="+id+";");
-                        count3.next();
-                        Serie serie=new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0,count3.getInt("numTemporadas"));
+                        if (numSerie == 1) {
+                            count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia=" + id + ";");
+                            count3.next();
+                            Serie serie = new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0, count3.getInt("numTemporadas"));
 
-                        SeriePreView seriepv = new SeriePreView();
-                        SeriePreviewController seriepvC = new SeriePreviewController(user,serie,seriepv,ppView.getComboBox1(),conexion);
-                        seriepv.controlador(seriepvC);
-                        listasSyPC.add(seriepvC);
-                        ppView.addListaContenido(seriepv.getPanel());
-                    }else{
-                        count3=conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia="+id+";");
-                        count3.next();
-                        Pelicula pelicula=new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0);
+                            SeriePreView seriepv = new SeriePreView();
+                            SeriePreviewController seriepvC = new SeriePreviewController(user, serie, seriepv, ppView.getComboBox1(), conexion);
+                            seriepv.controlador(seriepvC);
+                            listasSyPC.add(seriepvC);
+                            ppView.addListaContenido(seriepv.getPanel());
+                        } else {
+                            count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia=" + id + ";");
+                            count3.next();
+                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0);
 
-                        PeliculaPreView pelipv = new PeliculaPreView();
-                        PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,user,conexion,ppView.getComboBox1());
-                        pelipv.controlador(peliPvController);
-                        listasSyPC.add(peliPvController);
-                        ppView.addListaContenido(pelipv.getPanel());
+                            PeliculaPreView pelipv = new PeliculaPreView();
+                            PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView, pelipv, pelicula, user, conexion, ppView.getComboBox1());
+                            pelipv.controlador(peliPvController);
+                            listasSyPC.add(peliPvController);
+                            ppView.addListaContenido(pelipv.getPanel());
+                        }
                     }
-                }
 
                 ppView.setViewportViewScrollContenido(ppView.getListaContenido());
-
+                }
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
