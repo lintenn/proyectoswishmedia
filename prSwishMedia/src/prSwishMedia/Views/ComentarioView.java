@@ -8,7 +8,7 @@ public class ComentarioView extends JFrame{
     private JTextArea textArea1;
     private JPanel panel1;
     private JButton button1;
-    private JButton button2;
+    private JButton aButton;
     private JLabel numNoMegusta;
     private JLabel numMegusta;
     private JLabel NombrePerfil;
@@ -34,7 +34,7 @@ public class ComentarioView extends JFrame{
         private Image imagen;
 
         public void paint(Graphics g){
-            imagen = new ImageIcon(getClass().getResource("/Resources/comentarioPersonal.png")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/Resources/Sin_título(1).png")).getImage();
 
             g.drawImage(imagen,0,0,getWidth(), getHeight(),this);
 
