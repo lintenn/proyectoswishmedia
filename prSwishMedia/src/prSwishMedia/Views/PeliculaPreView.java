@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.awt.event.ActionListener;
 
-public class PeliculaPreView extends JFrame{
+public class PeliculaPreView extends ContenidoMultimediaPreView{
     private JPanel panel1;
     private JComboBox Listas;
     private JTextPane Sinopsis;

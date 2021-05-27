@@ -26,15 +26,18 @@ public class PrincipalView extends JFrame{
     private JScrollPane Pelis;
     private JScrollPane SeriesPanel;
     private JButton BuscarP;
+    private JScrollPane ListaUsers;
+    private JScrollPane contenidoListas;
     private JScrollPane UsersPanel;
     private JPanel listaPelis;
     private JPanel listaSeries;
+    private JPanel listaContenido;
     private JPanel listaUsers;
-
 
     public PrincipalView(){
         listaPelis=new JPanel();
         listaSeries=new JPanel();
+        listaContenido=new JPanel();
         listaUsers=new JPanel();
     }
 
@@ -52,20 +55,24 @@ public class PrincipalView extends JFrame{
 
     public void setLayoutListas(int cont){listaPelis.setLayout(new GridLayout(cont,0,0,0));}
     public void setLayoutListasSerie(int cont){listaSeries.setLayout(new GridLayout(cont,0,0,0));}
+    public void setLayoutListasContenido(int cont){listaContenido.setLayout(new GridLayout(cont,0,0,0));}
     public void setLayoutListasUsers(int cont){ listaUsers.setLayout(new GridLayout(cont,0,0,0));}
 
-    public void getPanelPeli(PeliculaPreView pv){listaPelis.add(pv);}
 
     public void addListaPelis(JPanel panel){listaPelis.add(panel);}
     public void addListaSerie(JPanel panel){listaSeries.add(panel);}
+    public void addListaContenido(JPanel panel){listaContenido.add(panel);}
     public void addListaUser(JPanel panel){ listaUsers.add(panel);}
 
     public JPanel getListaPelis(){return listaPelis;}
     public JPanel getListaSeries(){return listaSeries;}
+    public JPanel getListaContenido(){return  listaContenido;}
     public JPanel getListaUsers(){ return listaUsers;}
+
 
     public void setViewportViewScroll(JPanel panel){Pelis.setViewportView(panel);};
     public void setViewportViewScrollSerie(JPanel panel){SeriesPanel.setViewportView(panel);};
+    public void setViewportViewScrollContenido(JPanel panel){contenidoListas.setViewportView(panel);};
     public void setViewportViewScrollUser(JPanel panel){UsersPanel.setViewportView(panel);};
 
     public JComboBox getComboBox1(){return comboBox1;}
@@ -81,4 +88,5 @@ public class PrincipalView extends JFrame{
     }
 
 
+    public void removeAllContenido() { listaContenido.removeAll();}
 }
