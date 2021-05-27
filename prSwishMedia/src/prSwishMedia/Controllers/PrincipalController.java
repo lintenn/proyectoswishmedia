@@ -79,7 +79,7 @@ public class PrincipalController implements ActionListener {
                 ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
                 while(users.next()) {
 
-                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"));
+                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
                     UsuarioPreView userpv = new UsuarioPreView();
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
                     listauvC.add(userPvController);
