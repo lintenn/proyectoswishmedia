@@ -19,6 +19,7 @@ public class SeriePreviewController implements ActionListener{
     public SeriePreviewController(Serie s, SeriePreView sv, JComboBox comboBox){
         pvSerie=sv;
         contenido=s;
+        pvSerie.setGenero(contenido.getGenero());
         pvSerie.setNombre(contenido.getNombre());
         pvSerie.setSinopsis(contenido.getSinopsis());
         pvSerie.setImagen(contenido.getId());
