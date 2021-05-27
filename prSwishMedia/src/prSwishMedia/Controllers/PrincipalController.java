@@ -22,18 +22,24 @@ public class PrincipalController implements ActionListener {
 
     LoginView lview;
     Statement conexion;
+    Statement conexion1;
+    Statement conexion2;
     PrincipalView ppView;
     Usuario user;
     List<PeliculaPreViewController> listapvC;
     List<SeriePreviewController> listasvC;
+    List<ContenidoMultimediaPreViewController>  listasSyPC;
 
-    public PrincipalController(LoginView lv, PrincipalView ppv, Statement st, Usuario u){
+    public PrincipalController(LoginView lv, PrincipalView ppv, Statement st,Statement st1,Statement st2, Usuario u){
         conexion=st;
+        conexion1=st1;
+        conexion2=st2;
         lview=lv;
         ppView=ppv;
         user=u;
         listapvC=new ArrayList<>();
         listasvC=new ArrayList<>();
+        listasSyPC=new ArrayList<>();
         añadirContenido(-2);
         añadirContenido(-1);
         setLista();
@@ -51,7 +57,7 @@ public class PrincipalController implements ActionListener {
             Main.frame.setContentPane(pview.getPanel());
             Main.frame.setVisible(true);
         }else if(act.equals("LISTA")){
-            //añadirContenidoListas(ppView.getListaSeleccionada());
+            if(ppView.getListaSeleccionada()!=null) añadirContenido(ppView.getListaSeleccionada().getId());
        }
     }
 
@@ -86,6 +92,7 @@ public class PrincipalController implements ActionListener {
                     pelipv.getPanel().addMouseListener(listener);
                     ppView.addListaPelis(pelipv.getPanel());
                 }
+
                 for (int i = 0; i < listaids.size(); i++) {
                     //Por cada peli generamos su valoracion media
                     ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaids.get(i) + ";");
@@ -103,12 +110,13 @@ public class PrincipalController implements ActionListener {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 count.next();
                 int cont=count.getInt(1);
+
                 ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 ppView.setLayoutListasSerie(cont);
                 while(peli.next()) {
                     Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0,peli.getInt("numTemporadas"));
                     SeriePreView seriepv = new SeriePreView();
-                    SeriePreviewController seriepvC = new SeriePreviewController(serie,seriepv,ppView.getComboBox1());
+                    SeriePreviewController seriepvC = new SeriePreviewController(user,serie,seriepv,ppView.getComboBox1(),conexion);
                     listasvC.add(seriepvC);
                     seriepv.controlador(seriepvC);
 
@@ -116,12 +124,64 @@ public class PrincipalController implements ActionListener {
                     //seriepv.getPanel().addMouseListener(listener);
                     ppView.addListaSerie(seriepv.getPanel());
                 }
+
                 ppView.setViewportViewScrollSerie(ppView.getListaSeries());
 
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        }else {
+
+            ppView.removeAllContenido();
+
+            ResultSet count3=null;
+            try {
+                ResultSet count = conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+idList+";");
+                count.next();
+                int cont=count.getInt(1);
+
+                count = conexion1.executeQuery("SELECT * FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+idList+";");
+                ppView.setLayoutListasContenido(cont);
+                while (count.next()){
+                    int id=count.getInt("idContenidoMultimedia");
+                    ResultSet count2 = conexion.executeQuery("SELECT COUNT(*) FROM Serie WHERE idContenidoMultimedia="+id+";");
+                    count2.next();
+                    int numSerie=count2.getInt("COUNT(*)");
+
+                    if(numSerie==1){
+                        count3=conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia="+id+";");
+                        count3.next();
+                        Serie serie=new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0,count3.getInt("numTemporadas"));
+
+                        SeriePreView seriepv = new SeriePreView();
+                        SeriePreviewController seriepvC = new SeriePreviewController(user,serie,seriepv,ppView.getComboBox1(),conexion);
+                        seriepv.controlador(seriepvC);
+                        listasSyPC.add(seriepvC);
+                        ppView.addListaContenido(seriepv.getPanel());
+                    }else{
+                        count3=conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia="+id+";");
+                        count3.next();
+                        Pelicula pelicula=new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0);
+
+                        PeliculaPreView pelipv = new PeliculaPreView();
+                        PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,user,conexion,ppView.getComboBox1());
+                        pelipv.controlador(peliPvController);
+                        listasSyPC.add(peliPvController);
+                        ppView.addListaContenido(pelipv.getPanel());
+                    }
+                }
+
+                ppView.setViewportViewScrollContenido(ppView.getListaContenido());
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+
+
+
         }
     }
 
@@ -131,9 +191,13 @@ public class PrincipalController implements ActionListener {
 
         ppView.removeAllComboBox();
         try {
-            ResultSet rs = conexion.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
+            ResultSet rs = conexion2.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
             while(rs.next()){
-                actual=new Lista(rs.getInt(1),rs.getString(2),rs.getDate(3));
+                int id=rs.getInt(1);
+                String nombre=rs.getString(2);
+                Date fecha=rs.getDate(3);
+
+                actual=new Lista(id,nombre,fecha);
                 listaActualizada.add(actual);
                 ppView.addItemComboBox1(actual);
             }
@@ -144,12 +208,20 @@ public class PrincipalController implements ActionListener {
         setListaPreViews();
     }
 
-    private void setListaPreViews() {
+
+    public void setListaPreViews() {
         for(PeliculaPreViewController l: listapvC){
             l.actualizarComboBox(ppView.getComboBox1());
         }
         for(SeriePreviewController l: listasvC){
             l.actualizarComboBox(ppView.getComboBox1());
+        }
+
+    }
+
+    public void setListaPreViewsContenido() {
+        for(ContenidoMultimediaPreViewController l:listasSyPC){
+            l.actualizarComBox(ppView.getComboBox1());
         }
     }
 

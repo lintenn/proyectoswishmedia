@@ -27,13 +27,15 @@ public class PrincipalView extends JFrame{
     private JScrollPane SeriesPanel;
     private JButton BuscarP;
     private JScrollPane ListaUsers;
+    private JScrollPane contenidoListas;
     private JPanel listaPelis;
     private JPanel listaSeries;
-
+    private JPanel listaContenido;
 
     public PrincipalView(){
         listaPelis=new JPanel();
         listaSeries=new JPanel();
+        listaContenido=new JPanel();
     }
 
     public void controlador(ActionListener ctr){
@@ -49,17 +51,21 @@ public class PrincipalView extends JFrame{
 
     public void setLayoutListas(int cont){listaPelis.setLayout(new GridLayout(cont,0,0,0));}
     public void setLayoutListasSerie(int cont){listaSeries.setLayout(new GridLayout(cont,0,0,0));}
+    public void setLayoutListasContenido(int cont){listaContenido.setLayout(new GridLayout(cont,0,0,0));}
 
-    public void getPanelPeli(PeliculaPreView pv){listaPelis.add(pv);}
 
     public void addListaPelis(JPanel panel){listaPelis.add(panel);}
     public void addListaSerie(JPanel panel){listaSeries.add(panel);}
+    public void addListaContenido(JPanel panel){listaContenido.add(panel);}
 
     public JPanel getListaPelis(){return listaPelis;}
     public JPanel getListaSeries(){return listaSeries;}
+    public JPanel getListaContenido(){return  listaContenido;}
+
 
     public void setViewportViewScroll(JPanel panel){Pelis.setViewportView(panel);};
     public void setViewportViewScrollSerie(JPanel panel){SeriesPanel.setViewportView(panel);};
+    public void setViewportViewScrollContenido(JPanel panel){contenidoListas.setViewportView(panel);};
 
     public JComboBox getComboBox1(){return comboBox1;}
     public void setModelComboBox(ComboBoxModel<Lista> cbL){comboBox1.setModel(cbL);}
@@ -74,4 +80,5 @@ public class PrincipalView extends JFrame{
     }
 
 
+    public void removeAllContenido() { listaContenido.removeAll();}
 }
