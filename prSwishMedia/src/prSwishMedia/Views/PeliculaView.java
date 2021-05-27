@@ -25,7 +25,6 @@ public class PeliculaView extends JFrame{
     private JTextPane repartoPelicula;
     private JButton trailerPelicula;
     private JComboBox valorarPelicula;
-    private JPanel panelComentarios;
     private JComboBox comboBox1;
     private JLabel peliculaImagen;
     private JButton back;
