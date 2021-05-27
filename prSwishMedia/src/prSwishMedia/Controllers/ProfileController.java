@@ -179,7 +179,6 @@ public class ProfileController implements ActionListener, KeyListener {
                 break;
             case "VOLVER":
                 pcc.setLista();
-                pcc.setListaPreViewsContenido();
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
                 pview.setMsgModificarLista("");
