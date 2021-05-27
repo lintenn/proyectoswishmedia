@@ -26,6 +26,7 @@ public class PrincipalController implements ActionListener {
     Usuario user;
     List<PeliculaPreViewController> listapvC;
     List<SeriePreviewController> listasvC;
+    List<UsuarioPreViewController> listauvC;
 
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st, Usuario u){
         conexion=st;
@@ -34,6 +35,8 @@ public class PrincipalController implements ActionListener {
         user=u;
         listapvC=new ArrayList<>();
         listasvC=new ArrayList<>();
+        listauvC=new ArrayList<>();
+        añadirContenido(-3);
         añadirContenido(-2);
         añadirContenido(-1);
         setLista();
@@ -57,7 +60,37 @@ public class PrincipalController implements ActionListener {
 
     public void añadirContenido(int idList){
 
-        if(idList==-2){
+        if(idList==-3) {
+            ppView.removeAlllistasUsers();
+            try {
+                ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Usuario WHERE nombre <> '" + user.getNombre() +"';");
+                count.next();
+                int cont=count.getInt(1);
+                ResultSet users= conexion.executeQuery("SELECT * FROM Usuario WHERE nombre <> '" + user.getNombre() +"';");
+                ppView.setLayoutListasUsers(cont);
+
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de pelipv
+                ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
+                while(users.next()) {
+
+                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"));
+                    UsuarioPreView userpv = new UsuarioPreView();
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
+                    listauvC.add(userPvController);
+
+                    userpv.controlador(userPvController);
+                    listaUserpv.add(userpv);
+
+                    //MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
+                    //pelipv.getPanel().addMouseListener(listener);
+                    ppView.addListaUser(userpv.getPanel());
+                }
+
+                ppView.setViewportViewScroll(ppView.getListaUsers());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }else if(idList==-2){
             ppView.removeAllListas();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
@@ -106,7 +139,7 @@ public class PrincipalController implements ActionListener {
                 ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 ppView.setLayoutListasSerie(cont);
                 while(peli.next()) {
-                    Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), 0,peli.getInt("numTemporadas"));
+                    Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("Genero"),0,peli.getInt("numTemporadas"));
                     SeriePreView seriepv = new SeriePreView();
                     SeriePreviewController seriepvC = new SeriePreviewController(serie,seriepv,ppView.getComboBox1());
                     listasvC.add(seriepvC);
