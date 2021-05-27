@@ -1,5 +1,6 @@
 package prSwishMedia.Controllers;
 
+import prSwishMedia.Comentario;
 import prSwishMedia.Main;
 import prSwishMedia.Pelicula;
 import prSwishMedia.Views.PeliculaView;
@@ -35,14 +36,16 @@ public class PeliculaController implements ActionListener, KeyListener {
     private JPanel listaComentarios = new JPanel();
     PrincipalView principalView;
     Pelicula pelicula;
+    String fecha_Estreno;
 
-    public PeliculaController(PeliculaView peliview, Usuario u, Statement st, Pelicula p, PrincipalView ppv, int id) throws SQLException {
+    public PeliculaController(PeliculaView peliview, Usuario u, Statement st, Pelicula p, PrincipalView ppv, int id, String fechaE) throws SQLException {
         this.peliview=peliview;
         user=u;
         conexion=st;
         pelicula=p;
         principalView=ppv;
         IDContenido=id;
+        fecha_Estreno=fechaE;
         setInfo();
         actualizarComentarios();
     }
@@ -50,7 +53,7 @@ public class PeliculaController implements ActionListener, KeyListener {
     private void setInfo() {
         peliview.setNombrePelicula(pelicula.getNombre());
         peliview.setValoracionPelicula(Integer.toString(pelicula.getRating()));
-        peliview.setFechaPelicula(pelicula.getFecha().toString());
+        peliview.setFechaPelicula(fecha_Estreno);
         peliview.setPeliculaDuracion(pelicula.getDuracion());
         peliview.setPeliculaGénero(pelicula.getGenero());
         peliview.setSinopsisPelicula(pelicula.getSinopsis());
@@ -115,7 +118,10 @@ public class PeliculaController implements ActionListener, KeyListener {
             ResultSet rs2 = conexion.executeQuery("SELECT * FROM Comunicación, Comentario where IDContenido="+IDContenido+" and Comentario.ID=Comunicación.ID");
             while(rs2.next()){
                 if(user.getNombre().equals(rs2.getString("Usuario"))){
-                    listaComentarios.add(new ComentarioView(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio")).get());
+                    ComentarioView comentario = new ComentarioView(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
+                    ComentarioController controller = new ComentarioController(conexion,comentario,this,rs2.getInt("ID"));
+                    comentario.controlador(controller);
+                    listaComentarios.add(comentario.get());
                 } else {
                     listaComentarios.add(new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), 0,rs2.getString("Usuario"),rs2.getString("fechaEnvio")).get());
                 }

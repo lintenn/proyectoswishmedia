@@ -200,14 +200,13 @@ public class PrincipalController implements ActionListener {
                 ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia="+id+";");
                 resst.next();
                 String fechaEstreno=resst.getString("fecha_estreno");
-                Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaEstreno);
                 Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
                 PeliculaView peliview = new PeliculaView();
-                PeliculaController peliculaController=new PeliculaController(peliview,user,conexion,pelicula,ppView,id);
+                PeliculaController peliculaController=new PeliculaController(peliview,user,conexion,pelicula,ppView,id, fechaEstreno);
                 peliview.controlador(peliculaController);
                 Main.frame.setContentPane(peliview.getPanel());
                 Main.frame.setVisible(true);
-            } catch (SQLException | ParseException throwables) {
+            } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
