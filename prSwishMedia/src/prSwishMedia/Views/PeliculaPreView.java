@@ -1,5 +1,7 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Lista;
+
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.awt.event.ActionListener;
@@ -16,7 +18,8 @@ public class PeliculaPreView extends JFrame{
     public PeliculaPreView(){
     }
     public void controlador(ActionListener ctr){
-
+        Listas.addActionListener(ctr);
+        Listas.setActionCommand("AÑADIR");
 
     }
     // Método para actualizar la valoracion media
@@ -35,6 +38,7 @@ public class PeliculaPreView extends JFrame{
     public void setSinopsis(String s){Sinopsis.setText(s);}
     public void setGenero(String s){Genero.setText(s);}
 
+    public Lista getSelectedComboBox(){return (Lista) Listas.getSelectedItem();}
     public JPanel getPanel() {
         return panel1;
     }

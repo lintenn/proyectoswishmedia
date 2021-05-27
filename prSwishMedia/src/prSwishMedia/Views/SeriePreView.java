@@ -46,6 +46,7 @@ public class SeriePreView extends JFrame{
     public void setSinopsis(String s){
         Sinopsis.setText(s);
     }
+    public void setGenero(String genero) { Genero.setText(genero); }
     public void setValoracion(double v) {
         valoracion.setText(Double.toString(v));
     }
