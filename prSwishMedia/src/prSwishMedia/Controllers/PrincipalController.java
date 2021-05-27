@@ -75,7 +75,7 @@ public class PrincipalController implements ActionListener {
                 ResultSet users= conexion.executeQuery("SELECT * FROM Usuario WHERE nombre <> '" + user.getNombre() +"';");
                 ppView.setLayoutListasUsers(cont);
 
-                // Creo lista para almacenar los idContenidoMultimedia y referencias de pelipv
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de userpv
                 ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
                 while(users.next()) {
 
