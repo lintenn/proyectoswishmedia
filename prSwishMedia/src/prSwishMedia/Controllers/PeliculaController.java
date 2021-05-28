@@ -161,7 +161,7 @@ public class PeliculaController implements ActionListener, KeyListener {
                     comentario.controlador(controller);
                     listaComentarios.add(comentario.get());
                 } else {
-                    listaComentarios.add(new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), 0,rs2.getString("Usuario"),rs2.getString("fechaEnvio")).get());
+                    listaComentarios.add(new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio")).get());
                 }
             }
             peliview.setComentariosPanel(listaComentarios);

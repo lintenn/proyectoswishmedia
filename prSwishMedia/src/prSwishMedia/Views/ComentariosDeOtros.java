@@ -20,6 +20,7 @@ public class ComentariosDeOtros extends JFrame{
         numMegusta.setText(Integer.toString(mg));
         NombrePerfil.setText(nombre);
         FechaEntrega.setText(fecha);
+        fondo.setLayout(new GridBagLayout());
     }
 
     private void createUIComponents() {
@@ -36,7 +37,7 @@ public class ComentariosDeOtros extends JFrame{
         public void paint(Graphics g){
             imagen = new ImageIcon(getClass().getResource("/Resources/Sin_título2(1).png")).getImage();
 
-            g.drawImage(imagen,0,0,getWidth(), getHeight(),this);
+            g.drawImage(imagen,0,0,450, 134,this);
 
             setOpaque(false);
 
