@@ -6,14 +6,14 @@
       <xy x="39" y="20" width="670" height="219"/>
     </constraints>
     <properties>
-      <autoscrolls value="true"/>
-      <focusCycleRoot value="true"/>
-      <focusTraversalPolicyProvider value="true"/>
-      <font size="10"/>
-      <inheritsPopupMenu value="true"/>
-      <maximumSize width="-1" height="134"/>
-      <minimumSize width="-1" height="134"/>
-      <preferredSize width="-1" height="134"/>
+      <autoscrolls value="false"/>
+      <focusCycleRoot value="false"/>
+      <focusTraversalPolicyProvider value="false"/>
+      <font/>
+      <inheritsPopupMenu value="false"/>
+      <maximumSize width="450" height="134"/>
+      <minimumSize width="450" height="134"/>
+      <preferredSize width="450" height="134"/>
       <requestFocusEnabled value="true"/>
     </properties>
     <border type="none"/>
@@ -45,24 +45,19 @@
           </grid>
         </constraints>
       </vspacer>
-      <hspacer id="1da2f">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="20" height="-1"/>
-          </grid>
-        </constraints>
-      </hspacer>
       <hspacer id="7a7ec">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="70" height="-1"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="80" height="-1"/>
+            <preferred-size width="80" height="-1"/>
+            <maximum-size width="80" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
       <hspacer id="7224b">
         <constraints>
           <grid row="1" column="17" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="30" height="-1"/>
+            <preferred-size width="10" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
@@ -115,6 +110,16 @@
           <text value=""/>
         </properties>
       </component>
+      <component id="84249" class="javax.swing.JLabel" binding="FechaEntrega">
+        <constraints>
+          <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Comic Sans MS" size="8" style="1"/>
+          <foreground color="-16777216"/>
+          <text value=""/>
+        </properties>
+      </component>
       <component id="ff36c" class="javax.swing.JButton" binding="button1" default-binding="true">
         <constraints>
           <grid row="3" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
@@ -125,16 +130,6 @@
           <borderPainted value="false"/>
           <contentAreaFilled value="false"/>
           <icon value="Resources/nomegusta.png"/>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="84249" class="javax.swing.JLabel" binding="FechaEntrega">
-        <constraints>
-          <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="Comic Sans MS" size="8" style="1"/>
-          <foreground color="-16777216"/>
           <text value=""/>
         </properties>
       </component>

@@ -89,6 +89,8 @@ public class PrincipalController implements ActionListener {
 
                     //MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
                     //pelipv.getPanel().addMouseListener(listener);
+                    MiMouseListener listener = new MiMouseListener(0,3, usuario.getNombre(),this);
+                    userpv.getPanel().addMouseListener(listener);
                     ppView.addListaUser(userpv.getPanel());
                 }
 
@@ -121,7 +123,7 @@ public class PrincipalController implements ActionListener {
                     pelipv.controlador(peliPvController);
                     listapelipv.add(pelipv);
 
-                    MiMouseListener listener = new MiMouseListener(pelipv,null,peli.getInt(1),1);
+                    MiMouseListener listener = new MiMouseListener(peli.getInt(1),1, "",this);
                     pelipv.getPanel().addMouseListener(listener);
                     ppView.addListaPelis(pelipv.getPanel());
                 }
@@ -153,7 +155,7 @@ public class PrincipalController implements ActionListener {
                     listasvC.add(seriepvC);
                     seriepv.controlador(seriepvC);
 
-                    MiMouseListener listener = new MiMouseListener(null,seriepv,peli.getInt(1), 2);
+                    MiMouseListener listener = new MiMouseListener(peli.getInt(1), 2, "",this);
                     seriepv.getPanel().addMouseListener(listener);
 
                     ppView.addListaSerie(seriepv.getPanel());
@@ -261,15 +263,16 @@ public class PrincipalController implements ActionListener {
     }
 
     public class MiMouseListener implements MouseListener {
-        PeliculaPreView pview;
         int id, tipo;
-        SeriePreView spview;
+        String nombre;
+        PrincipalController pController;
 
-        public MiMouseListener(PeliculaPreView pelipv,SeriePreView sp, int anInt, int tipo) {
-            pview=pelipv;
-            spview=sp;
+
+        public MiMouseListener(int anInt, int tipo, String n, PrincipalController pc) {
+            pController = pc;
             this.tipo=tipo;
             id=anInt;
+            nombre = n;
         }
 
         @Override
@@ -293,11 +296,24 @@ public class PrincipalController implements ActionListener {
                     String fechaEstreno=resst.getString("fecha_estreno");
                     Serie serie = new Serie(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracionMedia"), resst.getString("genero"), resst.getString("sinopsis"),0,resst.getInt("numTemporadas"),resst.getString("reparto"));
                     SerieView sv = new SerieView();
-                    SerieController sc=new SerieController(ppView,sv,serie);
+                    SerieController sc=new SerieController(ppView,sv,serie,conexion,id,user);
                     sv.controlador(sc);
                     Main.frame.setContentPane(sv.getPanel());
                     Main.frame.setVisible(true);
 
+                } else if (tipo == 3) {
+                    ResultSet resst = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+nombre+"';");
+                    resst.next();
+                    Usuario usuario = new Usuario(resst.getString("nombre"), resst.getString("email"), resst.getString("descripcion"),
+                            resst.getDate("fechaNacimiento"), resst.getDate("fechaCreacion"), resst.getString("contraseña"),
+                            resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
+                            resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
+                            resst.getInt("numPeliculasVistas"));
+                    OtherUserView ouv = new OtherUserView();
+                    OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario);
+                    ouv.controlador(ouc);
+                    Main.frame.setContentPane(ouv.getPanel());
+                    Main.frame.setVisible(true);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
