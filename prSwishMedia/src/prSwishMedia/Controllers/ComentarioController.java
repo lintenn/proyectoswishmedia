@@ -13,12 +13,14 @@ public class ComentarioController implements ActionListener {
     Statement conexion;
     ComentarioView cview;
     PeliculaController pcontroler;
+    SerieController scontroler;
     int ID;
 
-    public ComentarioController(Statement st, ComentarioView comentarioView, PeliculaController peliculaController, int id){
+    public ComentarioController(Statement st, ComentarioView comentarioView, PeliculaController peliculaController, int id, SerieController serieController){
         conexion=st;
         cview=comentarioView;
         pcontroler=peliculaController;
+        scontroler=serieController;
         ID=id;
     }
 
@@ -31,7 +33,12 @@ public class ComentarioController implements ActionListener {
                     conexion.executeUpdate("set SQL_SAFE_UPDATES=0;");
                     conexion.executeUpdate("delete from Comentario where Comentario.ID="+ID+";");
                     conexion.executeUpdate("DELETE FROM Comunicación where Comunicación.ID="+ID+";");
-                    pcontroler.actualizarComentarios();
+                    if(pcontroler!=null){
+                        pcontroler.actualizarComentarios();
+                    }
+                    if(scontroler!=null){
+                        scontroler.actualizarComentarios();
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
