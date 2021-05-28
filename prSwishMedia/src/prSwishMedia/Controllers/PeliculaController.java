@@ -37,6 +37,7 @@ public class PeliculaController implements ActionListener, KeyListener {
     PrincipalView principalView;
     Pelicula pelicula;
     String fecha_Estreno;
+    private int num;
 
     public PeliculaController(PeliculaView peliview, Usuario u, Statement st, Pelicula p, PrincipalView ppv, int id, String fechaE) throws SQLException {
         this.peliview=peliview;
@@ -48,6 +49,7 @@ public class PeliculaController implements ActionListener, KeyListener {
         fecha_Estreno=fechaE;
         setInfo();
         actualizarComentarios();
+        num=0;
     }
 
     private void setInfo() {
@@ -95,13 +97,49 @@ public class PeliculaController implements ActionListener, KeyListener {
 
     private void introducirComentario() throws SQLException {
         int ID = generateID();
-        try {
-            conexion.executeUpdate("Insert into Comunicación (texto, fechaEnvio, Usuario, ID) values('"+peliview.getTextFieldComentarios().getText()+"',sysdate(),'"+user.getNombre()+"',"+ID+");");
-            conexion.executeUpdate("Insert Into Comentario (numDislikes,numLikes,ID,IDContenido) values(0,0,"+ID+","+IDContenido+");");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        StringBuilder s = new StringBuilder();
+        s.append(peliview.getTextField1().getText());
+        while(s.indexOf(" ")!=-1){
+            s.deleteCharAt(s.indexOf(" "));
         }
-        actualizarComentarios();
+        if(s.length()>0){
+            try {
+                conexion.executeUpdate("Insert into Comunicación (texto, fechaEnvio, Usuario, ID) values('"+peliview.getTextField1().getText()+"',now(),'"+user.getNombre()+"',"+ID+");");
+                conexion.executeUpdate("Insert Into Comentario (numDislikes,numLikes,ID,IDContenido) values(0,0,"+ID+","+IDContenido+");");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            peliview.setTextField1("");
+            actualizarComentarios();
+        }
+    }
+
+    public void ponerComentario(boolean si) throws SQLException {
+        ResultSet rs2 = conexion.executeQuery("SELECT COUNT(*) FROM Comentario, Comunicación where Usuario='"+user.getNombre()+"' and Comentario.ID = Comunicación.ID and Comentario.IDContenido="+IDContenido+" Order by fechaEnvio DESC;");
+        rs2.next();
+        int max=rs2.getInt(1);
+        ResultSet rs = conexion.executeQuery("SELECT * FROM Comentario, Comunicación where Usuario='"+user.getNombre()+"' and Comentario.ID = Comunicación.ID and Comentario.IDContenido="+IDContenido+" Order by fechaEnvio DESC;");
+        int i=0;
+        if(si){
+            if(num<max){
+                num++;
+            }
+            while(rs.next()&&num>i){
+                peliview.setTextField1(rs.getString("texto"));
+                i++;
+            }
+        } else {
+            if(num>0){
+                num--;
+            }
+            while(rs.next()&&num>i){
+                peliview.setTextField1(rs.getString("texto"));
+                i++;
+            }
+        }
+        if(num==0){
+            peliview.setTextField1("");
+        }
     }
 
     public void actualizarComentarios(){
@@ -110,8 +148,8 @@ public class PeliculaController implements ActionListener, KeyListener {
             ResultSet rs3 = conexion.executeQuery("SELECT COUNT(*) FROM Comentario, Comunicación where IDContenido="+IDContenido+" and Comentario.ID=Comunicación.ID");
             rs3.next();
             int cont = rs3.getInt(1);
-            if(cont==0){
-                listaComentarios.setLayout(new GridLayout(1,0,0,0));
+            if(cont<=3){
+                listaComentarios.setLayout(new GridLayout(4,0,0,0));
             } else {
                 listaComentarios.setLayout(new GridLayout(cont,0,0,0));
             }
@@ -134,20 +172,24 @@ public class PeliculaController implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(peliview.getTextFieldComentarios().getText().length()==100){
-            e.consume();
-        }
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()!=10&&e.getKeyCode()!=32){
-            porderEntregar=true;
-        }
-        if(e.getKeyCode()==222){
-            e.consume();
-        } else if(e.getKeyCode()==10&&porderEntregar){
-            e.consume();
+        if(e.getKeyCode()==38){ //flecha hacia arriba
+            try {
+                ponerComentario(true);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if (e.getKeyCode()==40){ //flecha hacia abajo
+            try {
+                ponerComentario(false);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if(e.getKeyCode()==10){
             try {
                 introducirComentario();
             } catch (SQLException throwables) {
@@ -157,7 +199,17 @@ public class PeliculaController implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        if(e.getKeyCode()==222){
+            StringBuilder s = new StringBuilder();
+            s.append(peliview.getTextField1().getText());
+            String s1 = peliview.getTextField1().getText();
+            while(s1.contains("'")){
+                s.deleteCharAt(s.indexOf("'"));
+                peliview.setTextField1(s.toString());
+                s1 = peliview.getTextField1().getText();
+            }
+            e.consume();
+        }
     }
 
     public void openWebPage(String url){

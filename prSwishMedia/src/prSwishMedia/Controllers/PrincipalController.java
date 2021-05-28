@@ -79,7 +79,7 @@ public class PrincipalController implements ActionListener {
                 ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
                 while(users.next()) {
 
-                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"));
+                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
                     UsuarioPreView userpv = new UsuarioPreView();
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
                     listauvC.add(userPvController);
@@ -121,7 +121,7 @@ public class PrincipalController implements ActionListener {
                     pelipv.controlador(peliPvController);
                     listapelipv.add(pelipv);
 
-                    MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
+                    MiMouseListener listener = new MiMouseListener(pelipv,null,peli.getInt(1),1);
                     pelipv.getPanel().addMouseListener(listener);
                     ppView.addListaPelis(pelipv.getPanel());
                 }
@@ -153,8 +153,9 @@ public class PrincipalController implements ActionListener {
                     listasvC.add(seriepvC);
                     seriepv.controlador(seriepvC);
 
-                    //MiMouseListener listener = new MiMouseListener();
-                    //seriepv.getPanel().addMouseListener(listener);
+                    MiMouseListener listener = new MiMouseListener(null,seriepv,peli.getInt(1), 2);
+                    seriepv.getPanel().addMouseListener(listener);
+
                     ppView.addListaSerie(seriepv.getPanel());
                 }
 
@@ -261,24 +262,43 @@ public class PrincipalController implements ActionListener {
 
     public class MiMouseListener implements MouseListener {
         PeliculaPreView pview;
-        int id;
-        public MiMouseListener(PeliculaPreView pelipv, int anInt) {
+        int id, tipo;
+        SeriePreView spview;
+
+        public MiMouseListener(PeliculaPreView pelipv,SeriePreView sp, int anInt, int tipo) {
             pview=pelipv;
+            spview=sp;
+            this.tipo=tipo;
             id=anInt;
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
             try {
-                ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia="+id+";");
-                resst.next();
-                String fechaEstreno=resst.getString("fecha_estreno");
-                Pelicula pelicula = new Pelicula(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"),resst.getString("reparto"));
-                PeliculaView peliview = new PeliculaView();
-                PeliculaController peliculaController=new PeliculaController(peliview,user,conexion,pelicula,ppView,id, fechaEstreno);
-                peliview.controlador(peliculaController);
-                Main.frame.setContentPane(peliview.getPanel());
-                Main.frame.setVisible(true);
+                if(tipo==1) {
+                    ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia=" + id + ";");
+                    resst.next();
+                    String fechaEstreno = resst.getString("fecha_estreno");
+                    Pelicula pelicula = new Pelicula(resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"));
+                    PeliculaView peliview = new PeliculaView();
+                    PeliculaController peliculaController = new PeliculaController(peliview, user, conexion, pelicula, ppView, id, fechaEstreno);
+                    peliview.controlador(peliculaController);
+                    Main.frame.setContentPane(peliview.getPanel());
+                    Main.frame.setVisible(true);
+
+                }else if(tipo==2){
+
+                    ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Serie where ContenidoMultimedia.idContenidoMultimedia="+id+";");
+                    resst.next();
+                    String fechaEstreno=resst.getString("fecha_estreno");
+                    Serie serie = new Serie(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracionMedia"), resst.getString("genero"), resst.getString("sinopsis"),0,resst.getInt("numTemporadas"),resst.getString("reparto"));
+                    SerieView sv = new SerieView();
+                    SerieController sc=new SerieController(ppView,sv,serie);
+                    sv.controlador(sc);
+                    Main.frame.setContentPane(sv.getPanel());
+                    Main.frame.setVisible(true);
+
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
