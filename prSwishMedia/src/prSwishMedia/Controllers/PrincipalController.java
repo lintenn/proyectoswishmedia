@@ -296,7 +296,7 @@ public class PrincipalController implements ActionListener {
                     String fechaEstreno=resst.getString("fecha_estreno");
                     Serie serie = new Serie(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracionMedia"), resst.getString("genero"), resst.getString("sinopsis"),0,resst.getInt("numTemporadas"),resst.getString("reparto"));
                     SerieView sv = new SerieView();
-                    SerieController sc=new SerieController(ppView,sv,serie);
+                    SerieController sc=new SerieController(ppView,sv,serie,conexion,id,user);
                     sv.controlador(sc);
                     Main.frame.setContentPane(sv.getPanel());
                     Main.frame.setVisible(true);
