@@ -32,7 +32,7 @@ public class OtherUserView {
     private JLabel fechaNacimiento;
     private JButton añadirAmigo;
 
-    public OtherUserView(Statement st) { }
+    public OtherUserView() { }
 
     public void añadirComboBox(Lista l){
         comboBoxListas.addItem(l);
