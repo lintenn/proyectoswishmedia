@@ -5,7 +5,9 @@
     <constraints>
       <xy x="100" y="37" width="804" height="459"/>
     </constraints>
-    <properties/>
+    <properties>
+      <opaque value="true"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="dbdb7" binding="panelSuperior" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
