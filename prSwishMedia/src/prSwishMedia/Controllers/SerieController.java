@@ -52,6 +52,7 @@ public class SerieController  implements ActionListener, KeyListener {
         serieView.setSinopsisSerie(serie.getSinopsis());
         serieView.setRepartoSerie(serie.getReparto());
         serieView.setDuracionSerie(serie.getDuracionMedia());
+        serieView.setImagen(serie.getId());
     }
 
     @Override
