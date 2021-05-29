@@ -23,7 +23,7 @@ public class Usuario {
     private int numPeliculasVistas;
     private List<Lista> listasPersonales;
 
-    
+
     public Usuario(String nick){ //de prueba
         nombre = nick;
         fechaCreacion=new Date(0);
