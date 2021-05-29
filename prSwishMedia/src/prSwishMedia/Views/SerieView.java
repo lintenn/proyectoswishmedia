@@ -85,6 +85,7 @@ public class SerieView extends JFrame {
     public void setTextField1(String s){
         textField1.setText(s);
     }
+    
 
     public JTextField getTextField1(){
         return textField1;
