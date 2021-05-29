@@ -2,13 +2,14 @@ package prSwishMedia.Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ComentariosDeOtros extends JFrame{
     FondoPanel fondo = new FondoPanel();
     private JTextArea textArea1;
     private JPanel panel1;
-    private JButton button1;
-    private JButton button2;
+    private JButton dislikeboton;
+    private JButton likeboton;
     private JLabel numNoMegusta;
     private JLabel numMegusta;
     private JLabel NombrePerfil;
@@ -21,6 +22,14 @@ public class ComentariosDeOtros extends JFrame{
         NombrePerfil.setText(nombre);
         FechaEntrega.setText(fecha);
         fondo.setLayout(new GridBagLayout());
+    }
+
+    public void controlador(ActionListener ctr){
+        likeboton.addActionListener(ctr);
+        dislikeboton.addActionListener(ctr);
+
+        likeboton.setActionCommand("LIKE");
+        dislikeboton.setActionCommand("DISLIKE");
     }
 
     private void createUIComponents() {
