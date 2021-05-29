@@ -333,6 +333,13 @@ public class PrincipalController implements ActionListener {
                     resst.next();
                     String fechaEstreno = resst.getString("fecha_estreno");
                     Pelicula pelicula = new Pelicula(resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"));
+
+                    // aun falta la valoración para que esté creada completa la pelicula. Lo obtenemos:
+                    ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + id + ";");
+                    valmed.next(); //apuntamos
+                    pelicula.setValoracion(valmed.getDouble(1));
+                    // ahora está lista la pelicula
+
                     PeliculaView peliview = new PeliculaView();
                     PeliculaController peliculaController = new PeliculaController(peliview, user, conexion, pelicula, ppView, id, fechaEstreno);
                     peliview.controlador(peliculaController);
@@ -345,6 +352,13 @@ public class PrincipalController implements ActionListener {
                     resst.next();
                     String fechaEstreno=resst.getString("fecha_estreno");
                     Serie serie = new Serie(resst.getString("nombre"),0,fechaEstreno,resst.getInt("duracionMedia"), resst.getString("genero"), resst.getString("sinopsis"),0,resst.getInt("numTemporadas"),resst.getString("reparto"));
+
+                    // aun falta la valoración para que esté creada completa la serie. Lo obtenemos:
+                    ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + id + ";");
+                    valmed.next(); //apuntamos
+                    serie.setValoracion(valmed.getDouble(1));
+                    // ahora está lista la serie
+
                     SerieView sv = new SerieView();
                     SerieController sc=new SerieController(ppView,sv,serie,conexion,id,user);
                     sv.controlador(sc);
