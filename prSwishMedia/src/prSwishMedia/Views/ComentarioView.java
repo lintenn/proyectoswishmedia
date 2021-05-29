@@ -9,8 +9,8 @@ public class ComentarioView extends JFrame{
     FondoPanel fondo = new FondoPanel();
     private JTextArea textArea1;
     private JPanel panel1;
-    private JButton button1;
-    private JButton aButton;
+    private JButton likeboton;
+    private JButton dislikeboton;
     private JLabel numNoMegusta;
     private JLabel numMegusta;
     private JLabel NombrePerfil;
@@ -29,8 +29,12 @@ public class ComentarioView extends JFrame{
 
     public void controlador(ActionListener ctr){
         button2.addActionListener(ctr);
+        likeboton.addActionListener(ctr);
+        dislikeboton.addActionListener(ctr);
 
         button2.setActionCommand("BORRAR");
+        likeboton.setActionCommand("LIKE");
+        dislikeboton.setActionCommand("DISLIKE");
     }
 
     private void createUIComponents() {

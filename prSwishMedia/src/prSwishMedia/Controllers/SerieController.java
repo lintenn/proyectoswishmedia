@@ -147,11 +147,14 @@ public class SerieController  implements ActionListener, KeyListener {
             while(rs2.next()){
                 if(user.getNombre().equals(rs2.getString("Usuario"))){
                     ComentarioView comentario = new ComentarioView(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
-                    ComentarioController controller = new ComentarioController(conexion,comentario,null,rs2.getInt("ID"), this);
+                    ComentarioController controller = new ComentarioController(conexion,comentario,null,rs2.getInt("ID"), this,user);
                     comentario.controlador(controller);
                     listaComentarios.add(comentario.get());
                 } else {
-                    listaComentarios.add(new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio")).get());
+                    ComentariosDeOtros comentario2 = new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
+                    ComentariosDeOtrosController controller = new ComentariosDeOtrosController(conexion,comentario2,null,rs2.getInt("ID"),this,user);
+                    comentario2.controlador(controller);
+                    listaComentarios.add(comentario2.get());
                 }
             }
             serieView.setComentariosPanel(listaComentarios);
