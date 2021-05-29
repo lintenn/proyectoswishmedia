@@ -4,7 +4,6 @@ import prSwishMedia.Lista;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.sql.Statement;
 
 public class OtherUserView {
     private JPanel panel1;
