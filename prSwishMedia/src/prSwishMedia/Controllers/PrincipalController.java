@@ -20,16 +20,16 @@ import java.util.List;
 
 public class PrincipalController implements ActionListener {
 
-    LoginView lview;
-    Statement conexion;
-    Statement conexion1;
-    Statement conexion2;
-    PrincipalView ppView;
-    Usuario user;
-    List<PeliculaPreViewController> listapvC;
-    List<SeriePreviewController> listasvC;
-    List<ContenidoMultimediaPreViewController>  listasSyPC;
-    List<UsuarioPreViewController> listauvC;
+    private LoginView lview;
+    private Statement conexion;
+    private Statement conexion1;
+    private Statement conexion2;
+    private PrincipalView ppView;
+    private Usuario user;
+    private List<PeliculaPreViewController> listapvC;
+    private List<SeriePreviewController> listasvC;
+    private List<ContenidoMultimediaPreViewController>  listasSyPC;
+    private List<UsuarioPreViewController> listauvC;
 
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st,Statement st1,Statement st2, Usuario u){
         conexion=st;
@@ -42,9 +42,9 @@ public class PrincipalController implements ActionListener {
         listasvC=new ArrayList<>();
         listasSyPC=new ArrayList<>();
         listauvC=new ArrayList<>();
-        añadirContenido(-3);
-        añadirContenido(-2);
-        añadirContenido(-1);
+        añadirContenido(-3); // usuarios
+        añadirContenido(-2); // peliculas
+        añadirContenido(-1); // series
         setLista();
     }
 
@@ -66,7 +66,7 @@ public class PrincipalController implements ActionListener {
 
     public void añadirContenido(int idList){
 
-        if(idList==-3) {
+        if(idList==-3) { // obtener usuarios
             ppView.removeAlllistasUsers();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Usuario WHERE nombre <> '" + user.getNombre() +"';");
@@ -98,7 +98,7 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }else if(idList==-2){
+        }else if(idList==-2){ // obtener peliculas
             ppView.removeAllListas();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
@@ -112,7 +112,7 @@ public class PrincipalController implements ActionListener {
                 ArrayList<PeliculaPreView> listapelipv = new ArrayList<>();
                 while(peli.next()) {
                     // Necesitamos guardar las variables antes de hacer una nueva consulta,
-                    // si no, se borra la informacion de la anterior consulta
+                    // si no, se borra la informacion de la anterior consulta (Result Set)
                     listaids.add(peli.getInt("idContenidoMultimedia"));
 
                     Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
@@ -132,14 +132,14 @@ public class PrincipalController implements ActionListener {
                     //Por cada peli generamos su valoracion media
                     ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaids.get(i) + ";");
                     valmed.next(); //apuntamos
-                    listapelipv.get(i).setValoracion(valmed.getInt(1));
+                    listapelipv.get(i).setValoracion(valmed.getDouble(1));
                 }
 
                 ppView.setViewportViewScroll(ppView.getListaPelis());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }else if(idList==-1){
+        }else if(idList==-1){ // obtener series
             ppView.removeAllListasSerie();
             try {
                 ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
@@ -148,17 +148,34 @@ public class PrincipalController implements ActionListener {
 
                 ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                 ppView.setLayoutListasSerie(cont);
+
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de seriepv
+                ArrayList<Integer> listaids = new ArrayList<>();
+                ArrayList<SeriePreView> listaseriepv = new ArrayList<>();
                 while(peli.next()) {
+                    // Necesitamos guardar las variables antes de hacer una nueva consulta,
+                    // si no, se borra la informacion de la anterior consulta (Result Set)
+                    listaids.add(peli.getInt("idContenidoMultimedia"));
+
                     Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("Genero"),0,peli.getInt("numTemporadas"));
                     SeriePreView seriepv = new SeriePreView();
                     SeriePreviewController seriepvC = new SeriePreviewController(user,serie,seriepv,ppView.getComboBox1(),conexion);
                     listasvC.add(seriepvC);
+
                     seriepv.controlador(seriepvC);
+                    listaseriepv.add(seriepv);
 
                     MiMouseListener listener = new MiMouseListener(peli.getInt(1), 2, "",this);
                     seriepv.getPanel().addMouseListener(listener);
 
                     ppView.addListaSerie(seriepv.getPanel());
+                }
+
+                for (int i = 0; i < listaids.size(); i++) {
+                    //Por cada serie generamos su valoracion media
+                    ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaids.get(i) + ";");
+                    valmed.next(); //apuntamos
+                    listaseriepv.get(i).setValoracion(valmed.getDouble(1));
                 }
 
                 ppView.setViewportViewScrollSerie(ppView.getListaSeries());
@@ -167,7 +184,7 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }else {
+        }else { // listas?
 
             ppView.removeAllContenido();
 

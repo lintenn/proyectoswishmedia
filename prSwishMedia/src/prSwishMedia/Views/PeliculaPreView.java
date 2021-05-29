@@ -23,8 +23,8 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
 
     }
     // Método para actualizar la valoracion media
-    public void setValoracion(int valoracion) {
-        Valoración.setText(Integer.toString(valoracion));
+    public void setValoracion(double valoracion) {
+        Valoración.setText(Double.toString(valoracion));
     }
     public void setNombre(String nombre){Nombre.setText(nombre);}
     public void setImagen(int imagen){Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg")); }
