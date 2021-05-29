@@ -205,6 +205,7 @@
               <contentAreaFilled value="false"/>
               <icon value="Resources/back.png"/>
               <opaque value="false"/>
+              <pressedIcon value="Resources/backClicked.png"/>
               <text value=""/>
               <toolTipText value="Volver"/>
             </properties>
