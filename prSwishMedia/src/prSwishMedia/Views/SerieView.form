@@ -6,12 +6,7 @@
       <xy x="41" y="8" width="801" height="385"/>
     </constraints>
     <properties>
-<<<<<<< HEAD
       <background color="-13816764"/>
-=======
-      <autoscrolls value="false"/>
-      <background color="-13816774"/>
->>>>>>> Main
       <doubleBuffered value="false"/>
       <focusable value="true"/>
       <opaque value="true"/>
