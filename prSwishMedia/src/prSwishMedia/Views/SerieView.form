@@ -6,12 +6,7 @@
       <xy x="41" y="8" width="801" height="385"/>
     </constraints>
     <properties>
-<<<<<<< HEAD
       <background color="-13816764"/>
-=======
-      <autoscrolls value="false"/>
-      <background color="-13816774"/>
->>>>>>> Main
       <doubleBuffered value="false"/>
       <focusable value="true"/>
       <opaque value="true"/>
@@ -129,7 +124,7 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="imagen"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
