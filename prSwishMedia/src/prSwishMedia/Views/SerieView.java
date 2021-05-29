@@ -85,7 +85,12 @@ public class SerieView extends JFrame {
     public void setTextField1(String s){
         textField1.setText(s);
     }
-    
+
+    public void setImagen(int id){
+        Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+id +".jpg"));
+        Imagen.setVisible(true);
+        Imagen.setOpaque(true);
+    }
 
     public JTextField getTextField1(){
         return textField1;
