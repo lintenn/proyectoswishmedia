@@ -6,14 +6,10 @@
       <xy x="41" y="8" width="801" height="385"/>
     </constraints>
     <properties>
-      <autoscrolls value="false"/>
       <background color="-13620164"/>
-      <doubleBuffered value="true"/>
-      <enabled value="true"/>
-      <minimumSize width="648" height="347"/>
-      <opaque value="false"/>
-      <preferredSize width="854" height="350"/>
-      <visible value="true"/>
+      <doubleBuffered value="false"/>
+      <focusable value="true"/>
+      <opaque value="true"/>
     </properties>
     <border type="none"/>
     <children>

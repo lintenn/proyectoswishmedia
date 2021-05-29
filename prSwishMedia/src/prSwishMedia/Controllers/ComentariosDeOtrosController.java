@@ -1,7 +1,7 @@
 package prSwishMedia.Controllers;
 
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.ComentarioView;
+import prSwishMedia.Views.ComentariosDeOtros;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,16 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ComentarioController implements ActionListener {
+public class ComentariosDeOtrosController implements ActionListener {
 
     Statement conexion;
-    ComentarioView cview;
+    ComentariosDeOtros cview;
     PeliculaController pcontroler;
     SerieController scontroler;
     int ID;
     Usuario user;
 
-    public ComentarioController(Statement st, ComentarioView comentarioView, PeliculaController peliculaController, int id, SerieController serieController, Usuario u){
+    public ComentariosDeOtrosController(Statement st, ComentariosDeOtros comentarioView, PeliculaController peliculaController, int id, SerieController serieController, Usuario u){
         conexion=st;
         cview=comentarioView;
         pcontroler=peliculaController;
@@ -27,26 +27,9 @@ public class ComentarioController implements ActionListener {
         user=u;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         String act = e.getActionCommand();
         switch (act){
-            case "BORRAR":
-                try {
-                    conexion.executeUpdate("set SQL_SAFE_UPDATES=0;");
-                    conexion.executeUpdate("delete from Comentario where Comentario.ID="+ID+";");
-                    conexion.executeUpdate("DELETE FROM Comunicación where Comunicación.ID="+ID+";");
-                    if(pcontroler!=null){
-                        pcontroler.actualizarComentarios();
-                    }
-                    if(scontroler!=null){
-                        scontroler.actualizarComentarios();
-                    }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-
-                break;
             case "LIKE":
                 try {
                     ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM islike, Comentario where islike.usuario='"+user.getNombre()+"' and islike.idcomentario="+ID+";");
