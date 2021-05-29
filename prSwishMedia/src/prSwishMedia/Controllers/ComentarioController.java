@@ -34,6 +34,7 @@ public class ComentarioController implements ActionListener {
             case "BORRAR":
                 try {
                     conexion.executeUpdate("set SQL_SAFE_UPDATES=0;");
+                    conexion.executeUpdate("delete from islike where idcomentario="+ID+";");
                     conexion.executeUpdate("delete from Comentario where Comentario.ID="+ID+";");
                     conexion.executeUpdate("DELETE FROM Comunicación where Comunicación.ID="+ID+";");
                     if(pcontroler!=null){
