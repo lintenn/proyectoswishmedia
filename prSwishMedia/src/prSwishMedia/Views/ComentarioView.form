@@ -6,10 +6,10 @@
       <xy x="273" y="20" width="665" height="204"/>
     </constraints>
     <properties>
-      <maximumSize width="-1" height="134"/>
-      <minimumSize width="-1" height="134"/>
+      <maximumSize width="450" height="134"/>
+      <minimumSize width="450" height="134"/>
       <opaque value="true"/>
-      <preferredSize width="-1" height="134"/>
+      <preferredSize width="450" height="134"/>
     </properties>
     <border type="none"/>
     <children>
@@ -83,7 +83,7 @@
           </grid>
         </constraints>
       </hspacer>
-      <component id="a3bc0" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="a3bc0" class="javax.swing.JButton" binding="likeboton">
         <constraints>
           <grid row="3" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="84" height="25"/>
@@ -150,7 +150,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="256d8" class="javax.swing.JButton" binding="aButton" default-binding="true">
+          <component id="256d8" class="javax.swing.JButton" binding="dislikeboton">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="25" height="25"/>
@@ -183,6 +183,11 @@
           </hspacer>
         </children>
       </grid>
+      <hspacer id="da407">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>

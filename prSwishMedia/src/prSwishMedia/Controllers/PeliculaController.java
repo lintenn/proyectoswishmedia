@@ -60,6 +60,7 @@ public class PeliculaController implements ActionListener, KeyListener {
         peliview.setPeliculaGénero(pelicula.getGenero());
         peliview.setSinopsisPelicula(pelicula.getSinopsis());
         peliview.setRepartoPelicula(pelicula.getReparto());
+        peliview.setImagen(pelicula.getId());
     }
 
     @Override
@@ -157,11 +158,14 @@ public class PeliculaController implements ActionListener, KeyListener {
             while(rs2.next()){
                 if(user.getNombre().equals(rs2.getString("Usuario"))){
                     ComentarioView comentario = new ComentarioView(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
-                    ComentarioController controller = new ComentarioController(conexion,comentario,this,rs2.getInt("ID"));
+                    ComentarioController controller = new ComentarioController(conexion,comentario,this,rs2.getInt("ID"),null,user);
                     comentario.controlador(controller);
                     listaComentarios.add(comentario.get());
                 } else {
-                    listaComentarios.add(new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), 0,rs2.getString("Usuario"),rs2.getString("fechaEnvio")).get());
+                    ComentariosDeOtros comentario2 = new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
+                    ComentariosDeOtrosController controller = new ComentariosDeOtrosController(conexion,comentario2,this,rs2.getInt("ID"),null,user);
+                    comentario2.controlador(controller);
+                    listaComentarios.add(comentario2.get());
                 }
             }
             peliview.setComentariosPanel(listaComentarios);

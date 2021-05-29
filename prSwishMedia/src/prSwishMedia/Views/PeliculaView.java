@@ -68,6 +68,10 @@ public class PeliculaView extends JFrame{
         repartoPelicula.setText(reparto);
     }
 
+    public void setImagen(int id){
+        peliculaImagen.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+id +".jpg"));
+    }
+
     public JPanel getPanel(){
         return panelPrincipal;
     }
