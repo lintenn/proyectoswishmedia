@@ -37,9 +37,11 @@ public class SerieView extends JFrame {
         back.addActionListener(ctr);
         button1.addActionListener(ctr);
         textField1.addKeyListener((KeyListener) ctr);
+        valorarSerie.addActionListener(ctr);
 
         back.setActionCommand("VOLVER");
         button1.setActionCommand("ENVIAR");
+        valorarSerie.setActionCommand("VALORAR");
     }
 
     public void setNombreSerie(String nom) {
@@ -104,4 +106,18 @@ public class SerieView extends JFrame {
         return panelPrincipal;
     }
 
+    public void setComboBoxvalorar(int x){
+        valorarSerie.addItem(x);
+    }
+    public int getItemComboBoxvalorar(){
+        return (int) valorarSerie.getSelectedItem();
+    }
+
+    public JComboBox getComboBoxvalorar(){
+        return valorarSerie;
+    }
+
+    public void setValoracionSerie2(String s){
+        valoracionSerie.setText(s);
+    }
 }

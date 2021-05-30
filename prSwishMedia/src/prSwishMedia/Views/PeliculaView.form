@@ -135,13 +135,13 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="bc775" class="javax.swing.JComboBox" binding="valorarPelicula">
+          <component id="bc775" class="javax.swing.JComboBox" binding="comboBoxlista">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <component id="6ad29" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="6ad29" class="javax.swing.JComboBox" binding="comboBoxvalorar">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
