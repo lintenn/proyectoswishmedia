@@ -73,7 +73,7 @@ public class ContenidoMultimedia {
         this.valoracion = valoracion;
     }
 
-    public ContenidoMultimedia(String nombre, double valoracion, String fecha_estreno, String genero, String sinopsis, String reparto) { //changed
+    public ContenidoMultimedia( String nombre, double valoracion, String fecha_estreno, String genero, String sinopsis, String reparto) { //changed
         this.nombre = nombre;
         this.fecha = fecha_estreno ;
         this.genero=genero;

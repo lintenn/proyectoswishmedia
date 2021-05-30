@@ -31,6 +31,7 @@ public class PeliculaView extends JFrame{
     private JScrollPane ComentariosPanel;
     private JButton buttonenviar;
     private JTextField textField1;
+    private JLabel Foto;
     private JTextArea textArea1;
     private JTextField textFieldComentarios;
     private String nombrePeli;
@@ -69,7 +70,7 @@ public class PeliculaView extends JFrame{
     }
 
     public void setImagen(int id){
-        peliculaImagen.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+id +".jpg"));
+        peliculaImagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+ id +".jpg"));
     }
 
     public JPanel getPanel(){
