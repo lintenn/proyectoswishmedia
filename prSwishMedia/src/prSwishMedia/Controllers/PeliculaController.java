@@ -79,7 +79,6 @@ public class PeliculaController implements ActionListener, KeyListener {
                     ResultSet rs= conexion.executeQuery("SELECT trailer FROM ContenidoMultimedia where idContenidoMultimedia=" + pelicula.getId() + ";");
                     rs.next();
                     url= rs.getString(1);
-                    System.out.println(url);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

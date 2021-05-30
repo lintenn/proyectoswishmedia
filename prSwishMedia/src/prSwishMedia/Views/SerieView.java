@@ -98,7 +98,6 @@ public class SerieView extends JFrame {
     }
 
     public void setImagen(int id) {
-        System.out.println(id);
         Foto.setIcon(new ImageIcon("prSwishMedia/imagen/x"+ id +".jpg"));
     }
 
