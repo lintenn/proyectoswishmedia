@@ -3,10 +3,7 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Main;
 import prSwishMedia.Serie;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.ComentarioView;
-import prSwishMedia.Views.ComentariosDeOtros;
-import prSwishMedia.Views.PrincipalView;
-import prSwishMedia.Views.SerieView;
+import prSwishMedia.Views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +26,9 @@ public class SerieController  implements ActionListener, KeyListener {
     private JPanel listaComentarios = new JPanel();
     private int IDContenido;
     private Usuario user;
+    SeriePreView spview;
 
-    public SerieController(PrincipalView ppv, SerieView sv, Serie s, Statement conexion, int id, Usuario u){
+    public SerieController(PrincipalView ppv, SerieView sv, Serie s, Statement conexion, int id, Usuario u, SeriePreView spv){
         ppview=ppv;
         serieView=sv;
         serie=s;
@@ -38,6 +36,7 @@ public class SerieController  implements ActionListener, KeyListener {
         num=0;
         IDContenido=id;
         user=u;
+        spview=spv;
         setInfo();
         actualizarComentarios();
         ponerValoracion();
@@ -237,11 +236,14 @@ public class SerieController  implements ActionListener, KeyListener {
         try {
             ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
             rs.next();
-            if(rs.getInt(1)==0){
-                conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+serieView.getItemComboBoxvalorar()+")");
+            if(!serieView.getItemComboBoxvalorar().toString().equals("-")){
+                if(rs.getInt(1)==0){
+                    conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+Integer.parseInt(serieView.getItemComboBoxvalorar().toString())+")");
+                } else {
+                    conexion.executeUpdate("UPDATE Valora SET valoracion="+serieView.getItemComboBoxvalorar()+" where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                }
             } else {
                 conexion.executeUpdate("DELETE FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
-                conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+serieView.getItemComboBoxvalorar()+")");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -253,11 +255,16 @@ public class SerieController  implements ActionListener, KeyListener {
             ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where idContenido="+IDContenido+";");
             rs.next();
             double num=rs.getInt(1);
-            ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
-            rs2.next();
-            double val=rs2.getInt(1);
-            DecimalFormat formato2 = new DecimalFormat("#.0");
-            serieView.setValoracionSerie2(formato2.format(val/num));
+            if(num==0){
+                serieView.setValoracionSerie2(Integer.toString(0));
+            } else {
+                ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
+                rs2.next();
+                double val=rs2.getInt(1);
+                DecimalFormat formato2 = new DecimalFormat("#.0");
+                spview.setValoracion2(formato2.format(val/num));
+                serieView.setValoracionSerie2(formato2.format(val/num));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -265,6 +272,7 @@ public class SerieController  implements ActionListener, KeyListener {
 
     public void ponerValoracion(){
         serieView.getComboBoxvalorar().removeAll();
+        serieView.setComboBoxvalorar2("-");
         for(int i=0; i<=10; i++){
             serieView.setComboBoxvalorar(i);
         }

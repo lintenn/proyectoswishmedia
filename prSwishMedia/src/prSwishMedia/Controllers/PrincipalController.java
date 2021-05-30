@@ -89,7 +89,7 @@ public class PrincipalController implements ActionListener {
 
                     //MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
                     //pelipv.getPanel().addMouseListener(listener);
-                    MiMouseListener listener = new MiMouseListener(0,3, usuario.getNombre(),this);
+                    MiMouseListener listener = new MiMouseListener(0,3, usuario.getNombre(),this, null, null);
                     userpv.getPanel().addMouseListener(listener);
                     ppView.addListaUser(userpv.getPanel());
                 }
@@ -123,7 +123,7 @@ public class PrincipalController implements ActionListener {
                     pelipv.controlador(peliPvController);
                     listapelipv.add(pelipv);
 
-                    MiMouseListener listener = new MiMouseListener(peli.getInt(1),1, "",this);
+                    MiMouseListener listener = new MiMouseListener(peli.getInt(1),1, "",this, pelipv, null);
                     pelipv.getPanel().addMouseListener(listener);
                     ppView.addListaPelis(pelipv.getPanel());
                 }
@@ -165,7 +165,7 @@ public class PrincipalController implements ActionListener {
                     seriepv.controlador(seriepvC);
                     listaseriepv.add(seriepv);
 
-                    MiMouseListener listener = new MiMouseListener(peli.getInt(1), 2, "",this);
+                    MiMouseListener listener = new MiMouseListener(peli.getInt(1), 2, "",this,null, seriepv);
                     seriepv.getPanel().addMouseListener(listener);
 
                     ppView.addListaSerie(seriepv.getPanel());
@@ -228,6 +228,7 @@ public class PrincipalController implements ActionListener {
 
                             ppView.addListaContenido(seriepv.getPanel());
                         } else { // es pelicula
+
                             listaidspelis.add(id);
 
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia=" + id + ";");
@@ -316,13 +317,16 @@ public class PrincipalController implements ActionListener {
         int id, tipo;
         String nombre;
         PrincipalController pController;
+        PeliculaPreView ppview;
+        SeriePreView spview;
 
-
-        public MiMouseListener(int anInt, int tipo, String n, PrincipalController pc) {
+        public MiMouseListener(int anInt, int tipo, String n, PrincipalController pc, PeliculaPreView peliculaPreView, SeriePreView spv) {
             pController = pc;
             this.tipo=tipo;
             id=anInt;
             nombre = n;
+            ppview=peliculaPreView;
+            spview=spv;
         }
 
         @Override
@@ -341,7 +345,7 @@ public class PrincipalController implements ActionListener {
                     // ahora está lista la pelicula
 
                     PeliculaView peliview = new PeliculaView();
-                    PeliculaController peliculaController = new PeliculaController(peliview, user, conexion, pelicula, ppView, id, fechaEstreno);
+                    PeliculaController peliculaController = new PeliculaController(peliview, user, conexion, pelicula, ppView, id, fechaEstreno, ppview);
                     peliview.controlador(peliculaController);
                     Main.frame.setContentPane(peliview.getPanel());
                     Main.frame.setVisible(true);
@@ -360,7 +364,7 @@ public class PrincipalController implements ActionListener {
                     // ahora está lista la serie
 
                     SerieView sv = new SerieView();
-                    SerieController sc=new SerieController(ppView,sv,serie,conexion,id,user);
+                    SerieController sc=new SerieController(ppView,sv,serie,conexion,id,user,spview);
                     sv.controlador(sc);
                     Main.frame.setContentPane(sv.getPanel());
                     Main.frame.setVisible(true);

@@ -61,6 +61,10 @@ public class SerieView extends JFrame {
         valoracionSerie.setText(Double.toString(v));
     }
 
+    public void setComboBoxvalorar2(String s){
+        valorarSerie.addItem(s);
+    }
+
     public void setFechaSerie(String f){
         fechaSerie.setText(f);
     }
@@ -116,8 +120,8 @@ public class SerieView extends JFrame {
     public void setComboBoxvalorar(int x){
         valorarSerie.addItem(x);
     }
-    public int getItemComboBoxvalorar(){
-        return (int) valorarSerie.getSelectedItem();
+    public Object getItemComboBoxvalorar(){
+        return valorarSerie.getSelectedItem();
     }
 
     public JComboBox getComboBoxvalorar(){
