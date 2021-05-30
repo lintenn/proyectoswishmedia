@@ -285,7 +285,7 @@ public class PrincipalController implements ActionListener {
                 String nombre=rs.getString(2);
                 Date fecha=rs.getDate(3);
 
-                actual=new Lista(id,nombre,fecha);
+                actual=new Lista(id,nombre,fecha,conexion);
                 listaActualizada.add(actual);
                 ppView.addItemComboBox1(actual);
             }
@@ -336,7 +336,7 @@ public class PrincipalController implements ActionListener {
                     ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia=" + id + ";");
                     resst.next();
                     String fechaEstreno = resst.getString("fecha_estreno");
-                    Pelicula pelicula = new Pelicula(resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"));
+                    Pelicula pelicula = new Pelicula(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"));
 
                     // aun falta la valoración para que esté creada completa la pelicula. Lo obtenemos:
                     ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + id + ";");

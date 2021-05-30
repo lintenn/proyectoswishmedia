@@ -25,6 +25,11 @@ public class Pelicula extends ContenidoMultimedia {
         this.duracion=duracion;
     }
 
+    public Pelicula(int id,String nombre, double val, String fecha_estreno, int duracion, String genero, String sinopsis, String reparto) { //changed
+        super(id,nombre,val,fecha_estreno,genero,sinopsis,reparto);
+        this.duracion=duracion;
+    }
+
     // Getters
     public int getDuracion() {
         return duracion;
