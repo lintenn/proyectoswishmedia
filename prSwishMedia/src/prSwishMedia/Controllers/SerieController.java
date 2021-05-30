@@ -257,6 +257,7 @@ public class SerieController  implements ActionListener, KeyListener {
             double num=rs.getInt(1);
             if(num==0){
                 serieView.setValoracionSerie2(Integer.toString(0));
+                spview.setValoracion(0);
             } else {
                 ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
                 rs2.next();
