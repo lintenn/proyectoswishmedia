@@ -54,7 +54,7 @@ public class SerieController  implements ActionListener, KeyListener {
         serieView.setSinopsisSerie(serie.getSinopsis());
         serieView.setRepartoSerie(serie.getReparto());
         serieView.setDuracionSerie(serie.getDuracionMedia());
-        serieView.setImagen(serie.getId());
+        serieView.setImagen(IDContenido);
     }
 
     @Override
@@ -65,6 +65,18 @@ public class SerieController  implements ActionListener, KeyListener {
             case ("VOLVER"):
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
+                break;
+            case ("TRAILER"):
+                String url="";
+                try {
+                    ResultSet rs= conexion.executeQuery("SELECT trailer FROM ContenidoMultimedia where idContenidoMultimedia=" + serie.getId() + ";");
+                    rs.next();
+                    url= rs.getString(1);
+                    System.out.println(url);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                openWebPage(url);
                 break;
             case ("ENVIAR"):
                 try {

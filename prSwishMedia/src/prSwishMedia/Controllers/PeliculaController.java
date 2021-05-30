@@ -74,7 +74,16 @@ public class PeliculaController implements ActionListener, KeyListener {
                 Main.frame.setVisible(true);
                 break;
             case ("TRAILER"):
-                openWebPage("https://youtu.be/dQw4w9WgXcQ");
+                String url="";
+                try {
+                    ResultSet rs= conexion.executeQuery("SELECT trailer FROM ContenidoMultimedia where idContenidoMultimedia=" + pelicula.getId() + ";");
+                    rs.next();
+                    url= rs.getString(1);
+                    System.out.println(url);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                openWebPage(url);
                 break;
             case ("ENVIAR"):
                 try {

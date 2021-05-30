@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
@@ -28,19 +29,27 @@ public class SerieView extends JFrame {
     private JButton back;
     private JTextField textField1;
     private JButton button1;
+    private JLabel Foto;
 
     public SerieView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        Cursor hand=new Cursor(Cursor.HAND_CURSOR);
+
+        back.setCursor(hand);
     }
 
     public void controlador(ActionListener ctr){
         back.addActionListener(ctr);
         button1.addActionListener(ctr);
         textField1.addKeyListener((KeyListener) ctr);
+        trailerSerie.addActionListener(ctr);
         valorarSerie.addActionListener(ctr);
+
 
         back.setActionCommand("VOLVER");
         button1.setActionCommand("ENVIAR");
+        trailerSerie.setActionCommand("TRAILER");
         valorarSerie.setActionCommand("VALORAR");
     }
 
@@ -88,10 +97,9 @@ public class SerieView extends JFrame {
         textField1.setText(s);
     }
 
-    public void setImagen(int id){
-        Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+id +".jpg"));
-        Imagen.setVisible(true);
-        Imagen.setOpaque(true);
+    public void setImagen(int id) {
+        System.out.println(id);
+        Foto.setIcon(new ImageIcon("prSwishMedia/imagen/x"+ id +".jpg"));
     }
 
     public JTextField getTextField1(){

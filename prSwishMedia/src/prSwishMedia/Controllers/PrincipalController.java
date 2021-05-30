@@ -157,7 +157,7 @@ public class PrincipalController implements ActionListener {
                     // si no, se borra la informacion de la anterior consulta (Result Set)
                     listaids.add(peli.getInt("idContenidoMultimedia"));
 
-                    Serie serie=new Serie(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("Genero"),0,peli.getInt("numTemporadas"));
+                    Serie serie=new Serie(peli.getInt("idContenidoMultimedia"),peli.getString("nombre"), peli.getString("sinopsis"),peli.getString("reparto"),0,peli.getString("fecha_estreno"),peli.getString("Genero"),peli.getString("premios"),0,peli.getString("trailer"),peli.getInt("veces_añadidas"),0,false,peli.getInt("numCapitulos"),peli.getInt("numTemporadas"),peli.getDouble("duracionMedia"));
                     SeriePreView seriepv = new SeriePreView();
                     SeriePreviewController seriepvC = new SeriePreviewController(user,serie,seriepv,ppView.getComboBox1(),conexion);
                     listasvC.add(seriepvC);
