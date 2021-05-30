@@ -33,6 +33,8 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
         pvSerie.setComboBox(comboBox);
         pvSerie.setValoracion(contenido.getValoracion());
         pvSerie.setNumTemporadas(contenido.getNumTemporadas());
+
+
     }
 
     @Override
