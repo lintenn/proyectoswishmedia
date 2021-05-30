@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 
 public class PeliculaController implements ActionListener, KeyListener {
@@ -49,6 +50,7 @@ public class PeliculaController implements ActionListener, KeyListener {
         fecha_Estreno=fechaE;
         setInfo();
         actualizarComentarios();
+        ponerValoracion();
         num=0;
     }
 
@@ -89,6 +91,10 @@ public class PeliculaController implements ActionListener, KeyListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case ("VALORAR"):
+                cambiarValoracion();
+                actualizarValoracion();
                 break;
         }
     }
@@ -183,6 +189,24 @@ public class PeliculaController implements ActionListener, KeyListener {
         }
     }
 
+    public void ponerValoracion(){
+        peliview.getComboBoxvalorar().removeAll();
+        for(int i=0; i<=10; i++){
+            peliview.setComboBoxvalorar(i);
+        }
+        try {
+            ResultSet rs2 = conexion.executeQuery("SELECT Count(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs2.next();
+            if(rs2.getInt(1)!=0){
+                ResultSet rs = conexion.executeQuery("SELECT * FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                rs.next();
+                peliview.getComboBoxvalorar().setSelectedItem(rs.getInt("valoracion"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -231,6 +255,36 @@ public class PeliculaController implements ActionListener, KeyListener {
         }
         catch (java.io.IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void cambiarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs.next();
+            if(rs.getInt(1)==0){
+                conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+peliview.getItemComboBoxvalorar()+")");
+            } else {
+                conexion.executeUpdate("DELETE FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+peliview.getItemComboBoxvalorar()+")");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where idContenido="+IDContenido+";");
+            rs.next();
+            double num=rs.getInt(1);
+            ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
+            rs2.next();
+            double val=rs2.getInt(1);
+            DecimalFormat formato2 = new DecimalFormat("#.0");
+            peliview.setValoracionPelicula(formato2.format(val/num));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

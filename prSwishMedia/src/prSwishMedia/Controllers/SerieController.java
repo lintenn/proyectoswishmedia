@@ -17,6 +17,7 @@ import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 public class SerieController  implements ActionListener, KeyListener {
 
@@ -39,6 +40,7 @@ public class SerieController  implements ActionListener, KeyListener {
         user=u;
         setInfo();
         actualizarComentarios();
+        ponerValoracion();
     }
 
     public void setInfo(){
@@ -82,6 +84,10 @@ public class SerieController  implements ActionListener, KeyListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case ("VALORAR"):
+                cambiarValoracion();
+                actualizarValoracion();
                 break;
         }
     }
@@ -224,6 +230,54 @@ public class SerieController  implements ActionListener, KeyListener {
         }
         catch (java.io.IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void cambiarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs.next();
+            if(rs.getInt(1)==0){
+                conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+serieView.getItemComboBoxvalorar()+")");
+            } else {
+                conexion.executeUpdate("DELETE FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+serieView.getItemComboBoxvalorar()+")");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where idContenido="+IDContenido+";");
+            rs.next();
+            double num=rs.getInt(1);
+            ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
+            rs2.next();
+            double val=rs2.getInt(1);
+            DecimalFormat formato2 = new DecimalFormat("#.0");
+            serieView.setValoracionSerie2(formato2.format(val/num));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ponerValoracion(){
+        serieView.getComboBoxvalorar().removeAll();
+        for(int i=0; i<=10; i++){
+            serieView.setComboBoxvalorar(i);
+        }
+        try {
+            ResultSet rs2 = conexion.executeQuery("SELECT Count(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs2.next();
+            if(rs2.getInt(1)!=0){
+                ResultSet rs = conexion.executeQuery("SELECT * FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                rs.next();
+                serieView.getComboBoxvalorar().setSelectedItem(rs.getInt("valoracion"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

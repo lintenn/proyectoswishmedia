@@ -24,8 +24,8 @@ public class PeliculaView extends JFrame{
     private JTextPane sinopsisPelicula;
     private JTextPane repartoPelicula;
     private JButton trailerPelicula;
-    private JComboBox valorarPelicula;
-    private JComboBox comboBox1;
+    private JComboBox comboBoxlista;
+    private JComboBox comboBoxvalorar;
     private JLabel peliculaImagen;
     private JButton back;
     private JScrollPane ComentariosPanel;
@@ -82,11 +82,12 @@ public class PeliculaView extends JFrame{
         trailerPelicula.addActionListener(ctr);
         buttonenviar.addActionListener(ctr);
         textField1.addKeyListener((KeyListener) ctr);
+        comboBoxvalorar.addActionListener(ctr);
 
         trailerPelicula.setActionCommand("TRAILER");
         back.setActionCommand("VOLVER");
         buttonenviar.setActionCommand("ENVIAR");
-
+        comboBoxvalorar.setActionCommand("VALORAR");
     }
 
     public String getNombre(){
@@ -109,5 +110,15 @@ public class PeliculaView extends JFrame{
         textField1.setText(s);
     }
 
+    public void setComboBoxvalorar(int x){
+        comboBoxvalorar.addItem(x);
+    }
+    public int getItemComboBoxvalorar(){
+        return (int) comboBoxvalorar.getSelectedItem();
+    }
+
+    public JComboBox getComboBoxvalorar(){
+        return comboBoxvalorar;
+    }
 
 }
