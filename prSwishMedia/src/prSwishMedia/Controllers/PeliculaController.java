@@ -63,6 +63,7 @@ public class PeliculaController implements ActionListener, KeyListener {
         peliview.setSinopsisPelicula(pelicula.getSinopsis());
         peliview.setRepartoPelicula(pelicula.getReparto());
         peliview.setImagen(pelicula.getId());
+
     }
 
     @Override

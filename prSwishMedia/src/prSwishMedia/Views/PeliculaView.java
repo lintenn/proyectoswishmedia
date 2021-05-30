@@ -70,7 +70,7 @@ public class PeliculaView extends JFrame{
     }
 
     public void setImagen(int id){
-        peliculaImagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+ id +".jpg"));
+        Foto.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+ id +".jpg"));
     }
 
     public JPanel getPanel(){
