@@ -54,7 +54,7 @@ public class PeliculaController implements ActionListener, KeyListener {
 
     private void setInfo() {
         peliview.setNombrePelicula(pelicula.getNombre());
-        peliview.setValoracionPelicula(Integer.toString(pelicula.getRating()));
+        peliview.setValoracionPelicula(Double.toString(pelicula.getValoracion()));
         peliview.setFechaPelicula(fecha_Estreno);
         peliview.setPeliculaDuracion(pelicula.getDuracion());
         peliview.setPeliculaGénero(pelicula.getGenero());

@@ -56,7 +56,7 @@ public class ContenidoMultimedia {
         this.aprobado = aprobado;
     }
 
-    public ContenidoMultimedia(String nombre,int imagen, String sinopsis, String genero, int valoracion) {
+    public ContenidoMultimedia(String nombre,int imagen, String sinopsis, String genero, double valoracion) { //changed
 
         this.nombre = nombre;
         this.id=imagen;
@@ -66,14 +66,14 @@ public class ContenidoMultimedia {
 
     }
 
-    public ContenidoMultimedia(String nombre, int imagen, String sinopsis, int valoracion) {
+    public ContenidoMultimedia(String nombre, int imagen, String sinopsis, double valoracion) { //changed
         this.nombre = nombre;
         this.id=imagen;
         this.sinopsis = sinopsis;
         this.valoracion = valoracion;
     }
 
-    public ContenidoMultimedia(String nombre, int valoracion, String fecha_estreno, String genero, String sinopsis, String reparto) {
+    public ContenidoMultimedia(String nombre, double valoracion, String fecha_estreno, String genero, String sinopsis, String reparto) { //changed
         this.nombre = nombre;
         this.fecha = fecha_estreno ;
         this.genero=genero;
@@ -82,7 +82,7 @@ public class ContenidoMultimedia {
         this.valoracion = valoracion;
     }
 
-    public ContenidoMultimedia(int idContenidoMultimedia, String nombre, int imagen, String sinopsis, int valoracion) {
+    public ContenidoMultimedia(int idContenidoMultimedia, String nombre, int imagen, String sinopsis, double valoracion) { //changed
         this.id=idContenidoMultimedia;
         this.nombre = nombre;
         this.id=imagen;

@@ -3,8 +3,8 @@ package prSwishMedia.Views;
 import prSwishMedia.Lista;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
-import java.sql.Statement;
 
 public class OtherUserView {
     private JPanel panel1;
@@ -32,7 +32,13 @@ public class OtherUserView {
     private JLabel fechaNacimiento;
     private JButton añadirAmigo;
 
-    public OtherUserView() { }
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+
+    public OtherUserView() {
+        volver.setCursor(manita);
+        verLista.setCursor(manita);
+        añadirAmigo.setCursor(manita);
+    }
 
     public void añadirComboBox(Lista l){
         comboBoxListas.addItem(l);

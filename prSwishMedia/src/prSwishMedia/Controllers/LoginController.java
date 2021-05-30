@@ -19,9 +19,9 @@ public class LoginController implements ActionListener {
     private LoginView lview;
     private RegisterView rview;
     private ConfirmedView cview;
-    Statement conexion;
-    Statement conexion1;
-    Statement conexion2;
+    private Statement conexion;
+    private Statement conexion1;
+    private Statement conexion2;
 
     public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, Statement st, Statement stmt1,Statement stmt2){
         lview=lv;
