@@ -30,7 +30,9 @@ public class SeriePreView extends ContenidoMultimediaPreView{
         return comboBox1.getSelectedItem();
     }
 
-
+    public void setValoracion2(String s) {
+        valoracion.setText(s);
+    }
     public void setMsgInfo(String msg){
         msgInfo.setText(msg);
     }

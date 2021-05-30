@@ -70,7 +70,7 @@ public class PeliculaView extends JFrame{
     }
 
     public void setImagen(int id){
-        peliculaImagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+ id +".jpg"));
+        //peliculaImagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+ id +".jpg"));
     }
 
     public JPanel getPanel(){
@@ -109,12 +109,14 @@ public class PeliculaView extends JFrame{
     public void setTextField1(String s){
         textField1.setText(s);
     }
-
+    public void setComboBoxvalorar2(String s){
+        comboBoxvalorar.addItem(s);
+    }
     public void setComboBoxvalorar(int x){
         comboBoxvalorar.addItem(x);
     }
-    public int getItemComboBoxvalorar(){
-        return (int) comboBoxvalorar.getSelectedItem();
+    public Object getItemComboBoxvalorar(){
+        return comboBoxvalorar.getSelectedItem();
     }
 
     public JComboBox getComboBoxvalorar(){

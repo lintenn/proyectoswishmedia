@@ -26,6 +26,9 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
     public void setValoracion(double valoracion) {
         Valoración.setText(Double.toString(valoracion));
     }
+    public void setValoracion2(String s) {
+        Valoración.setText(s);
+    }
     public void setNombre(String nombre){Nombre.setText(nombre);}
     public void setImagen(int imagen){Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg")); }
     public void setComboBox(JComboBox listas){
