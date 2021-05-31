@@ -41,7 +41,7 @@ public class PeliculaPreViewController extends ContenidoMultimediaPreViewControl
             case "AÑADIR":
                 List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=peliPv.getSelectedComboBox();
-                if(listasUsuariouser.contains(listaSeleccionada)){
+                if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+pelicula.getId()+","+listaSeleccionada.getId()+");");
                     } catch (SQLException throwables) {

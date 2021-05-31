@@ -33,6 +33,8 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
         pvSerie.setComboBox(comboBox);
         pvSerie.setValoracion(contenido.getValoracion());
         pvSerie.setNumTemporadas(contenido.getNumTemporadas());
+
+
     }
 
     @Override
@@ -51,7 +53,8 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
             case "AÑADIR":
                 List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=pvSerie.getSelectedComboBox();
-                if(listasUsuariouser.contains(listaSeleccionada)){
+                if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(contenido.getId())){
+
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+contenido.getId()+","+listaSeleccionada.getId()+");");
                     } catch (SQLException throwables) {

@@ -3,10 +3,7 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Main;
 import prSwishMedia.Serie;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.ComentarioView;
-import prSwishMedia.Views.ComentariosDeOtros;
-import prSwishMedia.Views.PrincipalView;
-import prSwishMedia.Views.SerieView;
+import prSwishMedia.Views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 public class SerieController  implements ActionListener, KeyListener {
 
@@ -28,8 +26,9 @@ public class SerieController  implements ActionListener, KeyListener {
     private JPanel listaComentarios = new JPanel();
     private int IDContenido;
     private Usuario user;
+    SeriePreView spview;
 
-    public SerieController(PrincipalView ppv, SerieView sv, Serie s, Statement conexion, int id, Usuario u){
+    public SerieController(PrincipalView ppv, SerieView sv, Serie s, Statement conexion, int id, Usuario u, SeriePreView spv){
         ppview=ppv;
         serieView=sv;
         serie=s;
@@ -37,8 +36,10 @@ public class SerieController  implements ActionListener, KeyListener {
         num=0;
         IDContenido=id;
         user=u;
+        spview=spv;
         setInfo();
         actualizarComentarios();
+        ponerValoracion();
     }
 
     public void setInfo(){
@@ -52,7 +53,7 @@ public class SerieController  implements ActionListener, KeyListener {
         serieView.setSinopsisSerie(serie.getSinopsis());
         serieView.setRepartoSerie(serie.getReparto());
         serieView.setDuracionSerie(serie.getDuracionMedia());
-        serieView.setImagen(serie.getId());
+        serieView.setImagen(IDContenido);
     }
 
     @Override
@@ -64,12 +65,28 @@ public class SerieController  implements ActionListener, KeyListener {
                 Main.frame.setContentPane(ppview.getPanel());
                 Main.frame.setVisible(true);
                 break;
+            case ("TRAILER"):
+                String url="";
+                try {
+                    ResultSet rs= conexion.executeQuery("SELECT trailer FROM ContenidoMultimedia where idContenidoMultimedia=" + serie.getId() + ";");
+                    rs.next();
+                    url= rs.getString(1);
+                    System.out.println(url);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                openWebPage(url);
+                break;
             case ("ENVIAR"):
                 try {
                     introducirComentario();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case ("VALORAR"):
+                cambiarValoracion();
+                actualizarValoracion();
                 break;
         }
     }
@@ -212,6 +229,64 @@ public class SerieController  implements ActionListener, KeyListener {
         }
         catch (java.io.IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void cambiarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs.next();
+            if(!serieView.getItemComboBoxvalorar().toString().equals("-")){
+                if(rs.getInt(1)==0){
+                    conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+Integer.parseInt(serieView.getItemComboBoxvalorar().toString())+")");
+                } else {
+                    conexion.executeUpdate("UPDATE Valora SET valoracion="+serieView.getItemComboBoxvalorar()+" where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                }
+            } else {
+                conexion.executeUpdate("DELETE FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where idContenido="+IDContenido+";");
+            rs.next();
+            double num=rs.getInt(1);
+            if(num==0){
+                serieView.setValoracionSerie2(Integer.toString(0));
+                spview.setValoracion(0);
+            } else {
+                ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
+                rs2.next();
+                double val=rs2.getInt(1);
+                DecimalFormat formato2 = new DecimalFormat("#.0");
+                spview.setValoracion2(formato2.format(val/num));
+                serieView.setValoracionSerie2(formato2.format(val/num));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ponerValoracion(){
+        serieView.getComboBoxvalorar().removeAll();
+        serieView.setComboBoxvalorar2("-");
+        for(int i=0; i<=10; i++){
+            serieView.setComboBoxvalorar(i);
+        }
+        try {
+            ResultSet rs2 = conexion.executeQuery("SELECT Count(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs2.next();
+            if(rs2.getInt(1)!=0){
+                ResultSet rs = conexion.executeQuery("SELECT * FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                rs.next();
+                serieView.getComboBoxvalorar().setSelectedItem(rs.getInt("valoracion"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

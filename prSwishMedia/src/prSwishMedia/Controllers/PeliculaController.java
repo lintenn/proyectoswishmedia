@@ -3,8 +3,7 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Comentario;
 import prSwishMedia.Main;
 import prSwishMedia.Pelicula;
-import prSwishMedia.Views.PeliculaView;
-import prSwishMedia.Views.PrincipalView;
+import prSwishMedia.Views.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.ComentarioView;
-import prSwishMedia.Views.ComentariosDeOtros;
 import prSwishMedia.Views.PeliculaView;
 
 import javax.swing.*;
@@ -24,12 +21,12 @@ import java.awt.event.KeyEvent;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 
 public class PeliculaController implements ActionListener, KeyListener {
 
     private PeliculaView peliview;
-    private boolean porderEntregar;
     private Usuario user;
     private Statement conexion;
     private int IDContenido;
@@ -38,8 +35,9 @@ public class PeliculaController implements ActionListener, KeyListener {
     Pelicula pelicula;
     String fecha_Estreno;
     private int num;
+    PeliculaPreView ppview;
 
-    public PeliculaController(PeliculaView peliview, Usuario u, Statement st, Pelicula p, PrincipalView ppv, int id, String fechaE) throws SQLException {
+    public PeliculaController(PeliculaView peliview, Usuario u, Statement st, Pelicula p, PrincipalView ppv, int id, String fechaE, PeliculaPreView peliculaPreView) throws SQLException {
         this.peliview=peliview;
         user=u;
         conexion=st;
@@ -47,20 +45,23 @@ public class PeliculaController implements ActionListener, KeyListener {
         principalView=ppv;
         IDContenido=id;
         fecha_Estreno=fechaE;
+        ppview=peliculaPreView;
         setInfo();
         actualizarComentarios();
+        ponerValoracion();
         num=0;
     }
 
     private void setInfo() {
         peliview.setNombrePelicula(pelicula.getNombre());
-        peliview.setValoracionPelicula(Integer.toString(pelicula.getRating()));
+        peliview.setValoracionPelicula(Double.toString(pelicula.getValoracion()));
         peliview.setFechaPelicula(fecha_Estreno);
         peliview.setPeliculaDuracion(pelicula.getDuracion());
         peliview.setPeliculaGénero(pelicula.getGenero());
         peliview.setSinopsisPelicula(pelicula.getSinopsis());
         peliview.setRepartoPelicula(pelicula.getReparto());
         peliview.setImagen(pelicula.getId());
+
     }
 
     @Override
@@ -72,7 +73,15 @@ public class PeliculaController implements ActionListener, KeyListener {
                 Main.frame.setVisible(true);
                 break;
             case ("TRAILER"):
-                openWebPage("https://youtu.be/dQw4w9WgXcQ");
+                String url="";
+                try {
+                    ResultSet rs= conexion.executeQuery("SELECT trailer FROM ContenidoMultimedia where idContenidoMultimedia=" + pelicula.getId() + ";");
+                    rs.next();
+                    url= rs.getString(1);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                openWebPage(url);
                 break;
             case ("ENVIAR"):
                 try {
@@ -80,6 +89,10 @@ public class PeliculaController implements ActionListener, KeyListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case ("VALORAR"):
+                cambiarValoracion();
+                actualizarValoracion();
                 break;
         }
     }
@@ -174,6 +187,25 @@ public class PeliculaController implements ActionListener, KeyListener {
         }
     }
 
+    public void ponerValoracion(){
+        peliview.getComboBoxvalorar().removeAll();
+        peliview.setComboBoxvalorar2("-");
+        for(int i=0; i<=10; i++){
+            peliview.setComboBoxvalorar(i);
+        }
+        try {
+            ResultSet rs2 = conexion.executeQuery("SELECT Count(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs2.next();
+            if(rs2.getInt(1)!=0){
+                ResultSet rs = conexion.executeQuery("SELECT * FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                rs.next();
+                peliview.getComboBoxvalorar().setSelectedItem(rs.getInt("valoracion"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -222,6 +254,45 @@ public class PeliculaController implements ActionListener, KeyListener {
         }
         catch (java.io.IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void cambiarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            rs.next();
+            if(!peliview.getItemComboBoxvalorar().toString().equals("-")){
+                if(rs.getInt(1)==0){
+                    conexion.executeUpdate("INSERT INTO Valora (nombreUsuario,idContenido,valoracion) values ('"+user.getNombre()+"', "+IDContenido+", "+Integer.parseInt(peliview.getItemComboBoxvalorar().toString())+")");
+                } else {
+                    conexion.executeUpdate("UPDATE Valora SET valoracion="+peliview.getItemComboBoxvalorar()+" where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+                }
+            } else {
+                conexion.executeUpdate("DELETE FROM Valora where nombreUsuario='"+user.getNombre()+"' and idContenido="+IDContenido+";");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarValoracion(){
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Valora where idContenido="+IDContenido+";");
+            rs.next();
+            double num=rs.getInt(1);
+            if(num==0){
+                peliview.setValoracionPelicula(Integer.toString(0));
+                ppview.setValoracion(0);
+            } else {
+                ResultSet rs2 = conexion.executeQuery("SELECT SUM(valoracion) as valoracion FROM Valora where idContenido="+IDContenido+";");
+                rs2.next();
+                double val=rs2.getInt(1);
+                DecimalFormat formato2 = new DecimalFormat("#.0");
+                ppview.setValoracion2(formato2.format(val/num));
+                peliview.setValoracionPelicula(formato2.format(val/num));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

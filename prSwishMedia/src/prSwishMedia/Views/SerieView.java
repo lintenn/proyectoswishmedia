@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
@@ -28,18 +29,28 @@ public class SerieView extends JFrame {
     private JButton back;
     private JTextField textField1;
     private JButton button1;
+    private JLabel Foto;
 
     public SerieView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        Cursor hand=new Cursor(Cursor.HAND_CURSOR);
+
+        back.setCursor(hand);
     }
 
     public void controlador(ActionListener ctr){
         back.addActionListener(ctr);
         button1.addActionListener(ctr);
         textField1.addKeyListener((KeyListener) ctr);
+        trailerSerie.addActionListener(ctr);
+        valorarSerie.addActionListener(ctr);
+
 
         back.setActionCommand("VOLVER");
         button1.setActionCommand("ENVIAR");
+        trailerSerie.setActionCommand("TRAILER");
+        valorarSerie.setActionCommand("VALORAR");
     }
 
     public void setNombreSerie(String nom) {
@@ -48,6 +59,10 @@ public class SerieView extends JFrame {
 
     public void setValoracionSerie(Double v){
         valoracionSerie.setText(Double.toString(v));
+    }
+
+    public void setComboBoxvalorar2(String s){
+        valorarSerie.addItem(s);
     }
 
     public void setFechaSerie(String f){
@@ -86,10 +101,8 @@ public class SerieView extends JFrame {
         textField1.setText(s);
     }
 
-    public void setImagen(int id){
-        Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+id +".jpg"));
-        Imagen.setVisible(true);
-        Imagen.setOpaque(true);
+    public void setImagen(int id) {
+        Foto.setIcon(new ImageIcon("prSwishMedia/imagen/x"+ id +".jpg"));
     }
 
     public JTextField getTextField1(){
@@ -104,4 +117,18 @@ public class SerieView extends JFrame {
         return panelPrincipal;
     }
 
+    public void setComboBoxvalorar(int x){
+        valorarSerie.addItem(x);
+    }
+    public Object getItemComboBoxvalorar(){
+        return valorarSerie.getSelectedItem();
+    }
+
+    public JComboBox getComboBoxvalorar(){
+        return valorarSerie;
+    }
+
+    public void setValoracionSerie2(String s){
+        valoracionSerie.setText(s);
+    }
 }
