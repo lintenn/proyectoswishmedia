@@ -1,8 +1,6 @@
 package prSwishMedia.Controllers;
 
-import prSwishMedia.Main;
-import prSwishMedia.Serie;
-import prSwishMedia.Usuario;
+import prSwishMedia.*;
 import prSwishMedia.Views.*;
 
 import javax.swing.*;
@@ -15,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class SerieController  implements ActionListener, KeyListener {
 
@@ -39,6 +38,7 @@ public class SerieController  implements ActionListener, KeyListener {
         spview=spv;
         setInfo();
         actualizarComentarios();
+        actualizarCombobox();
         ponerValoracion();
     }
 
@@ -87,6 +87,28 @@ public class SerieController  implements ActionListener, KeyListener {
             case ("VALORAR"):
                 cambiarValoracion();
                 actualizarValoracion();
+                break;
+            case ("AÑADIR"):
+                List<Lista> listasUsuariouser=user.getListasPersonales();
+                Lista listaSeleccionada=serieView.getAñadirSerie();
+                if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(serie.getId())){
+                    try {
+                        conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+serie.getId()+","+listaSeleccionada.getId()+");");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+                break;
+            case ("ELIMINAR"):
+                List<Lista> listasUsuariouser2=user.getListasPersonales();
+                Lista listaSeleccionada2=serieView.getAñadirSerie();
+                if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(serie.getId())){
+                    try {
+                        conexion.executeUpdate("DELETE FROM AñadirContenido where idContenidoMultimedia = "+serie.getId()+" and idLista ="+listaSeleccionada2.getId()+";");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
                 break;
         }
     }
@@ -287,6 +309,14 @@ public class SerieController  implements ActionListener, KeyListener {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void actualizarCombobox(){
+        if(user.getListasPersonales()!=null){
+            for(Lista l : user.getListasPersonales()){
+                serieView.setAñadirSerie(l);
+            }
         }
     }
 }

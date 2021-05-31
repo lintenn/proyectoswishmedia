@@ -1,8 +1,6 @@
 package prSwishMedia.Controllers;
 
-import prSwishMedia.Comentario;
-import prSwishMedia.Main;
-import prSwishMedia.Pelicula;
+import prSwishMedia.*;
 import prSwishMedia.Views.*;
 
 import java.awt.event.ActionEvent;
@@ -13,7 +11,7 @@ import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import prSwishMedia.Usuario;
+
 import prSwishMedia.Views.PeliculaView;
 
 import javax.swing.*;
@@ -22,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.List;
 
 
 public class PeliculaController implements ActionListener, KeyListener {
@@ -48,6 +47,7 @@ public class PeliculaController implements ActionListener, KeyListener {
         ppview=peliculaPreView;
         setInfo();
         actualizarComentarios();
+        actualizarCombobox();
         ponerValoracion();
         num=0;
     }
@@ -93,6 +93,28 @@ public class PeliculaController implements ActionListener, KeyListener {
             case ("VALORAR"):
                 cambiarValoracion();
                 actualizarValoracion();
+                break;
+            case ("AÑADIR"):
+                java.util.List<Lista> listasUsuariouser=user.getListasPersonales();
+                Lista listaSeleccionada=peliview.getAñadirPelicula();
+                if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
+                    try {
+                        conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+pelicula.getId()+","+listaSeleccionada.getId()+");");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+                break;
+            case ("ELIMINAR"):
+                List<Lista> listasUsuariouser2=user.getListasPersonales();
+                Lista listaSeleccionada2=peliview.getAñadirPelicula();
+                if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(pelicula.getId())){
+                    try {
+                        conexion.executeUpdate("DELETE FROM AñadirContenido where idContenidoMultimedia = "+pelicula.getId()+" and idLista ="+listaSeleccionada2.getId()+";");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
                 break;
         }
     }
@@ -293,6 +315,13 @@ public class PeliculaController implements ActionListener, KeyListener {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public void actualizarCombobox(){
+        if(user.getListasPersonales()!=null){
+            for(Lista l : user.getListasPersonales()){
+                peliview.setAñadirPelicula(l);
+            }
         }
     }
 }

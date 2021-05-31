@@ -1,5 +1,7 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Lista;
+
 import javax.security.auth.login.AccountNotFoundException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -24,7 +26,6 @@ public class PeliculaView extends JFrame{
     private JTextPane sinopsisPelicula;
     private JTextPane repartoPelicula;
     private JButton trailerPelicula;
-    private JComboBox comboBoxlista;
     private JComboBox comboBoxvalorar;
     private JLabel peliculaImagen;
     private JButton back;
@@ -32,6 +33,9 @@ public class PeliculaView extends JFrame{
     private JButton buttonenviar;
     private JTextField textField1;
     private JLabel Foto;
+    private JComboBox comboBoxlista;
+    private JButton añadir;
+    private JButton eliminar;
     private JTextArea textArea1;
     private JTextField textFieldComentarios;
     private String nombrePeli;
@@ -83,11 +87,15 @@ public class PeliculaView extends JFrame{
         buttonenviar.addActionListener(ctr);
         textField1.addKeyListener((KeyListener) ctr);
         comboBoxvalorar.addActionListener(ctr);
+        añadir.addActionListener(ctr);
+        eliminar.addActionListener(ctr);
 
         trailerPelicula.setActionCommand("TRAILER");
         back.setActionCommand("VOLVER");
         buttonenviar.setActionCommand("ENVIAR");
         comboBoxvalorar.setActionCommand("VALORAR");
+        añadir.setActionCommand("AÑADIR");
+        eliminar.setActionCommand("ELIMINAR");
     }
 
     public String getNombre(){
@@ -121,6 +129,14 @@ public class PeliculaView extends JFrame{
 
     public JComboBox getComboBoxvalorar(){
         return comboBoxvalorar;
+    }
+
+    public void setAñadirPelicula(Lista l){
+        comboBoxlista.addItem(l);
+    }
+
+    public Lista getAñadirPelicula(){
+        return (Lista) comboBoxlista.getSelectedItem();
     }
 
 }
