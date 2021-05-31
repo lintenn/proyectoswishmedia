@@ -38,6 +38,8 @@ public class SerieView extends JFrame {
     public SerieView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        ComentariosPanel.getVerticalScrollBar().setUnitIncrement(16);
+
         Cursor hand=new Cursor(Cursor.HAND_CURSOR);
 
         back.setCursor(hand);

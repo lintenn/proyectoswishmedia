@@ -42,6 +42,7 @@ public class PeliculaView extends JFrame{
 
     public PeliculaView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        ComentariosPanel.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     public void setNombrePelicula(String nombre) {
