@@ -19,9 +19,9 @@ public class LoginController implements ActionListener {
     private LoginView lview;
     private RegisterView rview;
     private ConfirmedView cview;
-    Statement conexion;
-    Statement conexion1;
-    Statement conexion2;
+    private Statement conexion;
+    private Statement conexion1;
+    private Statement conexion2;
 
     public LoginController(RegisterView rv, LoginView lv, ConfirmedView cv, Statement st, Statement stmt1,Statement stmt2){
         lview=lv;
@@ -48,7 +48,7 @@ public class LoginController implements ActionListener {
                     lview.clrPass();
                 }else{
                     Main.setUser(nick,conexion);
-
+                    lview.clear("");
                     //CREAMOS LAS VISTAS UNA VEZ INICIAMOS SESIÓN
                     PrincipalView ppview=new PrincipalView();
                     PrincipalController ppc = new PrincipalController(lview, ppview,conexion,conexion1,conexion2, Main.getUser());

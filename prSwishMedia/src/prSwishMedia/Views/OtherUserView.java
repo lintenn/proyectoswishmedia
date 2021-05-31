@@ -3,9 +3,8 @@ package prSwishMedia.Views;
 import prSwishMedia.Lista;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.sql.Statement;
 
 public class OtherUserView {
     private JPanel panel1;
@@ -31,14 +30,18 @@ public class OtherUserView {
     private JComboBox comboBoxListas;
     private JTextField descripcionField;
     private JLabel fechaNacimiento;
+    private JButton añadirAmigo;
 
-    public OtherUserView(Statement st) { }
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+
+    public OtherUserView() {
+        volver.setCursor(manita);
+        verLista.setCursor(manita);
+        añadirAmigo.setCursor(manita);
+    }
 
     public void añadirComboBox(Lista l){
         comboBoxListas.addItem(l);
-    }
-    public void eliminarComboBox(Lista l){
-        comboBoxListas.removeItem(l);
     }
 
     public void controlador(ActionListener ctr) {
@@ -47,8 +50,16 @@ public class OtherUserView {
 
         verLista.addActionListener(ctr);
         verLista.setActionCommand("VERLISTA");
+
+        añadirAmigo.addActionListener(ctr);
+        añadirAmigo.setActionCommand("AÑADIRAMIGO");
     }
 
+    public void setFechaCreacion(String date) { fechaCreacion.setText(date); }
+    public void setFechaNacimiento(String date) { fechaNacimiento.setText(date); }
+    public void setDescripcion(String descripcion){
+        descripcionField.setText(descripcion);
+    }
     public void setNombreUsuario(String nombre) { nombreUsuario.setText(nombre); }
     public void setNumCapitulos(int num) { numCapitulos.setText(String.valueOf(num)); }
     public void setNumSeriesVistas(int num) { numeroSeriesVistas.setText(String.valueOf(num)); }

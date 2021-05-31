@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -8,8 +9,8 @@ public class ComentarioView extends JFrame{
     FondoPanel fondo = new FondoPanel();
     private JTextArea textArea1;
     private JPanel panel1;
-    private JButton button1;
-    private JButton aButton;
+    private JButton likeboton;
+    private JButton dislikeboton;
     private JLabel numNoMegusta;
     private JLabel numMegusta;
     private JLabel NombrePerfil;
@@ -22,16 +23,23 @@ public class ComentarioView extends JFrame{
         numMegusta.setText(Integer.toString(mg));
         NombrePerfil.setText(nombre);
         FechaEntrega.setText(fecha);
+        fondo.setLayout(new GridBagLayout());
+
     }
 
     public void controlador(ActionListener ctr){
         button2.addActionListener(ctr);
+        likeboton.addActionListener(ctr);
+        dislikeboton.addActionListener(ctr);
 
         button2.setActionCommand("BORRAR");
+        likeboton.setActionCommand("LIKE");
+        dislikeboton.setActionCommand("DISLIKE");
     }
 
     private void createUIComponents() {
         panel1 = new FondoPanel();
+
     }
 
     public JPanel get(){
@@ -42,9 +50,10 @@ public class ComentarioView extends JFrame{
         private Image imagen;
 
         public void paint(Graphics g){
+            int y=panel1.getY();
             imagen = new ImageIcon(getClass().getResource("/Resources/Sin_título(1).png")).getImage();
-
-            g.drawImage(imagen,0,0,getWidth(), getHeight(),this);
+            panel1.setLocation(getWidth()-450,y);
+            g.drawImage(imagen,0,0,450, 134,this);
 
             setOpaque(false);
 

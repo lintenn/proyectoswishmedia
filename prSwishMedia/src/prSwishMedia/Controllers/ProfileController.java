@@ -133,7 +133,7 @@ public class ProfileController implements ActionListener, KeyListener {
                         id=generateID();
                         if(!nombreLista.equals("")){
                             conexion.executeUpdate("INSERT INTO Lista (ID,nombre,fechaCreacion,Nombreusuario) VALUES ("+id+",'"+nombreLista +"','"+ fecha +"','" +user.getNombre()+"');" );
-                            Lista nuevaLista=new Lista(id, nombreLista, d);
+                            Lista nuevaLista=new Lista(id, nombreLista, d,conexion);
                             listasSeries.add(nuevaLista);
                             pview.setMsgModificarLista("Lista creada con éxito");
                             user.setListasPersonales(listasSeries);

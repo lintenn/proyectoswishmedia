@@ -24,13 +24,14 @@ public class PeliculaView extends JFrame{
     private JTextPane sinopsisPelicula;
     private JTextPane repartoPelicula;
     private JButton trailerPelicula;
-    private JComboBox valorarPelicula;
-    private JComboBox comboBox1;
+    private JComboBox comboBoxlista;
+    private JComboBox comboBoxvalorar;
     private JLabel peliculaImagen;
     private JButton back;
     private JScrollPane ComentariosPanel;
     private JButton buttonenviar;
     private JTextField textField1;
+    private JLabel Foto;
     private JTextArea textArea1;
     private JTextField textFieldComentarios;
     private String nombrePeli;
@@ -68,6 +69,10 @@ public class PeliculaView extends JFrame{
         repartoPelicula.setText(reparto);
     }
 
+    public void setImagen(int id){
+        Foto.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+ id +".jpg"));
+    }
+
     public JPanel getPanel(){
         return panelPrincipal;
     }
@@ -77,11 +82,12 @@ public class PeliculaView extends JFrame{
         trailerPelicula.addActionListener(ctr);
         buttonenviar.addActionListener(ctr);
         textField1.addKeyListener((KeyListener) ctr);
+        comboBoxvalorar.addActionListener(ctr);
 
         trailerPelicula.setActionCommand("TRAILER");
         back.setActionCommand("VOLVER");
         buttonenviar.setActionCommand("ENVIAR");
-
+        comboBoxvalorar.setActionCommand("VALORAR");
     }
 
     public String getNombre(){
@@ -103,6 +109,18 @@ public class PeliculaView extends JFrame{
     public void setTextField1(String s){
         textField1.setText(s);
     }
+    public void setComboBoxvalorar2(String s){
+        comboBoxvalorar.addItem(s);
+    }
+    public void setComboBoxvalorar(int x){
+        comboBoxvalorar.addItem(x);
+    }
+    public Object getItemComboBoxvalorar(){
+        return comboBoxvalorar.getSelectedItem();
+    }
 
+    public JComboBox getComboBoxvalorar(){
+        return comboBoxvalorar;
+    }
 
 }

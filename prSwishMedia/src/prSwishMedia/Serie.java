@@ -24,13 +24,13 @@ public class Serie extends ContenidoMultimedia {
         this.numTemporadas=numTemporadas;
     }
 
-    public Serie(String nombre, int imagen, String sinopsis,  String genero,int valoracion, int numTemporadas) {
+    public Serie(String nombre, int imagen, String sinopsis,  String genero, double valoracion, int numTemporadas) { //changed
         super(nombre,imagen,sinopsis,genero,valoracion);
         this.numCapitulos=numTemporadas;
     }
 
-    public Serie(String nombre, int imagen, String sinopsis, int i, int numTemporadas) {
-        super(nombre,imagen,sinopsis,i);
+    public Serie(String nombre, int imagen, String sinopsis, double val, int numTemporadas) { //changed
+        super(nombre,imagen,sinopsis,val);
         this.numTemporadas=numTemporadas;
     }
 
