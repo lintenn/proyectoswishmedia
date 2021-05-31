@@ -26,7 +26,6 @@ public class PrincipalView extends JFrame{
     private JScrollPane Pelis;
     private JScrollPane SeriesPanel;
     private JButton BuscarP;
-    private JScrollPane ListaUsers;
     private JScrollPane contenidoListas;
     private JScrollPane UsersPanel;
     private JPanel listaPelis;
@@ -39,6 +38,11 @@ public class PrincipalView extends JFrame{
         listaSeries=new JPanel();
         listaContenido=new JPanel();
         listaUsers=new JPanel();
+
+        Pelis.getVerticalScrollBar().setUnitIncrement(16);
+        SeriesPanel.getVerticalScrollBar().setUnitIncrement(16);
+        UsersPanel.getVerticalScrollBar().setUnitIncrement(16);
+        contenidoListas.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     public void controlador(ActionListener ctr){
