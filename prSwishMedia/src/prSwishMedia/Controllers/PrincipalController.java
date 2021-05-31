@@ -184,7 +184,7 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }else { // listas?
+        }else { // listas personales
 
             ppView.removeAllContenido();
 
@@ -223,8 +223,10 @@ public class PrincipalController implements ActionListener {
                             SeriePreviewController seriepvC = new SeriePreviewController(user, serie, seriepv, ppView.getComboBox1(), conexion);
                             seriepv.controlador(seriepvC);
                             listasSyPC.add(seriepvC);
-
                             listaseriepv.add(seriepv);
+
+                            MiMouseListener listener = new MiMouseListener(count3.getInt(1), 2, "",this,null, seriepv);
+                            seriepv.getPanel().addMouseListener(listener);
 
                             ppView.addListaContenido(seriepv.getPanel());
                         } else { // es pelicula
@@ -239,11 +241,14 @@ public class PrincipalController implements ActionListener {
                             PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView, pelipv, pelicula, user, conexion, ppView.getComboBox1());
                             pelipv.controlador(peliPvController);
                             listasSyPC.add(peliPvController);
-
                             listapelipv.add(pelipv);
+
+                            MiMouseListener listener = new MiMouseListener(count3.getInt(1), 1, "",this,pelipv, null);
+                            pelipv.getPanel().addMouseListener(listener);
 
                             ppView.addListaContenido(pelipv.getPanel());
                         }
+
                     }
 
                     for (int i = 0; i < listaidsseries.size(); i++) {

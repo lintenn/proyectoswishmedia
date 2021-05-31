@@ -28,16 +28,20 @@ public class OtherUserView {
     private JLabel labelLista;
     private JButton verLista;
     private JComboBox comboBoxListas;
-    private JTextField descripcionField;
     private JLabel fechaNacimiento;
     private JButton añadirAmigo;
+    private JTextPane descripcionPanel;
 
     private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+    private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
 
     public OtherUserView() {
         volver.setCursor(manita);
         verLista.setCursor(manita);
         añadirAmigo.setCursor(manita);
+        comboBoxListas.setCursor(manita);
+        descripcionPanel.setCursor(cursorTexto);
+        descripcionPanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
     }
 
     public void añadirComboBox(Lista l){
@@ -58,14 +62,14 @@ public class OtherUserView {
     public void setFechaCreacion(String date) { fechaCreacion.setText(date); }
     public void setFechaNacimiento(String date) { fechaNacimiento.setText(date); }
     public void setDescripcion(String descripcion){
-        descripcionField.setText(descripcion);
+        descripcionPanel.setText(descripcion);
     }
     public void setNombreUsuario(String nombre) { nombreUsuario.setText(nombre); }
     public void setNumCapitulos(int num) { numCapitulos.setText(String.valueOf(num)); }
     public void setNumSeriesVistas(int num) { numeroSeriesVistas.setText(String.valueOf(num)); }
     public void setNumPeliculas(int num) { numPeliculas.setText(String.valueOf(num)); }
     public void setNumAmigos(int num) { numAmigos.setText(String.valueOf(num)); }
-    public String getDescripcion() { return descripcionField.getText(); }
+    public String getDescripcion() { return descripcionPanel.getText(); }
 
     public JPanel getPanel() {
         return panel1;
