@@ -342,7 +342,7 @@ public class PrincipalController implements ActionListener {
                     ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia=" + id + ";");
                     resst.next();
                     String fechaEstreno = resst.getString("fecha_estreno");
-                    Pelicula pelicula = new Pelicula(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"));
+                    Pelicula pelicula = new Pelicula(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"),resst.getInt("veces_añadidas"));
 
                     // aun falta la valoración para que esté creada completa la pelicula. Lo obtenemos:
                     ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + id + ";");
