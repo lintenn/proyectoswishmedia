@@ -40,7 +40,7 @@ public class Main {
         lview.getForgot().addMouseListener(mc);
 
         frame = new JFrame();
-        frame.setMinimumSize(new Dimension(1000,500));
+        frame.setMinimumSize(new Dimension(1050,600));
 
         frame.setTitle("SwishMedia");
         frame.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());

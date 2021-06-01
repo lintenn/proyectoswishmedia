@@ -48,9 +48,11 @@ public class PrincipalView extends JFrame{
     public void controlador(ActionListener ctr){
         Perfil.addActionListener(ctr);
         comboBox1.addActionListener(ctr);
+        BuscarP.addActionListener(ctr);
 
         comboBox1.setActionCommand("LISTA");
         Perfil.setActionCommand("PROFILE");
+        BuscarP.setActionCommand("BUSCAR");
     }
 
     public void removeAllListas(){listaPelis.removeAll();}
