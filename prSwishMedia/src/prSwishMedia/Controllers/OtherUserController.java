@@ -44,8 +44,10 @@ public class OtherUserController implements ActionListener {
 
     public void actualizarComboBox() {
         if (user.getListasPersonales() != null) {
+            System.out.println("hola");
             for (Lista l : user.getListasPersonales()) {
                 uview.añadirComboBox(l);
+                System.out.println(l.getNombre());
             }
         } else {
             System.out.println("LISTA VACIA");

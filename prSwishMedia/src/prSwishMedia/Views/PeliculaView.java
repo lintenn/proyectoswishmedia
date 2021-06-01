@@ -69,6 +69,10 @@ public class PeliculaView extends JFrame{
         sinopsisPelicula.setText(sinopsis);
     }
 
+    public void setAñadidaPelicula(String t) {
+        añadidaPelicula.setText(t);
+    }
+
     public void setRepartoPelicula(String reparto) {
         repartoPelicula.setText(reparto);
         repartoPelicula.setText(reparto);
