@@ -136,6 +136,8 @@ public class PeliculaView extends JFrame{
         return comboBoxvalorar;
     }
 
+
+
     public void setAñadirPelicula(Lista l){
         comboBoxlista.addItem(l);
     }
