@@ -48,7 +48,6 @@ public class PeliculaPreViewController extends ContenidoMultimediaPreViewControl
                         throwables.printStackTrace();
                     }
                 }
-
                 break;
         }
     }
