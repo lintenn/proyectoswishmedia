@@ -422,7 +422,7 @@
                         <properties>
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
-                          <icon value="Resources/añadirLista.png"/>
+                          <icon value="Resources/anadirLista.png"/>
                           <text value=""/>
                         </properties>
                       </component>
