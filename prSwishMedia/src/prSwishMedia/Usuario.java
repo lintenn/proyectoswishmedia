@@ -23,6 +23,7 @@ public class Usuario {
     private int numPeliculasVistas;
     private List<Lista> listasPersonales;
 
+
     public Usuario(String nick){ //de prueba
         nombre = nick;
         fechaCreacion=new Date(0);
@@ -36,6 +37,22 @@ public class Usuario {
         this.email = email;
         this.contrasenya = contrasenya;
         this.descripcion = "";
+        this.numListas = 3;
+        this.numPeliculasVistas = 0;
+        this.fechaNacimiento=null;
+        this.numSeriesVistas = 0;
+        this.privacidad = false;
+        this.numAmigos=0;
+        this.numComentarios=0;
+        this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
+    }
+
+    public Usuario( String nombre, String email, String contrasenya, String des) {
+        this.nombre = nombre;
+        this.email = email;
+        this.contrasenya = contrasenya;
+        this.descripcion = des;
         this.numListas = 3;
         this.numPeliculasVistas = 0;
         this.fechaNacimiento=null;

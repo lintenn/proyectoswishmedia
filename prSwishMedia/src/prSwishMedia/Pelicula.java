@@ -16,13 +16,27 @@ public class Pelicula extends ContenidoMultimedia {
         this.duracion = duracion;
     }
 
-    public Pelicula(String nombre, int imagen, String sinopsis, String genero, int valoracion) {
+    public Pelicula(String nombre, int imagen, String sinopsis, String genero, double valoracion) { //changed
         super(nombre, imagen,sinopsis,genero,valoracion);
     }
 
-    public Pelicula(String nombre, int i, String fecha_estreno, int duracion, String genero, String sinopsis, String reparto) {
-        super(nombre,i,fecha_estreno,genero,sinopsis,reparto);
+    public Pelicula(String nombre, double val, String fecha_estreno, int duracion, String genero, String sinopsis, String reparto) { //changed
+        super(nombre,val,fecha_estreno,genero,sinopsis,reparto);
         this.duracion=duracion;
+    }
+
+    public Pelicula(int id,String nombre, double val, String fecha_estreno, int duracion, String genero, String sinopsis, String reparto) { //changed
+        super(id,nombre,val,fecha_estreno,genero,sinopsis,reparto);
+        this.duracion=duracion;
+    }
+
+    public Pelicula(int idContenidoMultimedia, String nombre, int i, String fechaEstreno, int duracion, String genero, String sinopsis, String reparto, int veces_añadidas) {
+        super(idContenidoMultimedia,nombre,fechaEstreno,genero,sinopsis,reparto,veces_añadidas);
+        this.duracion=duracion;
+    }
+
+    public Pelicula(String nombre, int imagen, String sinopsis, String genero, double valoracion, int veces_añadidas) { //changed
+        super(nombre, imagen,sinopsis,genero,valoracion,veces_añadidas);
     }
 
     // Getters

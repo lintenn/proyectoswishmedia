@@ -1,11 +1,15 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Lista;
+
 import javax.security.auth.login.AccountNotFoundException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
 
 public class PeliculaView extends JFrame{
 
@@ -22,19 +26,23 @@ public class PeliculaView extends JFrame{
     private JTextPane sinopsisPelicula;
     private JTextPane repartoPelicula;
     private JButton trailerPelicula;
-    private JComboBox valorarPelicula;
-    private JPanel panelComentarios;
-    private JComboBox comboBox1;
+    private JComboBox comboBoxvalorar;
     private JLabel peliculaImagen;
     private JButton back;
     private JScrollPane ComentariosPanel;
     private JButton buttonenviar;
+    private JTextField textField1;
+    private JLabel Foto;
+    private JComboBox comboBoxlista;
+    private JButton añadir;
+    private JButton eliminar;
+    private JTextArea textArea1;
     private JTextField textFieldComentarios;
     private String nombrePeli;
 
     public PeliculaView(){
-
-
+        ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        ComentariosPanel.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     public void setNombrePelicula(String nombre) {
@@ -61,9 +69,17 @@ public class PeliculaView extends JFrame{
         sinopsisPelicula.setText(sinopsis);
     }
 
+    public void setAñadidaPelicula(String t) {
+        añadidaPelicula.setText(t);
+    }
+
     public void setRepartoPelicula(String reparto) {
         repartoPelicula.setText(reparto);
         repartoPelicula.setText(reparto);
+    }
+
+    public void setImagen(int id){
+        Foto.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+ id +".jpg"));
     }
 
     public JPanel getPanel(){
@@ -74,11 +90,17 @@ public class PeliculaView extends JFrame{
         back.addActionListener(ctr);
         trailerPelicula.addActionListener(ctr);
         buttonenviar.addActionListener(ctr);
-        textFieldComentarios.addKeyListener((KeyListener) ctr);
+        textField1.addKeyListener((KeyListener) ctr);
+        comboBoxvalorar.addActionListener(ctr);
+        añadir.addActionListener(ctr);
+        eliminar.addActionListener(ctr);
 
         trailerPelicula.setActionCommand("TRAILER");
         back.setActionCommand("VOLVER");
         buttonenviar.setActionCommand("ENVIAR");
+        comboBoxvalorar.setActionCommand("VALORAR");
+        añadir.setActionCommand("AÑADIR");
+        eliminar.setActionCommand("ELIMINAR");
     }
 
     public String getNombre(){
@@ -91,6 +113,37 @@ public class PeliculaView extends JFrame{
 
     public JTextField getTextFieldComentarios(){
         return textFieldComentarios;
+    }
+
+    public JTextField getTextField1(){
+        return textField1;
+    }
+
+    public void setTextField1(String s){
+        textField1.setText(s);
+    }
+    public void setComboBoxvalorar2(String s){
+        comboBoxvalorar.addItem(s);
+    }
+    public void setComboBoxvalorar(int x){
+        comboBoxvalorar.addItem(x);
+    }
+    public Object getItemComboBoxvalorar(){
+        return comboBoxvalorar.getSelectedItem();
+    }
+
+    public JComboBox getComboBoxvalorar(){
+        return comboBoxvalorar;
+    }
+
+
+
+    public void setAñadirPelicula(Lista l){
+        comboBoxlista.addItem(l);
+    }
+
+    public Lista getAñadirPelicula(){
+        return (Lista) comboBoxlista.getSelectedItem();
     }
 
 }

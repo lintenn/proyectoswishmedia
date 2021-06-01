@@ -1,5 +1,9 @@
 package prSwishMedia;
 
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,13 +14,15 @@ public class Lista {
     private String nombre;
     private Date fechaCreacion;
     public int numCont;
+    Statement st;
 
-    public Lista(int id, String nombre, Date fechaCreacion) {
+    public Lista(int id, String nombre, Date fechaCreacion, Statement stmt) {
         contMedia = new ArrayList<>();
         this.id = id;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
         numCont = 0;
+        st=stmt;
     }
 
     public Lista(List<ContenidoMultimedia> list, int id, String nombre, Date fechaCreacion) {
@@ -25,6 +31,18 @@ public class Lista {
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
         numCont = 0;
+    }
+
+    public boolean esta(int id){
+        int res = 0;
+        try {
+            ResultSet rs= st.executeQuery("SELECT count(*) FROM AñadirContenido WHERE idContenidoMultimedia=" + id + " AND idLista=" + this.id + ";");
+            rs.next();
+            res=rs.getInt(1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res>0;
     }
 
     public List<ContenidoMultimedia> getContMedia() {

@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.awt.event.ActionListener;
 
-public class PeliculaPreView extends JFrame{
+public class PeliculaPreView extends ContenidoMultimediaPreView{
     private JPanel panel1;
     private JComboBox Listas;
     private JTextPane Sinopsis;
@@ -23,8 +23,11 @@ public class PeliculaPreView extends JFrame{
 
     }
     // Método para actualizar la valoracion media
-    public void setValoracion(int valoracion) {
-        Valoración.setText(Integer.toString(valoracion));
+    public void setValoracion(double valoracion) {
+        Valoración.setText(Double.toString(valoracion));
+    }
+    public void setValoracion2(String s) {
+        Valoración.setText(s);
     }
     public void setNombre(String nombre){Nombre.setText(nombre);}
     public void setImagen(int imagen){Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg")); }
