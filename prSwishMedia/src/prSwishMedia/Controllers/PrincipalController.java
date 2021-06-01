@@ -218,7 +218,7 @@ public class PrincipalController implements ActionListener {
 
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia=" + id + ";");
                             count3.next();
-                            Serie serie = new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0, count3.getInt("numTemporadas"), count3.getInt("veces_añadidas"));
+                            Serie serie=new Serie(count3.getInt("idContenidoMultimedia"),count3.getString("nombre"), count3.getString("sinopsis"),count3.getString("reparto"),0,count3.getString("fecha_estreno"),count3.getString("Genero"),count3.getString("premios"),0,count3.getString("trailer"),count3.getInt("veces_añadidas"),0,false,count3.getInt("numCapitulos"),count3.getInt("numTemporadas"),count3.getDouble("duracionMedia"));
 
                             SeriePreView seriepv = new SeriePreView();
                             SeriePreviewController seriepvC = new SeriePreviewController(user, serie, seriepv, ppView.getComboBox1(), conexion);

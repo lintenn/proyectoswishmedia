@@ -52,8 +52,8 @@ public class ComentarioView extends JFrame{
         public void paint(Graphics g){
             int y=panel1.getY();
             imagen = new ImageIcon(getClass().getResource("/Resources/Sin_título(1).png")).getImage();
-            panel1.setLocation(getWidth()-450,y);
-            g.drawImage(imagen,0,0,450, 134,this);
+            panel1.setLocation(getWidth()-420,y);
+            g.drawImage(imagen,0,0,420, 134,this);
 
             setOpaque(false);
 
