@@ -61,6 +61,9 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
                             user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
                             user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
                         }
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+contenido.getId()+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")+1)+" where idContenidoMultimedia="+contenido.getId()+"");
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
