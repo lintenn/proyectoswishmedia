@@ -57,6 +57,10 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
 
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+contenido.getId()+","+listaSeleccionada.getId()+");");
+                        if(listaSeleccionada.getNombre().equals("Vistas")) {
+                            user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
+                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
+                        }
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

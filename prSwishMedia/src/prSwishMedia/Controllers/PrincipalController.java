@@ -80,6 +80,7 @@ public class PrincipalController implements ActionListener {
                 while(users.next()) {
 
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
+
                     UsuarioPreView userpv = new UsuarioPreView();
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
                     listauvC.add(userPvController);
@@ -341,7 +342,7 @@ public class PrincipalController implements ActionListener {
                     ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia=" + id + ";");
                     resst.next();
                     String fechaEstreno = resst.getString("fecha_estreno");
-                    Pelicula pelicula = new Pelicula(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"));
+                    Pelicula pelicula = new Pelicula(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"),resst.getInt("veces_añadidas"));
 
                     // aun falta la valoración para que esté creada completa la pelicula. Lo obtenemos:
                     ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + id + ";");
@@ -382,6 +383,12 @@ public class PrincipalController implements ActionListener {
                             resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
                             resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
                             resst.getInt("numPeliculasVistas"));
+                    ResultSet listas = conexion.executeQuery("SELECT * FROM Lista WHERE Nombreusuario = '" + usuario.getNombre() +"';");
+                    List<Lista> lista = new ArrayList<>();
+                    while(listas.next()){
+                        lista.add(new Lista(listas.getInt("ID"), listas.getString("nombre"), listas.getDate("fechaCreacion"), conexion));
+                    }
+                    usuario.setListasPersonales(lista);
                     OtherUserView ouv = new OtherUserView();
                     OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario);
                     ouv.controlador(ouc);

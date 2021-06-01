@@ -1,5 +1,7 @@
 package prSwishMedia.Views;
 
+import prSwishMedia.Lista;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -30,9 +32,13 @@ public class SerieView extends JFrame {
     private JTextField textField1;
     private JButton button1;
     private JLabel Foto;
+    private JButton añadir;
+    private JButton eliminar;
 
     public SerieView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        ComentariosPanel.getVerticalScrollBar().setUnitIncrement(16);
 
         Cursor hand=new Cursor(Cursor.HAND_CURSOR);
 
@@ -45,12 +51,15 @@ public class SerieView extends JFrame {
         textField1.addKeyListener((KeyListener) ctr);
         trailerSerie.addActionListener(ctr);
         valorarSerie.addActionListener(ctr);
-
+        añadir.addActionListener(ctr);
+        eliminar.addActionListener(ctr);
 
         back.setActionCommand("VOLVER");
         button1.setActionCommand("ENVIAR");
         trailerSerie.setActionCommand("TRAILER");
         valorarSerie.setActionCommand("VALORAR");
+        añadir.setActionCommand("AÑADIR");
+        eliminar.setActionCommand("ELIMINAR");
     }
 
     public void setNombreSerie(String nom) {
@@ -130,5 +139,13 @@ public class SerieView extends JFrame {
 
     public void setValoracionSerie2(String s){
         valoracionSerie.setText(s);
+    }
+
+    public void setAñadirSerie(Lista l){
+        añadirSerie.addItem(l);
+    }
+
+    public Lista getAñadirSerie(){
+        return (Lista) añadirSerie.getSelectedItem();
     }
 }
