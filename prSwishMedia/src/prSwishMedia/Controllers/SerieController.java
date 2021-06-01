@@ -94,6 +94,11 @@ public class SerieController  implements ActionListener, KeyListener {
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(serie.getId())){
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+serie.getId()+","+listaSeleccionada.getId()+");");
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")+1)+" where idContenidoMultimedia="+IDContenido+"");
+                        serie.setVeces_anyadidas(serie.getVeces_anyadidas()+1);
+                        serieView.setAñadidaSerie(serie.getVeces_anyadidas());
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -104,7 +109,12 @@ public class SerieController  implements ActionListener, KeyListener {
                 Lista listaSeleccionada2=serieView.getAñadirSerie();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(serie.getId())){
                     try {
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")-1)+" where idContenidoMultimedia="+IDContenido+"");
                         conexion.executeUpdate("DELETE FROM AñadirContenido where idContenidoMultimedia = "+serie.getId()+" and idLista ="+listaSeleccionada2.getId()+";");
+                        serie.setVeces_anyadidas(serie.getVeces_anyadidas()-1);
+                        serieView.setAñadidaSerie(serie.getVeces_anyadidas());
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

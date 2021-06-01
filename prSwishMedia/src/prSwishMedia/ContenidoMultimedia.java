@@ -66,6 +66,16 @@ public class ContenidoMultimedia {
 
     }
 
+    public ContenidoMultimedia(String nombre,int imagen, String sinopsis, String genero, double valoracion, int veces_anyadidas) { //changed
+
+        this.nombre = nombre;
+        this.id=imagen;
+        this.genero = genero;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+        this.veces_anyadidas = veces_anyadidas;
+    }
+
     public ContenidoMultimedia(String nombre, int imagen, String sinopsis, double valoracion) { //changed
         this.nombre = nombre;
         this.id=imagen;
@@ -104,6 +114,14 @@ public class ContenidoMultimedia {
         this.id=idContenidoMultimedia;
         this.nombre=nombre;
         this.fecha=fechaEstreno;
+        this.genero=genero;
+        this.sinopsis=sinopsis;
+        this.reparto=reparto;
+        this.veces_anyadidas=veces_añadidas;
+    }
+
+    public ContenidoMultimedia(String nombre, int imagen, String sinopsis, double val, int veces_añadidas) {
+        this.nombre=nombre;
         this.genero=genero;
         this.sinopsis=sinopsis;
         this.reparto=reparto;

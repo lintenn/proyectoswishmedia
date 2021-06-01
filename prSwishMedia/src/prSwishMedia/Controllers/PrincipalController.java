@@ -80,6 +80,7 @@ public class PrincipalController implements ActionListener {
                 while(users.next()) {
 
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
+
                     UsuarioPreView userpv = new UsuarioPreView();
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
                     listauvC.add(userPvController);
@@ -217,7 +218,7 @@ public class PrincipalController implements ActionListener {
 
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia=" + id + ";");
                             count3.next();
-                            Serie serie = new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0, count3.getInt("numTemporadas"));
+                            Serie serie = new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0, count3.getInt("numTemporadas"), count3.getInt("veces_añadidas"));
 
                             SeriePreView seriepv = new SeriePreView();
                             SeriePreviewController seriepvC = new SeriePreviewController(user, serie, seriepv, ppView.getComboBox1(), conexion);
@@ -232,10 +233,9 @@ public class PrincipalController implements ActionListener {
                         } else { // es pelicula
 
                             listaidspelis.add(id);
-
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia=" + id + ";");
                             count3.next();
-                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0);
+                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0, count3.getInt("veces_añadidas"));
 
                             PeliculaPreView pelipv = new PeliculaPreView();
                             PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView, pelipv, pelicula, user, conexion, ppView.getComboBox1());
@@ -382,6 +382,12 @@ public class PrincipalController implements ActionListener {
                             resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
                             resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
                             resst.getInt("numPeliculasVistas"));
+                    ResultSet listas = conexion.executeQuery("SELECT * FROM Lista WHERE Nombreusuario = '" + usuario.getNombre() +"';");
+                    List<Lista> lista = new ArrayList<>();
+                    while(listas.next()){
+                        lista.add(new Lista(listas.getInt("ID"), listas.getString("nombre"), listas.getDate("fechaCreacion"), conexion));
+                    }
+                    usuario.setListasPersonales(lista);
                     OtherUserView ouv = new OtherUserView();
                     OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario);
                     ouv.controlador(ouc);
