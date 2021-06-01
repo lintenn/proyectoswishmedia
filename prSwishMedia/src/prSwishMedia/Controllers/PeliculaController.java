@@ -101,6 +101,11 @@ public class PeliculaController implements ActionListener, KeyListener {
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+pelicula.getId()+","+listaSeleccionada.getId()+");");
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")+1)+" where idContenidoMultimedia="+IDContenido+"");
+                        pelicula.setVeces_anyadidas(pelicula.getVeces_anyadidas()+1);
+                        peliview.setAñadidaPelicula(Integer.toString(pelicula.getVeces_anyadidas()));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -111,7 +116,12 @@ public class PeliculaController implements ActionListener, KeyListener {
                 Lista listaSeleccionada2=peliview.getAñadirPelicula();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(pelicula.getId())){
                     try {
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")-1)+" where idContenidoMultimedia="+IDContenido+"");
                         conexion.executeUpdate("DELETE FROM AñadirContenido where idContenidoMultimedia = "+pelicula.getId()+" and idLista ="+listaSeleccionada2.getId()+";");
+                        pelicula.setVeces_anyadidas(pelicula.getVeces_anyadidas()-1);
+                        peliview.setAñadidaPelicula(Integer.toString(pelicula.getVeces_anyadidas()));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
