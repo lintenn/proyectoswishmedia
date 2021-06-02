@@ -151,6 +151,7 @@
               <contentAreaFilled value="false"/>
               <icon value="Resources/enviar.png"/>
               <label value=""/>
+              <pressedIcon value="Resources/enviarClicked.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -432,6 +433,7 @@
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/anadirLista.png"/>
+                          <pressedIcon value="Resources/anadirListaClicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
