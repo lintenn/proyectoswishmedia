@@ -15,7 +15,7 @@ public class NotificacionAmistadController implements ActionListener {
     private Usuario tu;
     private String otro;
     private Statement conexion;
-    private  NotificaciónController notificaciónController;
+    private NotificaciónController notificaciónController;
     private ProfileView profileView;
 
     public NotificacionAmistadController(Usuario user1, String user2, Statement st, NotificaciónController nc, ProfileView pw){
