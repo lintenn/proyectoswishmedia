@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AmigosController implements ActionListener {
 
@@ -17,16 +18,18 @@ public class AmigosController implements ActionListener {
     private Statement conexion;
     private Statement conexion1;
     private ListaAmigosView amigosView;
+    private List<UsuarioPreViewController> listauvC;
 
     public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av){
         user=u;
         conexion=st;
         conexion1=st1;
         amigosView=av;
+        listauvC=new ArrayList<>();
         rellenarLista();
     }
 
-    private void rellenarLista() {
+    public void rellenarLista() {
         amigosView.removeAlllistasUsers();
         try {
             ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
@@ -54,19 +57,18 @@ public class AmigosController implements ActionListener {
 
                     UsuarioPreView userpv = new UsuarioPreView();
                     userpv.botonAñadirInvisible(false);
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,this);
                     userpv.controlador(userPvController);
 
-                    //listauvC.add(userPvController); //Hará falta para implementar los chats
-                    //listaUserpv.add(userpv);        //Hará falta para implementar los chats
-                    //PrincipalController.MiMouseListener listener = new PrincipalController.MiMouseListener(0,3, usuario.getNombre(),this, null, null); //Hará falta para implementar los chats
-                    //userpv.getPanel().addMouseListener(listener); //Hará falta para implementar los chats
+                    listauvC.add(userPvController);
+                    listaUserpv.add(userpv);
+                    //PrincipalController.MiMouseListener listener = new PrincipalController.MiMouseListener(0,3, usuario.getNombre(),this, null, null);
+                    // userpv.getPanel().addMouseListener(listener);
 
                     amigosView.addListaUser(userpv.getPanel());
                 }
-
-                amigosView.setViewportViewScrollUser(amigosView.getListaUsers());
             }
+            amigosView.setViewportViewScrollUser(amigosView.getListaUsers());
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -75,6 +77,7 @@ public class AmigosController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String act = e.getActionCommand();
 
     }
 }
