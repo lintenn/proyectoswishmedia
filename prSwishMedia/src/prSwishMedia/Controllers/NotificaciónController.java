@@ -4,6 +4,7 @@ import prSwishMedia.Usuario;
 import prSwishMedia.Views.NotificacionAmistad;
 import prSwishMedia.Views.Notificación;
 import prSwishMedia.Views.NotificaciónMensaje;
+import prSwishMedia.Views.ProfileView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,15 +20,16 @@ public class NotificaciónController implements ActionListener {
     private Statement conexion;
     private JPanel listaNotificaciones;
     private Notificación notificación;
+    private ProfileView profileView;
 
-    public NotificaciónController(Notificación n, Usuario user1, Statement st){
+    public NotificaciónController(Notificación n, Usuario user1, Statement st, ProfileView pw){
         tu=user1;
         conexion=st;
         listaNotificaciones = new JPanel();
         notificación=n;
+        profileView=pw;
         actualizarNotificaciones();
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -51,7 +53,7 @@ public class NotificaciónController implements ActionListener {
             ResultSet rsamigo = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+tu.getNombre()+"' and solicitud = true");
             while(rsamigo.next()){
                 NotificacionAmistad na = new NotificacionAmistad();
-                NotificacionAmistadController nac = new NotificacionAmistadController(tu, rsamigo.getString("usuario2"), conexion);
+                NotificacionAmistadController nac = new NotificacionAmistadController(tu, rsamigo.getString("usuario2"), conexion, this, profileView);
                 na.controlador(nac);
                 na.setMensaje(rsamigo.getString("usuario2"));
                 listaNotificaciones.add(na.getPanel1());
@@ -59,9 +61,25 @@ public class NotificaciónController implements ActionListener {
             ResultSet rsmensaje = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+tu.getNombre()+"' and mensaje = true");
             while(rsmensaje.next()){
                 NotificaciónMensaje na = new NotificaciónMensaje();
-                NotificaciónMensajeController nac = new NotificaciónMensajeController(tu, rsmensaje.getString("usuario2"), conexion);
+                NotificaciónMensajeController nac = new NotificaciónMensajeController(tu, rsmensaje.getString("usuario2"), conexion, this, 1);
                 na.controlador(nac);
-                na.setMensaje(rsmensaje.getString("usuario2"));
+                na.setMensaje(rsmensaje.getString("usuario2")+" te ha enviado un mensaje");
+                listaNotificaciones.add(na.getPanel1());
+            }
+            ResultSet rsisAmigoNuevo = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+tu.getNombre()+"' and isNuevoAmigo = true");
+            while(rsisAmigoNuevo.next()){
+                NotificaciónMensaje na = new NotificaciónMensaje();
+                NotificaciónMensajeController nac = new NotificaciónMensajeController(tu, rsisAmigoNuevo.getString("usuario2"), conexion, this, 2);
+                na.controlador(nac);
+                na.setMensaje(rsisAmigoNuevo.getString("usuario2")+" es tu nuevo amigo");
+                listaNotificaciones.add(na.getPanel1());
+            }
+            ResultSet rseresAmigoNuevo = conexion.executeQuery("SELECT * FROM Amigo where usuario2 = '"+tu.getNombre()+"' and eresNuevoAmigo = true");
+            while(rseresAmigoNuevo.next()){
+                NotificaciónMensaje na = new NotificaciónMensaje();
+                NotificaciónMensajeController nac = new NotificaciónMensajeController(tu, rseresAmigoNuevo.getString("usuario1"), conexion, this, 3);
+                na.controlador(nac);
+                na.setMensaje("Ahora eres amigo de "+rseresAmigoNuevo.getString("usuario1"));
                 listaNotificaciones.add(na.getPanel1());
             }
             notificación.setPanelNotificaciones(listaNotificaciones);

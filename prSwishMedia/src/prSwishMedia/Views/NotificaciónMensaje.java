@@ -19,7 +19,7 @@ public class NotificaciónMensaje {
     }
 
     public void setMensaje(String s){
-        mensaje.setText(s+" te ha enviado mensaje");
+        mensaje.setText(s);
     }
 
     public String getMensaje(){
