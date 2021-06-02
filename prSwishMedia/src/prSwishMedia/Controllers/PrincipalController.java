@@ -367,7 +367,7 @@ public class PrincipalController implements ActionListener {
                 count.next();
                 int cont=count.getInt(1);
 
-                ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia WHERE nombre LIKE '%" + s + "%':");
+                ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia WHERE nombre LIKE '%" + s + "%';");
                 ppView.setLayoutListasSerie(cont);
 
                 // Creo lista para almacenar los idContenidoMultimedia y referencias de seriepv
