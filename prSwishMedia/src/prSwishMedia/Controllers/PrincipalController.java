@@ -92,7 +92,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -304,7 +304,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -491,10 +491,6 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
-
-
-
         }
     }
 
@@ -595,24 +591,36 @@ public class PrincipalController implements ActionListener {
                     Main.frame.setVisible(true);
 
                 } else if (tipo == 3) {
+                    ResultSet resst3 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1='"+nombre+"' and usuario2='"+user.getNombre()+"';");
+                    resst3.next();
+                    int cont=resst3.getInt(1);
+                    boolean amigos=false;
+                    if(cont>0){
+                        ResultSet resst2 = conexion.executeQuery("SELECT * FROM Amigo where usuario1='"+nombre+"' and usuario2='"+user.getNombre()+"';");
+                        resst2.next();
+                        amigos = resst2.getBoolean("isAmigo");
+                    }
+
                     ResultSet resst = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+nombre+"';");
                     resst.next();
-                    Usuario usuario = new Usuario(resst.getString("nombre"), resst.getString("email"), resst.getString("descripcion"),
-                            resst.getDate("fechaNacimiento"), resst.getDate("fechaCreacion"), resst.getString("contraseña"),
-                            resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
-                            resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
-                            resst.getInt("numPeliculasVistas"));
-                    ResultSet listas = conexion.executeQuery("SELECT * FROM Lista WHERE Nombreusuario = '" + usuario.getNombre() +"';");
-                    List<Lista> lista = new ArrayList<>();
-                    while(listas.next()){
-                        lista.add(new Lista(listas.getInt("ID"), listas.getString("nombre"), listas.getDate("fechaCreacion"), conexion));
+                    if(!resst.getBoolean("privacidad") || amigos){
+                        Usuario usuario = new Usuario(resst.getString("nombre"), resst.getString("email"), resst.getString("descripcion"),
+                                resst.getDate("fechaNacimiento"), resst.getDate("fechaCreacion"), resst.getString("contraseña"),
+                                resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
+                                resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
+                                resst.getInt("numPeliculasVistas"));
+                        ResultSet listas = conexion.executeQuery("SELECT * FROM Lista WHERE Nombreusuario = '" + usuario.getNombre() +"';");
+                        List<Lista> lista = new ArrayList<>();
+                        while(listas.next()){
+                            lista.add(new Lista(listas.getInt("ID"), listas.getString("nombre"), listas.getDate("fechaCreacion"), conexion));
+                        }
+                        usuario.setListasPersonales(lista);
+                        OtherUserView ouv = new OtherUserView();
+                        OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario, user);
+                        ouv.controlador(ouc);
+                        Main.frame.setContentPane(ouv.getPanel());
+                        Main.frame.setVisible(true);
                     }
-                    usuario.setListasPersonales(lista);
-                    OtherUserView ouv = new OtherUserView();
-                    OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario, user);
-                    ouv.controlador(ouc);
-                    Main.frame.setContentPane(ouv.getPanel());
-                    Main.frame.setVisible(true);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
