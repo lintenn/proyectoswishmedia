@@ -235,7 +235,7 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
                 break;
             case "NOTIFICACION":
                 Notificación notificación = new Notificación(this, true);
-                NotificaciónController nc = new NotificaciónController(notificación, user,conexion);
+                NotificaciónController nc = new NotificaciónController(notificación, user,conexion, pview);
                 notificación.controlador(nc);
                 notificación.setVisible(true);
                 break;

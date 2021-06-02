@@ -14,12 +14,13 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
     private JLabel Imagen;
     private JLabel Genero;
     private JLabel Valoración;
+    private JButton añadirbotón;
 
     public PeliculaPreView(){
     }
     public void controlador(ActionListener ctr){
-        Listas.addActionListener(ctr);
-        Listas.setActionCommand("AÑADIR");
+        añadirbotón.addActionListener(ctr);
+        añadirbotón.setActionCommand("AÑADIR");
 
     }
     // Método para actualizar la valoracion media
