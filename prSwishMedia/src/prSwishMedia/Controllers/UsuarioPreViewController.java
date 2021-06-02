@@ -61,7 +61,7 @@ public class UsuarioPreViewController implements ActionListener {
                     int rs = conexion.executeUpdate("DELETE FROM Amigo where (usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+
                             "') OR (usuario2 = '"+user.getNombre()+"' and usuario1 = '"+tu.getNombre()+"');");
 
-                    amigosController.rellenarLista();
+                    amigosController.eliminarUnUsuario(user.getNombre(),tu.getNombre());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

@@ -25,8 +25,11 @@ public class ListaAmigosView extends JDialog {
 
     }
     public void setLayoutListasUsers(int cont){ listaUsers.setLayout(new GridLayout(cont,0,0,0));}
+
     public void removeAlllistasUsers(){ listaUsers.removeAll();}
     public void addListaUser(JPanel panel){ listaUsers.add(panel);}
+    public void removeOneUser(JPanel panel){ listaUsers.remove(panel);}
+
     public JPanel getListaUsers(){ return listaUsers;}
     public void setViewportViewScrollUser(JPanel panel){UsersPane.setViewportView(panel);};
 }

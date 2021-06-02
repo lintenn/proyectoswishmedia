@@ -33,7 +33,7 @@ public class UsuarioPreView {
     public void setNombre(String nombre) {
         Nombre.setText(nombre);
     }
-
+    public String getNombre(){return Nombre.getText(); }
     public void setDescripcion(String descripcion) {
         Descripcion.setText(descripcion);
     }
