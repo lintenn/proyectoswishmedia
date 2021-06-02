@@ -51,7 +51,7 @@ public class PrincipalController implements ActionListener {
 
         if(act.equals("PROFILE")){
             ProfileView pview = new ProfileView(conexion);
-            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,user);
+            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,user);
             pview.controlador(pc);
 
             Main.frame.setContentPane(pview.getPanel());
@@ -99,7 +99,8 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    userpv.botonEliminarInvisible(false);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -311,7 +312,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -519,7 +520,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);

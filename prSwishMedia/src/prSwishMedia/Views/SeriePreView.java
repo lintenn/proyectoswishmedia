@@ -16,14 +16,15 @@ public class SeriePreView extends ContenidoMultimediaPreView{
     private JLabel msgInfo;
     private JLabel valoracion;
     private JLabel numTemporadas;
+    private JButton añadirbotón;
 
     public SeriePreView(){
 
     }
 
     public void controlador(ActionListener ctr){
-        comboBox1.addActionListener(ctr);
-        comboBox1.setActionCommand("AÑADIR");
+        añadirbotón.addActionListener(ctr);
+        añadirbotón.setActionCommand("AÑADIR");
 
     }
     public Object getValoracion(){

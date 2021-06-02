@@ -17,14 +17,16 @@ public class UsuarioPreViewController implements ActionListener {
     private Usuario user;
     private Statement conexion;
     private Usuario tu;
+    private AmigosController amigosController;
 
-    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2){
+    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac){
         userPv=userpv;
         user=usuario;
         conexion=st;
         tu=u2;
         userPv.setNombre(user.getNombre());
         userPv.setDescripcion(user.getDescripcion());
+        amigosController=ac;
     }
 
     @Override
@@ -32,23 +34,41 @@ public class UsuarioPreViewController implements ActionListener {
         String act = e.getActionCommand();
         switch (act) {
             case "AÑADIRAMIGO":
-                System.out.println("hola");
                 try {
-                    ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='" + user.getNombre() + "';");
-                    rs.next();
-                    if (rs.getBoolean("privacidad")) {
-                        System.out.println("hola2");
-                        conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, solicitud) values(" + generateID() + ",'" + user.getNombre() + "','" + tu.getNombre() + "', true)");
-                    } else {
-                        System.out.println("hola3");
-                        conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, isAmigo) values(" + generateID() + ",'" + user.getNombre() + "','" + tu.getNombre() + "', true)");
+                    ResultSet rs2 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                    rs2.next();
+                    int cont = rs2.getInt(1);
+                    if(cont==0){
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='" + user.getNombre() + "';");
+                        rs.next();
+                        if (rs.getBoolean("privacidad")) {
+                            conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, solicitud) values(" + generateID() + ",'" + user.getNombre() + "','" + tu.getNombre() + "', true)");
+                        } else {
+                            conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, isAmigo) values(" + generateID() + ",'" + user.getNombre() + "','" + tu.getNombre() + "', true)");
+                            conexion.executeUpdate("UPDATE Amigo SET isNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
+                            conexion.executeUpdate("UPDATE Amigo SET eresNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
+                            ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
+                            rs3.next();
+                            conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+user.getNombre()+"';");
+                        }
                     }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
+            case "ELIMINARAMIGO":
+                try {
+                    int rs = conexion.executeUpdate("DELETE FROM Amigo where (usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+
+                            "') OR (usuario2 = '"+user.getNombre()+"' and usuario1 = '"+tu.getNombre()+"');");
+
+                    amigosController.eliminarUnUsuario(user.getNombre(),tu.getNombre());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
                 break;
         }
     }
+
     private int generateID(){
         ResultSet res = null;
         try {
