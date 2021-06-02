@@ -1,5 +1,6 @@
 package prSwishMedia.Controllers;
 
+import com.kitfox.svg.A;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
@@ -235,6 +236,12 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
                 NotificaciónController nc = new NotificaciónController(notificación, user,conexion);
                 notificación.controlador(nc);
                 notificación.setVisible(true);
+                break;
+            case "AMIGOS":
+                AmigosView amigosView = new AmigosView();
+                AmigosController ac = new AmigosController();
+                amigosView.controlador(ac);
+                amigosView.setVisible(true);
                 break;
         }
     }
