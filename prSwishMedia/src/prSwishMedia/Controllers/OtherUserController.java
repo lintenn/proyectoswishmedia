@@ -3,6 +3,7 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.ChatView;
 import prSwishMedia.Views.OtherUserView;
 import prSwishMedia.Views.PrincipalView;
 
@@ -92,10 +93,23 @@ public class OtherUserController implements ActionListener {
                             user.setNumAmigos(rs4.getInt("numAmigos"));
                             uview.setNumAmigos(user.getNumAmigos());
                         }
+                    } else {
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        rs.next();
+                        if(!rs.getBoolean("isAmigo") && !rs.getBoolean("solicitud")){
+                            conexion.executeUpdate("UPDATE Amigo SET solictud=true where '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        }
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case "CHAT":
+                ChatView cw = new ChatView();
+                ChatController cc = new ChatController(tu, user, conexion, cw, uview, null);
+                cw.controlador(cc);
+                Main.frame.setContentPane(cw.getPanel1());
+                Main.frame.setVisible(true);
                 break;
         }
     }
