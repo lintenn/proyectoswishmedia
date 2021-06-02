@@ -4,11 +4,10 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.LoginView;
-import prSwishMedia.Views.PrincipalView;
-import prSwishMedia.Views.ProfileView;
+import prSwishMedia.Views.*;
 
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,7 +19,7 @@ import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class ProfileController implements ActionListener, KeyListener {
+public class ProfileController extends JFrame implements ActionListener, KeyListener {
 
     private ProfileView pview;
     private PrincipalView ppview;
@@ -230,6 +229,12 @@ public class ProfileController implements ActionListener, KeyListener {
                      throwables.printStackTrace();
                  }
 
+                break;
+            case "NOTIFICACION":
+                Notificación notificación = new Notificación(this, true);
+                NotificaciónController nc = new NotificaciónController(notificación, user,conexion);
+                notificación.controlador(nc);
+                notificación.setVisible(true);
                 break;
         }
     }
