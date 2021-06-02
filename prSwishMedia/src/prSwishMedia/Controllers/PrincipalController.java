@@ -61,7 +61,17 @@ public class PrincipalController implements ActionListener {
             Main.frame.setVisible(true);
         }else if(act.equals("LISTA")){
             if(ppView.getListaSeleccionada()!=null) añadirContenido(ppView.getListaSeleccionada().getId());
-       }
+       }else if(act.equals("BUSCARL")){
+            if(ppView.getListaSeleccionada()!=null){
+                añadirContenidoSubs(ppView.getListaSeleccionada().getId(),ppView.getBuscadorL().getText());
+            }
+        }else if(act.equals("BUSCARP")){
+            añadirContenidoSubs(-2,ppView.getBuscadorP().getText());
+        }else if(act.equals("BUSCARS")){
+            añadirContenidoSubs(-1,ppView.getBuscadorS().getText());
+        }else if(act.equals("BUSCARU")){
+            añadirContenidoSubs(-3,ppView.getBuscadorU().getText());
+        }
     }
 
     public void añadirContenido(int idList){
@@ -82,14 +92,12 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
                     listaUserpv.add(userpv);
 
-                    //MiMouseListener listener = new MiMouseListener(pelipv,peli.getInt(1));
-                    //pelipv.getPanel().addMouseListener(listener);
                     MiMouseListener listener = new MiMouseListener(0,3, usuario.getNombre(),this, null, null);
                     userpv.getPanel().addMouseListener(listener);
                     ppView.addListaUser(userpv.getPanel());
@@ -218,7 +226,7 @@ public class PrincipalController implements ActionListener {
 
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia=" + id + ";");
                             count3.next();
-                            Serie serie = new Serie(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), 0, count3.getInt("numTemporadas"));
+                            Serie serie=new Serie(count3.getInt("idContenidoMultimedia"),count3.getString("nombre"), count3.getString("sinopsis"),count3.getString("reparto"),0,count3.getString("fecha_estreno"),count3.getString("Genero"),count3.getString("premios"),0,count3.getString("trailer"),count3.getInt("veces_añadidas"),0,false,count3.getInt("numCapitulos"),count3.getInt("numTemporadas"),count3.getDouble("duracionMedia"));
 
                             SeriePreView seriepv = new SeriePreView();
                             SeriePreviewController seriepvC = new SeriePreviewController(user, serie, seriepv, ppView.getComboBox1(), conexion);
@@ -233,10 +241,9 @@ public class PrincipalController implements ActionListener {
                         } else { // es pelicula
 
                             listaidspelis.add(id);
-
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia=" + id + ";");
                             count3.next();
-                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0);
+                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0, count3.getInt("veces_añadidas"));
 
                             PeliculaPreView pelipv = new PeliculaPreView();
                             PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView, pelipv, pelicula, user, conexion, ppView.getComboBox1());
@@ -276,6 +283,214 @@ public class PrincipalController implements ActionListener {
 
 
 
+        }
+    }
+
+    public void añadirContenidoSubs(int idList,String s){
+
+        if(idList==-3) { // obtener usuarios
+            ppView.removeAlllistasUsers();
+            try {
+                ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Usuario WHERE nombre <> '" + user.getNombre() +"';");
+                count.next();
+                int cont=count.getInt(1);
+                ResultSet users= conexion.executeQuery("SELECT * FROM Usuario WHERE nombre <> '" + user.getNombre() +"' AND nombre LIKE '%" + s + "%';");
+                ppView.setLayoutListasUsers(cont);
+
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de userpv
+                ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
+                while(users.next()) {
+
+                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
+
+                    UsuarioPreView userpv = new UsuarioPreView();
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    listauvC.add(userPvController);
+
+                    userpv.controlador(userPvController);
+                    listaUserpv.add(userpv);
+
+                    MiMouseListener listener = new MiMouseListener(0,3, usuario.getNombre(),this, null, null);
+                    userpv.getPanel().addMouseListener(listener);
+                    ppView.addListaUser(userpv.getPanel());
+                }
+
+                ppView.setViewportViewScrollUser(ppView.getListaUsers());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }else if(idList==-2){ // obtener peliculas
+            ppView.removeAllListas();
+            try {
+                ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
+                count.next();
+                int cont=count.getInt(1);
+                ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia WHERE nombre LIKE '%"+ s + "%';");
+                ppView.setLayoutListas(cont);
+
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de pelipv
+                ArrayList<Integer> listaids = new ArrayList<>();
+                ArrayList<PeliculaPreView> listapelipv = new ArrayList<>();
+                while(peli.next()) {
+                    // Necesitamos guardar las variables antes de hacer una nueva consulta,
+                    // si no, se borra la informacion de la anterior consulta (Result Set)
+                    listaids.add(peli.getInt("idContenidoMultimedia"));
+
+                    Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
+                    PeliculaPreView pelipv = new PeliculaPreView();
+                    PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,user,conexion,ppView.getComboBox1());
+                    listapvC.add(peliPvController);
+
+                    pelipv.controlador(peliPvController);
+                    listapelipv.add(pelipv);
+
+                    MiMouseListener listener = new MiMouseListener(peli.getInt(1),1, "",this, pelipv, null);
+                    pelipv.getPanel().addMouseListener(listener);
+                    ppView.addListaPelis(pelipv.getPanel());
+                }
+
+                for (int i = 0; i < listaids.size(); i++) {
+                    //Por cada peli generamos su valoracion media
+                    ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaids.get(i) + ";");
+                    valmed.next(); //apuntamos
+                    listapelipv.get(i).setValoracion(valmed.getDouble(1));
+                }
+
+                ppView.setViewportViewScroll(ppView.getListaPelis());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }else if(idList==-1){ // obtener series
+            ppView.removeAllListasSerie();
+            try {
+                ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
+                count.next();
+                int cont=count.getInt(1);
+
+                ResultSet peli= conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia WHERE nombre LIKE '%" + s + "%';");
+                ppView.setLayoutListasSerie(cont);
+
+                // Creo lista para almacenar los idContenidoMultimedia y referencias de seriepv
+                ArrayList<Integer> listaids = new ArrayList<>();
+                ArrayList<SeriePreView> listaseriepv = new ArrayList<>();
+                while(peli.next()) {
+                    // Necesitamos guardar las variables antes de hacer una nueva consulta,
+                    // si no, se borra la informacion de la anterior consulta (Result Set)
+                    listaids.add(peli.getInt("idContenidoMultimedia"));
+
+                    Serie serie=new Serie(peli.getInt("idContenidoMultimedia"),peli.getString("nombre"), peli.getString("sinopsis"),peli.getString("reparto"),0,peli.getString("fecha_estreno"),peli.getString("Genero"),peli.getString("premios"),0,peli.getString("trailer"),peli.getInt("veces_añadidas"),0,false,peli.getInt("numCapitulos"),peli.getInt("numTemporadas"),peli.getDouble("duracionMedia"));
+                    SeriePreView seriepv = new SeriePreView();
+                    SeriePreviewController seriepvC = new SeriePreviewController(user,serie,seriepv,ppView.getComboBox1(),conexion);
+                    listasvC.add(seriepvC);
+
+                    seriepv.controlador(seriepvC);
+                    listaseriepv.add(seriepv);
+
+                    MiMouseListener listener = new MiMouseListener(peli.getInt(1), 2, "",this,null, seriepv);
+                    seriepv.getPanel().addMouseListener(listener);
+
+                    ppView.addListaSerie(seriepv.getPanel());
+                }
+
+                for (int i = 0; i < listaids.size(); i++) {
+                    //Por cada serie generamos su valoracion media
+                    ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaids.get(i) + ";");
+                    valmed.next(); //apuntamos
+                    listaseriepv.get(i).setValoracion(valmed.getDouble(1));
+                }
+
+                ppView.setViewportViewScrollSerie(ppView.getListaSeries());
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }else { // listas personales
+
+            ppView.removeAllContenido();
+
+            ResultSet count3=null;
+            try {
+                ResultSet count = conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+idList+";");
+                count.next();
+                int cont=count.getInt(1);
+                if(cont!=0) {
+
+                    count = conexion1.executeQuery("SELECT * FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista=" + idList + " WHERE nombre LIKE '%"+ s + "%';");
+                    ppView.setLayoutListasContenido(cont);
+
+                    // Creo listas para almacenar los idContenidoMultimedia y referencias de pelipv y seriepv
+                    ArrayList<Integer> listaidspelis = new ArrayList<>();
+                    ArrayList<Integer> listaidsseries = new ArrayList<>();
+                    ArrayList<PeliculaPreView> listapelipv = new ArrayList<>();
+                    ArrayList<SeriePreView> listaseriepv = new ArrayList<>();
+                    while (count.next()) {
+                        int id = count.getInt("idContenidoMultimedia");
+                        // Necesitamos guardar las variables antes de hacer una nueva consulta,
+                        // si no, se borra la informacion de la anterior consulta (Result Set)
+
+                        ResultSet count2 = conexion.executeQuery("SELECT COUNT(*) FROM Serie WHERE idContenidoMultimedia=" + id + ";");
+                        count2.next();
+                        int numSerie = count2.getInt("COUNT(*)");
+
+                        if (numSerie == 1) { // es serie
+                            listaidsseries.add(id);
+
+                            count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Serie on ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia && Serie.idContenidoMultimedia=" + id + ";");
+                            count3.next();
+                            Serie serie=new Serie(count3.getInt("idContenidoMultimedia"),count3.getString("nombre"), count3.getString("sinopsis"),count3.getString("reparto"),0,count3.getString("fecha_estreno"),count3.getString("Genero"),count3.getString("premios"),0,count3.getString("trailer"),count3.getInt("veces_añadidas"),0,false,count3.getInt("numCapitulos"),count3.getInt("numTemporadas"),count3.getDouble("duracionMedia"));
+
+                            SeriePreView seriepv = new SeriePreView();
+                            SeriePreviewController seriepvC = new SeriePreviewController(user, serie, seriepv, ppView.getComboBox1(), conexion);
+                            seriepv.controlador(seriepvC);
+                            listasSyPC.add(seriepvC);
+                            listaseriepv.add(seriepv);
+
+                            MiMouseListener listener = new MiMouseListener(count3.getInt(1), 2, "",this,null, seriepv);
+                            seriepv.getPanel().addMouseListener(listener);
+
+                            ppView.addListaContenido(seriepv.getPanel());
+                        } else { // es pelicula
+
+                            listaidspelis.add(id);
+                            count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia=" + id + ";");
+                            count3.next();
+                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0, count3.getInt("veces_añadidas"));
+
+                            PeliculaPreView pelipv = new PeliculaPreView();
+                            PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView, pelipv, pelicula, user, conexion, ppView.getComboBox1());
+                            pelipv.controlador(peliPvController);
+                            listasSyPC.add(peliPvController);
+                            listapelipv.add(pelipv);
+
+                            MiMouseListener listener = new MiMouseListener(count3.getInt(1), 1, "",this,pelipv, null);
+                            pelipv.getPanel().addMouseListener(listener);
+
+                            ppView.addListaContenido(pelipv.getPanel());
+                        }
+
+                    }
+
+                    for (int i = 0; i < listaidsseries.size(); i++) {
+                        //Por cada serie generamos su valoracion media
+                        ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaidsseries.get(i) + ";");
+                        valmed.next(); //apuntamos
+                        listaseriepv.get(i).setValoracion(valmed.getDouble(1));
+                    }
+
+                    for (int i = 0; i < listaidspelis.size(); i++) {
+                        //Por cada peli generamos su valoracion media
+                        ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + listaidspelis.get(i) + ";");
+                        valmed.next(); //apuntamos
+                        listapelipv.get(i).setValoracion(valmed.getDouble(1));
+                    }
+
+                    ppView.setViewportViewScrollContenido(ppView.getListaContenido());
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -376,24 +591,36 @@ public class PrincipalController implements ActionListener {
                     Main.frame.setVisible(true);
 
                 } else if (tipo == 3) {
+                    ResultSet resst3 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1='"+nombre+"' and usuario2='"+user.getNombre()+"';");
+                    resst3.next();
+                    int cont=resst3.getInt(1);
+                    boolean amigos=false;
+                    if(cont>0){
+                        ResultSet resst2 = conexion.executeQuery("SELECT * FROM Amigo where usuario1='"+nombre+"' and usuario2='"+user.getNombre()+"';");
+                        resst2.next();
+                        amigos = resst2.getBoolean("isAmigo");
+                    }
+
                     ResultSet resst = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+nombre+"';");
                     resst.next();
-                    Usuario usuario = new Usuario(resst.getString("nombre"), resst.getString("email"), resst.getString("descripcion"),
-                            resst.getDate("fechaNacimiento"), resst.getDate("fechaCreacion"), resst.getString("contraseña"),
-                            resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
-                            resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
-                            resst.getInt("numPeliculasVistas"));
-                    ResultSet listas = conexion.executeQuery("SELECT * FROM Lista WHERE Nombreusuario = '" + usuario.getNombre() +"';");
-                    List<Lista> lista = new ArrayList<>();
-                    while(listas.next()){
-                        lista.add(new Lista(listas.getInt("ID"), listas.getString("nombre"), listas.getDate("fechaCreacion"), conexion));
+                    if(!resst.getBoolean("privacidad") || amigos){
+                        Usuario usuario = new Usuario(resst.getString("nombre"), resst.getString("email"), resst.getString("descripcion"),
+                                resst.getDate("fechaNacimiento"), resst.getDate("fechaCreacion"), resst.getString("contraseña"),
+                                resst.getInt("numListas"), resst.getInt("numAmigos"), resst.getBoolean("privacidad"),
+                                resst.getInt("numComentarios"), resst.getInt("numSeriesVistas"), resst.getInt("numEpisodiosVistos"),
+                                resst.getInt("numPeliculasVistas"));
+                        ResultSet listas = conexion.executeQuery("SELECT * FROM Lista WHERE Nombreusuario = '" + usuario.getNombre() +"';");
+                        List<Lista> lista = new ArrayList<>();
+                        while(listas.next()){
+                            lista.add(new Lista(listas.getInt("ID"), listas.getString("nombre"), listas.getDate("fechaCreacion"), conexion));
+                        }
+                        usuario.setListasPersonales(lista);
+                        OtherUserView ouv = new OtherUserView();
+                        OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario, user);
+                        ouv.controlador(ouc);
+                        Main.frame.setContentPane(ouv.getPanel());
+                        Main.frame.setVisible(true);
                     }
-                    usuario.setListasPersonales(lista);
-                    OtherUserView ouv = new OtherUserView();
-                    OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario);
-                    ouv.controlador(ouc);
-                    Main.frame.setContentPane(ouv.getPanel());
-                    Main.frame.setVisible(true);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

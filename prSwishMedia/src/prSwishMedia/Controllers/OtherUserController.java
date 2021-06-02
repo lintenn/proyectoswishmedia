@@ -8,6 +8,8 @@ import prSwishMedia.Views.PrincipalView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class OtherUserController implements ActionListener {
@@ -16,13 +18,15 @@ public class OtherUserController implements ActionListener {
     private Usuario user;
     private PrincipalController pcc;
     private Statement conexion;
+    private Usuario tu;
 
-    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u) {
+    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u, Usuario u2) {
         uview = uv;
         ppview = ppv;
         user = u;
         conexion = st;
         pcc = principalController;
+        tu=u2;
         setInfo();
     }
 
@@ -44,10 +48,8 @@ public class OtherUserController implements ActionListener {
 
     public void actualizarComboBox() {
         if (user.getListasPersonales() != null) {
-            System.out.println("hola");
             for (Lista l : user.getListasPersonales()) {
                 uview.añadirComboBox(l);
-                System.out.println(l.getNombre());
             }
         } else {
             System.out.println("LISTA VACIA");
@@ -68,7 +70,33 @@ public class OtherUserController implements ActionListener {
                 break;
 
             case "AÑADIRAMIGO":
+                System.out.println("hola");
+                try {
+                    ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+user.getNombre()+"';");
+                    rs.next();
+                    if(rs.getBoolean("privacidad")){
+                        System.out.println("hola2");
+                        conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, solicitud) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                    } else {
+                        System.out.println("hola3");
+                        conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, isAmigo) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 break;
         }
+    }
+
+    private int generateID () throws SQLException {
+        ResultSet res = conexion.executeQuery("SELECT MAX(id) FROM Amigo;");
+        int id=0;
+        try{
+            res.next();
+            id=res.getInt("MAX(id)")+1;
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }

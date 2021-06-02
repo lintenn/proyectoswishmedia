@@ -10,6 +10,7 @@ import prSwishMedia.Views.PrincipalView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -43,7 +44,20 @@ public class PeliculaPreViewController extends ContenidoMultimediaPreViewControl
                 Lista listaSeleccionada=peliPv.getSelectedComboBox();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
                     try {
+
+                        if(listaSeleccionada.getNombre().equals("Vistas")) {
+                            user.setNumPeliculasVistas(user.getNumPeliculasVistas() + 1);
+
+                            ResultSet r = conexion.executeQuery("SELECT numPeliculasVistas from Usuario where nombre='" + user.getNombre() + "';");
+                            r.next();
+                            int n = r.getInt(1);
+                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas=" + (n + 1) + " where nombre='" + user.getNombre() + "';");
+                        }
+
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+pelicula.getId()+","+listaSeleccionada.getId()+");");
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+pelicula.getId()+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")+1)+" where idContenidoMultimedia="+pelicula.getId()+"");
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

@@ -17,6 +17,9 @@ public class ComentarioView extends JFrame{
     private JLabel FechaEntrega;
     private JButton button2;
 
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+    private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
+
     public ComentarioView(String comentario, int nomg, int mg, String nombre, String fecha){
         textArea1.setText(comentario);
         numNoMegusta.setText(Integer.toString(nomg));
@@ -25,6 +28,10 @@ public class ComentarioView extends JFrame{
         FechaEntrega.setText(fecha);
         fondo.setLayout(new GridBagLayout());
 
+        textArea1.setCursor(cursorTexto);
+        likeboton.setCursor(manita);
+        dislikeboton.setCursor(manita);
+        button2.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr){
@@ -52,8 +59,8 @@ public class ComentarioView extends JFrame{
         public void paint(Graphics g){
             int y=panel1.getY();
             imagen = new ImageIcon(getClass().getResource("/Resources/Sin_título(1).png")).getImage();
-            panel1.setLocation(getWidth()-450,y);
-            g.drawImage(imagen,0,0,450, 134,this);
+            panel1.setLocation(getWidth()-420,y);
+            g.drawImage(imagen,0,0,420, 134,this);
 
             setOpaque(false);
 

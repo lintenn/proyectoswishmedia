@@ -54,13 +54,30 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
                 List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=pvSerie.getSelectedComboBox();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(contenido.getId())){
-
                     try {
+
+                        if(listaSeleccionada.getNombre().equals("Vistas")) {
+                            user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
+                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos() + contenido.getNumCapitulos());
+
+                            ResultSet r = conexion.executeQuery("SELECT numSeriesVistas,numEpisodiosVistos from Usuario where nombre='" + user.getNombre() + "';");
+                            r.next();
+                            int ns = r.getInt(1);
+                            int ne = r.getInt(2);
+                            conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas=" + (ns + 1) + " where nombre='" + user.getNombre() + "';");
+                            conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos=" + (ne + contenido.getNumCapitulos()) + " where nombre='" + user.getNombre() + "';");
+
+                        }
+
+
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+contenido.getId()+","+listaSeleccionada.getId()+");");
                         if(listaSeleccionada.getNombre().equals("Vistas")) {
                             user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
                             user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
                         }
+                        ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+contenido.getId()+"");
+                        rs.next();
+                        conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")+1)+" where idContenidoMultimedia="+contenido.getId()+"");
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
