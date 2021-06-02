@@ -2,6 +2,7 @@ package prSwishMedia.Controllers;
 
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.*;
 import prSwishMedia.Views.ProfileView;
 import prSwishMedia.Views.UsuarioPreView;
 
@@ -19,9 +20,11 @@ public class UsuarioPreViewController implements ActionListener {
     private Statement conexion;
     private Usuario tu;
     private AmigosController amigosController;
+    private ProfileView profileView;
     private PrincipalController principalController;
     private ProfileView profileView;
 
+    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, ProfileView pw){
     public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, PrincipalController pc){
         userPv=userpv;
         user=usuario;
@@ -31,6 +34,7 @@ public class UsuarioPreViewController implements ActionListener {
         userPv.setNombre(user.getNombre());
         userPv.setDescripcion(user.getDescripcion());
         amigosController=ac;
+        profileView = pw;
     }
     public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, ProfileView pv){
         userPv=userpv;
@@ -67,6 +71,12 @@ public class UsuarioPreViewController implements ActionListener {
                             principalController.aumentarNumAmigos();
                             conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+user.getNombre()+"';");
                         }
+                    } else {
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        rs.next();
+                        if(!rs.getBoolean("isAmigo") && !rs.getBoolean("solicitud")){
+                            conexion.executeUpdate("UPDATE Amigo SET solicitud=true where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        }
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -83,6 +93,13 @@ public class UsuarioPreViewController implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case "CHATEAR":
+                ChatView cw = new ChatView();
+                ChatController cc = new ChatController(tu, user, conexion, cw, null, profileView);
+                cw.controlador(cc);
+                Main.frame.setContentPane(cw.getPanel1());
+                Main.frame.setVisible(true);
                 break;
         }
     }

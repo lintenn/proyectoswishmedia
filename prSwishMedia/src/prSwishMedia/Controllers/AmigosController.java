@@ -22,14 +22,16 @@ public class AmigosController implements ActionListener {
     private ListaAmigosView amigosView;
     private List<UsuarioPreViewController> listauvC;
     private List<UsuarioPreView> listaUsuariosPreViews;
+    private ProfileView profileView;
 
-    public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av){
+    public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av, ProfileView pw){
         user=u;
         conexion=st;
         conexion1=st1;
         amigosView=av;
         listauvC=new ArrayList<>();
         listaUsuariosPreViews=new ArrayList<>();
+        profileView=pw;
         rellenarLista();
     }
     public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av,ProfileView pv){
@@ -49,7 +51,7 @@ public class AmigosController implements ActionListener {
             ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario2 = '" + user.getNombre() +"' AND isAmigo=1;");
             count.next();
             int cont = count.getInt(1);
-            
+
             if(cont!=0){
                 ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario2 = '" + user.getNombre() +"' AND isAmigo=1;");
                 amigosView.setLayoutListasUsers(cont);

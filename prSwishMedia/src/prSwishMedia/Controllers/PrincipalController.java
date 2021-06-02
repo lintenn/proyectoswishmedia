@@ -27,6 +27,7 @@ public class PrincipalController implements ActionListener {
     private List<SeriePreviewController> listasvC;
     private List<ContenidoMultimediaPreViewController>  listasSyPC;
     private List<UsuarioPreViewController> listauvC;
+    private ProfileView pview;
 
     public PrincipalController(LoginView lv, PrincipalView ppv, Statement st,Statement st1,Statement st2, Usuario u){
         conexion=st;
@@ -39,6 +40,9 @@ public class PrincipalController implements ActionListener {
         listasvC=new ArrayList<>();
         listasSyPC=new ArrayList<>();
         listauvC=new ArrayList<>();
+        pview = new ProfileView(conexion);
+        ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,user);
+        pview.controlador(pc);
         añadirContenido(-3); // usuarios
         añadirContenido(-2); // peliculas
         añadirContenido(-1); // series
@@ -98,6 +102,10 @@ public class PrincipalController implements ActionListener {
                 // Creo lista para almacenar los idContenidoMultimedia y referencias de userpv
                 ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
                 while(users.next()) {
+
+                    ProfileView pview = new ProfileView(conexion);
+                    ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,user);
+                    pview.controlador(pc);
 
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
