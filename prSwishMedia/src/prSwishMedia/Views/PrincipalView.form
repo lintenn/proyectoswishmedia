@@ -84,7 +84,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="ef14e" class="javax.swing.JTextField" default-binding="true">
+                      <component id="ef14e" class="javax.swing.JTextField" binding="BuscadorP">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="169" height="30"/>
@@ -136,7 +136,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="d8604" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                      <component id="d8604" class="javax.swing.JTextField" binding="BuscadorS">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="169" height="30"/>
@@ -188,7 +188,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="39c98" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+                      <component id="39c98" class="javax.swing.JTextField" binding="BuscadorL">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="169" height="30"/>
@@ -242,7 +242,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="a9c69" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+                      <component id="a9c69" class="javax.swing.JTextField" binding="BuscadorU">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <minimum-size width="30" height="-1"/>
