@@ -14,6 +14,9 @@ public class UsuarioPreView {
     }
 
     public void controlador(ActionListener ctr) {
+        eliminarAmigo.addActionListener(ctr);
+
+        eliminarAmigo.setActionCommand("AÑADIRAMIGO");
     }
 
 
