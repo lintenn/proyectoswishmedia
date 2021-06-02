@@ -2,6 +2,7 @@ package prSwishMedia.Controllers;
 
 import prSwishMedia.Usuario;
 import prSwishMedia.Views.ListaAmigosView;
+import prSwishMedia.Views.ProfileView;
 import prSwishMedia.Views.UsuarioPreView;
 
 import java.awt.event.ActionEvent;
@@ -20,14 +21,16 @@ public class AmigosController implements ActionListener {
     private ListaAmigosView amigosView;
     private List<UsuarioPreViewController> listauvC;
     private List<UsuarioPreView> listaUsuariosPreViews;
+    private ProfileView profileView;
 
-    public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av){
+    public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av, ProfileView pw){
         user=u;
         conexion=st;
         conexion1=st1;
         amigosView=av;
         listauvC=new ArrayList<>();
         listaUsuariosPreViews=new ArrayList<>();
+        profileView=pw;
         rellenarLista();
     }
 
@@ -58,7 +61,7 @@ public class AmigosController implements ActionListener {
 
                     UsuarioPreView userpv = new UsuarioPreView();
                     userpv.botonAñadirInvisible(false);
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,this);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,this, profileView);
                     userpv.controlador(userPvController);
 
                     listaUsuariosPreViews.add(userpv);
