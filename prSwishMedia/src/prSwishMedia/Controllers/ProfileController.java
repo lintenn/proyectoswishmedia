@@ -240,7 +240,7 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
                 notificación.setVisible(true);
                 break;
             case "AMIGOS":
-                ListaAmigosView amigosView = new ListaAmigosView();
+                ListaAmigosView amigosView = new ListaAmigosView(pview, true);
                 AmigosController ac = new AmigosController(user,conexion1,conexion,amigosView);
                 amigosView.controlador(ac);
                 amigosView.setVisible(true);

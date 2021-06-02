@@ -17,14 +17,16 @@ public class UsuarioPreViewController implements ActionListener {
     private Usuario user;
     private Statement conexion;
     private Usuario tu;
+    private AmigosController amigosController;
 
-    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2){
+    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac){
         userPv=userpv;
         user=usuario;
         conexion=st;
         tu=u2;
         userPv.setNombre(user.getNombre());
         userPv.setDescripcion(user.getDescripcion());
+        amigosController=ac;
     }
 
     @Override
@@ -49,7 +51,23 @@ public class UsuarioPreViewController implements ActionListener {
                             rs3.next();
                             conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+user.getNombre()+"';");
                         }
+                    } else {
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        rs.next();
+                        if(!rs.getBoolean("isAmigo") && !rs.getBoolean("solicitud")){
+                            conexion.executeUpdate("UPDATE Amigo SET solicitud=true where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        }
                     }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
+            case "ELIMINARAMIGO":
+                try {
+                    int rs = conexion.executeUpdate("DELETE FROM Amigo where (usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+
+                            "') OR (usuario2 = '"+user.getNombre()+"' and usuario1 = '"+tu.getNombre()+"');");
+
+                    amigosController.eliminarUnUsuario(user.getNombre(),tu.getNombre());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

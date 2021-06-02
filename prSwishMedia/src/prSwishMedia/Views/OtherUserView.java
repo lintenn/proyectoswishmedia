@@ -31,6 +31,7 @@ public class OtherUserView {
     private JLabel fechaNacimiento;
     private JButton añadirAmigo;
     private JTextPane descripcionPanel;
+    private JButton button1;
 
     private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
     private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
