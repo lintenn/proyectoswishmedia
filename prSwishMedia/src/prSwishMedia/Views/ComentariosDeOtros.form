@@ -83,6 +83,7 @@
           <borderPainted value="false"/>
           <contentAreaFilled value="false"/>
           <icon value="Resources/megusta.png"/>
+          <pressedIcon value="Resources/megustaClicked.png"/>
           <text value=""/>
         </properties>
       </component>
@@ -130,6 +131,7 @@
           <borderPainted value="false"/>
           <contentAreaFilled value="false"/>
           <icon value="Resources/nomegusta.png"/>
+          <pressedIcon value="Resources/nomegustaClicked.png"/>
           <text value=""/>
         </properties>
       </component>
