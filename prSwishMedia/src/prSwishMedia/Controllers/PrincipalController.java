@@ -51,7 +51,7 @@ public class PrincipalController implements ActionListener {
 
         if(act.equals("PROFILE")){
             ProfileView pview = new ProfileView(conexion);
-            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,user);
+            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,user);
             pview.controlador(pc);
 
             Main.frame.setContentPane(pview.getPanel());
