@@ -54,9 +54,6 @@ public class PrincipalController implements ActionListener {
         String act=e.getActionCommand();
 
         if(act.equals("PROFILE")){
-            ProfileView pview = new ProfileView(conexion);
-            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,user);
-            pview.controlador(pc);
             Main.frame.setContentPane(pview.getPanel());
             Main.frame.setVisible(true);
         }else if(act.equals("LISTA")){
@@ -84,10 +81,6 @@ public class PrincipalController implements ActionListener {
         }
     }
 
-    public void aumentarNumAmigos(){
-        user.setNumAmigos(user.getNumAmigos()+1);
-    }
-
     public void añadirContenido(int idList){
 
         if(idList==-3) { // obtener usuarios
@@ -111,7 +104,8 @@ public class PrincipalController implements ActionListener {
 
                     UsuarioPreView userpv = new UsuarioPreView();
                     userpv.botonEliminarInvisible(false);
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null,this);
+                    userpv.setChatear(false);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null, pview);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -323,7 +317,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null,this);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null, pview);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -531,7 +525,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null,this);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null, pview);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);

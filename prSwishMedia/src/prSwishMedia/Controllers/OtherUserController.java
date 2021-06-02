@@ -90,7 +90,6 @@ public class OtherUserController implements ActionListener {
                             conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+user.getNombre()+"';");
                             ResultSet rs4 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
                             rs4.next();
-                            pcc.aumentarNumAmigos();
                             user.setNumAmigos(rs4.getInt("numAmigos"));
                             uview.setNumAmigos(user.getNumAmigos());
                         }

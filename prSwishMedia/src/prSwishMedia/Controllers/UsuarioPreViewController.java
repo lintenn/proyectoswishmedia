@@ -3,8 +3,6 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
 import prSwishMedia.Views.*;
-import prSwishMedia.Views.ProfileView;
-import prSwishMedia.Views.UsuarioPreView;
 
 import javax.swing.plaf.nimbus.State;
 import java.awt.event.ActionEvent;
@@ -21,31 +19,16 @@ public class UsuarioPreViewController implements ActionListener {
     private Usuario tu;
     private AmigosController amigosController;
     private ProfileView profileView;
-    private PrincipalController principalController;
-    private ProfileView profileView;
 
     public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, ProfileView pw){
-    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, PrincipalController pc){
         userPv=userpv;
         user=usuario;
-        principalController=pc;
         conexion=st;
         tu=u2;
         userPv.setNombre(user.getNombre());
         userPv.setDescripcion(user.getDescripcion());
         amigosController=ac;
         profileView = pw;
-    }
-    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, ProfileView pv){
-        userPv=userpv;
-        user=usuario;
-        profileView=pv;
-        conexion=st;
-        tu=u2;
-        userPv.setNombre(user.getNombre());
-        userPv.setDescripcion(user.getDescripcion());
-        amigosController=ac;
-        profileView=pv;
     }
 
     @Override
@@ -68,7 +51,6 @@ public class UsuarioPreViewController implements ActionListener {
                             conexion.executeUpdate("UPDATE Amigo SET eresNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
                             ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
                             rs3.next();
-                            principalController.aumentarNumAmigos();
                             conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+user.getNombre()+"';");
                         }
                     } else {
@@ -84,11 +66,9 @@ public class UsuarioPreViewController implements ActionListener {
                 break;
             case "ELIMINARAMIGO":
                 try {
-                    conexion.executeUpdate("DELETE FROM Amigo where (usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+
+                    int rs = conexion.executeUpdate("DELETE FROM Amigo where (usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+
                             "') OR (usuario2 = '"+user.getNombre()+"' and usuario1 = '"+tu.getNombre()+"');");
 
-                    conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(user.getNumAmigos()-1)+" where nombre = '"+user.getNombre()+"';");
-                    profileView.setNumAmigos(profileView.getNumAmigos()-1);
                     amigosController.eliminarUnUsuario(user.getNombre(),tu.getNombre());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

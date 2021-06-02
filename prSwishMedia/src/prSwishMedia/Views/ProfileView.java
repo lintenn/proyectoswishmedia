@@ -83,7 +83,6 @@ public class ProfileView extends JFrame{
     }
     public void eliminarComboBoxTodoDia(){comboBoxDia.removeAllItems();}
     public int getSelectedIndexComboBoxDia(){return  comboBoxDia.getSelectedIndex();}
-    public int getNumAmigos(){return Integer.parseInt(numAmigos.getText());}
     public void setSetSelectedIndexComboBoxDia(int x){comboBoxDia.setSelectedIndex(x);}
     public void setSetSelectedIndexComboBoxMes(int x){comboBoxMes.setSelectedIndex(x);}
     public void setSetSelectedIndexComboBoxAnyo(int x){comboBoxAnyo.setSelectedIndex(x);}
