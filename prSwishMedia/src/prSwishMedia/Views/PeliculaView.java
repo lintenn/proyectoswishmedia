@@ -43,6 +43,20 @@ public class PeliculaView extends JFrame{
     public PeliculaView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         ComentariosPanel.getVerticalScrollBar().setUnitIncrement(16);
+
+        Cursor hand=new Cursor(Cursor.HAND_CURSOR);
+        Cursor text=new Cursor(Cursor.TEXT_CURSOR);
+
+        back.setCursor(hand);
+        trailerPelicula.setCursor(hand);
+        comboBoxlista.setCursor(hand);
+        comboBoxvalorar.setCursor(hand);
+        añadir.setCursor(hand);
+        eliminar.setCursor(hand);
+        buttonenviar.setCursor(hand);
+
+        sinopsisPelicula.setCursor(text);
+        repartoPelicula.setCursor(text);
     }
 
     public void setNombrePelicula(String nombre) {

@@ -74,7 +74,7 @@
                       </scrollpane>
                     </children>
                   </grid>
-                  <grid id="13bc4" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="13bc4" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -84,7 +84,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="ef14e" class="javax.swing.JTextField" default-binding="true">
+                      <component id="ef14e" class="javax.swing.JTextField" binding="BuscadorP">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="169" height="30"/>
@@ -105,9 +105,21 @@
                       </component>
                       <hspacer id="af67d">
                         <constraints>
-                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </hspacer>
+                      <component id="d97df" class="javax.swing.JButton" binding="button1" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <borderPainted value="false"/>
+                          <contentAreaFilled value="false"/>
+                          <icon value="Resources/a-z15.png"/>
+                          <opaque value="false"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
                     </children>
                   </grid>
                 </children>
@@ -136,7 +148,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="d8604" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                      <component id="d8604" class="javax.swing.JTextField" binding="BuscadorS">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="169" height="30"/>
@@ -188,7 +200,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="39c98" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+                      <component id="39c98" class="javax.swing.JTextField" binding="BuscadorL">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="169" height="30"/>
@@ -242,7 +254,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="a9c69" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+                      <component id="a9c69" class="javax.swing.JTextField" binding="BuscadorU">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <minimum-size width="30" height="-1"/>

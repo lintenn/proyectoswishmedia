@@ -34,6 +34,9 @@ public class SerieView extends JFrame {
     private JLabel Foto;
     private JButton añadir;
     private JButton eliminar;
+    private JLabel temps;
+    private JLabel caps;
+    private JLabel sinop;
 
     public SerieView(){
         ComentariosPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -41,8 +44,18 @@ public class SerieView extends JFrame {
         ComentariosPanel.getVerticalScrollBar().setUnitIncrement(16);
 
         Cursor hand=new Cursor(Cursor.HAND_CURSOR);
+        Cursor text=new Cursor(Cursor.TEXT_CURSOR);
 
         back.setCursor(hand);
+        trailerSerie.setCursor(hand);
+        añadirSerie.setCursor(hand);
+        valorarSerie.setCursor(hand);
+        añadir.setCursor(hand);
+        eliminar.setCursor(hand);
+        button1.setCursor(hand);
+
+        sinopsisSerie.setCursor(text);
+        repartoSerie.setCursor(text);
     }
 
     public void controlador(ActionListener ctr){

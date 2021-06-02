@@ -8,6 +8,8 @@ import prSwishMedia.Views.PrincipalView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class OtherUserController implements ActionListener {
@@ -16,13 +18,15 @@ public class OtherUserController implements ActionListener {
     private Usuario user;
     private PrincipalController pcc;
     private Statement conexion;
+    private Usuario tu;
 
-    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u) {
+    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u, Usuario u2) {
         uview = uv;
         ppview = ppv;
         user = u;
         conexion = st;
         pcc = principalController;
+        tu=u2;
         setInfo();
     }
 
@@ -66,6 +70,15 @@ public class OtherUserController implements ActionListener {
                 break;
 
             case "AÑADIRAMIGO":
+                try {
+                    ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+user.getNombre()+"';");
+                    rs.next();
+                    if(rs.getBoolean("privacidad")){
+                        
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 break;
         }
     }
