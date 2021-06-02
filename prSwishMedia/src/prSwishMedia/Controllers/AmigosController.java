@@ -1,7 +1,7 @@
 package prSwishMedia.Controllers;
 
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.AmigosView;
+import prSwishMedia.Views.ListaAmigosView;
 import prSwishMedia.Views.UsuarioPreView;
 
 import java.awt.event.ActionEvent;
@@ -16,8 +16,9 @@ public class AmigosController implements ActionListener {
     private Usuario user;
     private Statement conexion;
     private Statement conexion1;
-    private AmigosView amigosView;
-    public AmigosController(Usuario u, Statement st1,Statement st, AmigosView av){
+    private ListaAmigosView amigosView;
+
+    public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av){
         user=u;
         conexion=st;
         conexion1=st1;
@@ -28,30 +29,38 @@ public class AmigosController implements ActionListener {
     private void rellenarLista() {
         amigosView.removeAlllistasUsers();
         try {
-            ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' AND isAmigo=1;");
+            ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
             count.next();
             int cont = count.getInt(1);
 
             if(cont!=0){
-                ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' AND isAmigo=1;");
+                ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
                 amigosView.setLayoutListasUsers(cont);
 
                 // Creo lista para almacenar los idContenidoMultimedia y referencias de userpv
                 ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
                 ResultSet amigo;
                 while(users.next()) {
-                    amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+users.getString("usuario2")+"';");
+                    String usuario1 = users.getString("usuario1");
+                    String usuario2 = users.getString("usuario2");
+
+                    if(usuario1.equals(user.getNombre())){
+                        amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+usuario2+"';");
+                    }else {
+                        amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+usuario1+"';");
+                    }
                     amigo.next();
                     Usuario usuario = new Usuario(amigo.getString("nombre"), amigo.getString("email"), amigo.getString("contraseña"),amigo.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
+                    userpv.botonAñadirInvisible(false);
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
-                    //listauvC.add(userPvController);
                     userpv.controlador(userPvController);
-                    listaUserpv.add(userpv);
 
-                    //PrincipalController.MiMouseListener listener = new PrincipalController.MiMouseListener(0,3, usuario.getNombre(),this, null, null);
-                    //userpv.getPanel().addMouseListener(listener);
+                    //listauvC.add(userPvController); //Hará falta para implementar los chats
+                    //listaUserpv.add(userpv);        //Hará falta para implementar los chats
+                    //PrincipalController.MiMouseListener listener = new PrincipalController.MiMouseListener(0,3, usuario.getNombre(),this, null, null); //Hará falta para implementar los chats
+                    //userpv.getPanel().addMouseListener(listener); //Hará falta para implementar los chats
 
                     amigosView.addListaUser(userpv.getPanel());
                 }

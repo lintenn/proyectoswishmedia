@@ -24,6 +24,7 @@ public class UsuarioPreView {
         return panel1;
     }
 
+    public void botonAñadirInvisible(boolean a){eliminarAmigo.setVisible(a); }
     public void setNombre(String nombre) {
         Nombre.setText(nombre);
     }
