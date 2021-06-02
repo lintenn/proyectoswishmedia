@@ -70,16 +70,19 @@ public class OtherUserController implements ActionListener {
                 break;
 
             case "AÑADIRAMIGO":
-                System.out.println("hola");
+
                 try {
-                    ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+user.getNombre()+"';");
-                    rs.next();
-                    if(rs.getBoolean("privacidad")){
-                        System.out.println("hola2");
-                        conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, solicitud) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
-                    } else {
-                        System.out.println("hola3");
-                        conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, isAmigo) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                    ResultSet rs2 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                    rs2.next();
+                    int cont = rs2.getInt(1);
+                    if(cont==0){
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+user.getNombre()+"';");
+                        rs.next();
+                        if(rs.getBoolean("privacidad")){
+                            conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, solicitud) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                        } else {
+                            conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, isAmigo) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                        }
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
