@@ -55,6 +55,11 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
                 Lista listaSeleccionada=pvSerie.getSelectedComboBox();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(contenido.getId())){
 
+                    if(listaSeleccionada.getNombre().equals("Vistas")){
+                        user.setNumSeriesVistas(user.getNumPeliculasVistas()+1);
+                        user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
+                    }
+
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+contenido.getId()+","+listaSeleccionada.getId()+");");
                         if(listaSeleccionada.getNombre().equals("Vistas")) {
