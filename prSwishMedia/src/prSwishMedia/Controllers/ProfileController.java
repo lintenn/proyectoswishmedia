@@ -28,13 +28,15 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
     private Usuario user;
     private PrincipalController pcc;
     private Statement conexion;
+    private Statement conexion1;
 
-    public ProfileController(PrincipalController principalController, ProfileView vp, PrincipalView ppv, LoginView lv, Statement st, Usuario u){
+    public ProfileController(PrincipalController principalController, ProfileView vp, PrincipalView ppv, LoginView lv, Statement st,Statement st1, Usuario u){
         lview=lv;
         pview=vp;
         ppview=ppv;
         user=u;
         conexion=st;
+        conexion1=st1;
         pcc=principalController;
         setInfo();
     }
@@ -233,13 +235,13 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
                 break;
             case "NOTIFICACION":
                 Notificación notificación = new Notificación(this, true);
-                NotificaciónController nc = new NotificaciónController(notificación, user,conexion);
+                NotificaciónController nc = new NotificaciónController(notificación, user,conexion, pview);
                 notificación.controlador(nc);
                 notificación.setVisible(true);
                 break;
             case "AMIGOS":
                 AmigosView amigosView = new AmigosView();
-                AmigosController ac = new AmigosController();
+                AmigosController ac = new AmigosController(user,conexion1,conexion,amigosView);
                 amigosView.controlador(ac);
                 amigosView.setVisible(true);
                 break;

@@ -99,19 +99,10 @@ public class PeliculaController implements ActionListener, KeyListener {
                 java.util.List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=peliview.getAñadirPelicula();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
-
-
+                    if(listaSeleccionada.getNombre().equals("Vistas")){
+                        user.setNumPeliculasVistas(user.getNumPeliculasVistas()+1);
+                    }
                     try {
-
-                        if(listaSeleccionada.getNombre().equals("Vistas")) {
-                            user.setNumPeliculasVistas(user.getNumPeliculasVistas() + 1);
-
-                            ResultSet r = conexion.executeQuery("SELECT numPeliculasVistas from Usuario where nombre='" + user.getNombre() + "';");
-                            r.next();
-                            int n = r.getInt(1);
-                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas=" + (n + 1) + " where nombre='" + user.getNombre() + "';");
-                        }
-
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+pelicula.getId()+","+listaSeleccionada.getId()+");");
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
@@ -128,23 +119,6 @@ public class PeliculaController implements ActionListener, KeyListener {
                 Lista listaSeleccionada2=peliview.getAñadirPelicula();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(pelicula.getId())){
                     try {
-
-                        if(listaSeleccionada2.getNombre().equals("Vistas")) {
-                            user.setNumPeliculasVistas(user.getNumPeliculasVistas() - 1);
-
-                            ResultSet r = conexion.executeQuery("SELECT numPeliculasVistas from Usuario where nombre='" + user.getNombre() + "';");
-                            r.next();
-                            int n = r.getInt(1);
-                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas=" + (n - 1) + " where nombre='" + user.getNombre() + "';");
-                        }
-
-
-                        ResultSet r = conexion.executeQuery("SELECT numPeliculasVistas from Usuario where nombre='"+user.getNombre()+"';");
-                        r.next();
-                        int n=r.getInt(1);
-                        conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas="+(n-1)+" where nombre='"+user.getNombre()+"';");
-
-
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
                         conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")-1)+" where idContenidoMultimedia="+IDContenido+"");
