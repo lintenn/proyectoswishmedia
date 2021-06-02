@@ -241,7 +241,7 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
                 break;
             case "AMIGOS":
                 ListaAmigosView amigosView = new ListaAmigosView(pview, true);
-                AmigosController ac = new AmigosController(user,conexion1,conexion,amigosView);
+                AmigosController ac = new AmigosController(user,conexion1,conexion,amigosView, pview);
                 amigosView.controlador(ac);
                 amigosView.setVisible(true);
                 break;

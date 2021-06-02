@@ -3,6 +3,7 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.ChatView;
 import prSwishMedia.Views.OtherUserView;
 import prSwishMedia.Views.PrincipalView;
 
@@ -102,6 +103,13 @@ public class OtherUserController implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case "CHAT":
+                ChatView cw = new ChatView();
+                ChatController cc = new ChatController(tu, user, conexion, cw, uview, null);
+                cw.controlador(cc);
+                Main.frame.setContentPane(cw.getPanel1());
+                Main.frame.setVisible(true);
                 break;
         }
     }

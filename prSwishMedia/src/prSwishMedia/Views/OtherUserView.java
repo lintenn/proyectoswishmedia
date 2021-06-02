@@ -58,6 +58,9 @@ public class OtherUserView {
 
         añadirAmigo.addActionListener(ctr);
         añadirAmigo.setActionCommand("AÑADIRAMIGO");
+
+        button1.addActionListener(ctr);
+        button1.setActionCommand("CHAT");
     }
 
     public void setFechaCreacion(String date) { fechaCreacion.setText(date); }
