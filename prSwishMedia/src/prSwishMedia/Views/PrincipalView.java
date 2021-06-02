@@ -29,7 +29,7 @@ public class PrincipalView extends JFrame{
     private JScrollPane contenidoListas;
     private JScrollPane UsersPanel;
     private JTextField BuscadorP;
-    private JButton button1;
+    private JButton OrdenP;
     private JPanel listaPelis;
     private JPanel listaSeries;
     private JPanel listaContenido;
