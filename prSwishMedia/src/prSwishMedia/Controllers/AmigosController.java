@@ -19,6 +19,7 @@ public class AmigosController implements ActionListener {
     private Statement conexion1;
     private ListaAmigosView amigosView;
     private List<UsuarioPreViewController> listauvC;
+    private List<UsuarioPreView> listaUsuariosPreViews;
 
     public AmigosController(Usuario u, Statement st1,Statement st, ListaAmigosView av){
         user=u;
@@ -26,6 +27,7 @@ public class AmigosController implements ActionListener {
         conexion1=st1;
         amigosView=av;
         listauvC=new ArrayList<>();
+        listaUsuariosPreViews=new ArrayList<>();
         rellenarLista();
     }
 
@@ -35,13 +37,11 @@ public class AmigosController implements ActionListener {
             ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
             count.next();
             int cont = count.getInt(1);
-
+            
             if(cont!=0){
                 ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
                 amigosView.setLayoutListasUsers(cont);
 
-                // Creo lista para almacenar los idContenidoMultimedia y referencias de userpv
-                ArrayList<UsuarioPreView> listaUserpv = new ArrayList<>();
                 ResultSet amigo;
                 while(users.next()) {
                     String usuario1 = users.getString("usuario1");
@@ -53,6 +53,7 @@ public class AmigosController implements ActionListener {
                         amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+usuario1+"';");
                     }
                     amigo.next();
+
                     Usuario usuario = new Usuario(amigo.getString("nombre"), amigo.getString("email"), amigo.getString("contraseña"),amigo.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
@@ -60,8 +61,9 @@ public class AmigosController implements ActionListener {
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,this);
                     userpv.controlador(userPvController);
 
+                    listaUsuariosPreViews.add(userpv);
                     listauvC.add(userPvController);
-                    listaUserpv.add(userpv);
+
                     //PrincipalController.MiMouseListener listener = new PrincipalController.MiMouseListener(0,3, usuario.getNombre(),this, null, null);
                     // userpv.getPanel().addMouseListener(listener);
 
@@ -73,6 +75,22 @@ public class AmigosController implements ActionListener {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void eliminarUnUsuario(String usuario1, String usuario2){
+        String amigo;
+        if(usuario1.equals(user.getNombre())){
+            amigo=usuario2;
+        }else{
+            amigo=usuario1;
+        }
+        int cont=0;
+        while(cont<listaUsuariosPreViews.size() && !listaUsuariosPreViews.get(cont).getNombre().equals(amigo)){
+            cont++;
+        }
+        amigosView.removeOneUser(listaUsuariosPreViews.get(cont).getPanel());
+
+        amigosView.setViewportViewScrollUser(amigosView.getListaUsers());
     }
 
     @Override
