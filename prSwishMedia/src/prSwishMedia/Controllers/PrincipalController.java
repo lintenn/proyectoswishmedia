@@ -99,7 +99,8 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    userpv.botonEliminarInvisible(false);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -311,7 +312,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
@@ -519,7 +520,7 @@ public class PrincipalController implements ActionListener {
                     Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
-                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user);
+                    UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,null);
                     listauvC.add(userPvController);
 
                     userpv.controlador(userPvController);
