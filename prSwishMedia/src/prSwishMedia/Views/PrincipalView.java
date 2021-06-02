@@ -30,6 +30,9 @@ public class PrincipalView extends JFrame{
     private JScrollPane UsersPanel;
     private JTextField BuscadorP;
     private JButton OrdenP;
+    private JButton OrdenS;
+    private JButton OrdenL;
+    private JButton OrdenU;
     private JPanel listaPelis;
     private JPanel listaSeries;
     private JPanel listaContenido;
@@ -54,6 +57,10 @@ public class PrincipalView extends JFrame{
         BuscarL.addActionListener(ctr);
         BuscarS.addActionListener(ctr);
         BuscarU.addActionListener(ctr);
+        OrdenL.addActionListener(ctr);
+        OrdenP.addActionListener(ctr);
+        OrdenS.addActionListener(ctr);
+        OrdenU.addActionListener(ctr);
 
 
         comboBox1.setActionCommand("LISTA");
@@ -62,6 +69,11 @@ public class PrincipalView extends JFrame{
         BuscarL.setActionCommand("BUSCARL");
         BuscarS.setActionCommand("BUSCARS");
         BuscarU.setActionCommand("BUSCARU");
+        OrdenL.setActionCommand("ORDENL");
+        OrdenP.setActionCommand("ORDENP");
+        OrdenS.setActionCommand("ORDENS");
+        OrdenU.setActionCommand("ORDENU");
+
     }
 
     public void removeAllListas(){listaPelis.removeAll();}
