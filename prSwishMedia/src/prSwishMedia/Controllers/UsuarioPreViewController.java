@@ -2,7 +2,7 @@ package prSwishMedia.Controllers;
 
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.UsuarioPreView;
+import prSwishMedia.Views.*;
 
 import javax.swing.plaf.nimbus.State;
 import java.awt.event.ActionEvent;
@@ -18,8 +18,9 @@ public class UsuarioPreViewController implements ActionListener {
     private Statement conexion;
     private Usuario tu;
     private AmigosController amigosController;
+    private ProfileView profileView;
 
-    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac){
+    public UsuarioPreViewController(UsuarioPreView userpv, Usuario usuario, Statement st, Usuario u2, AmigosController ac, ProfileView pw){
         userPv=userpv;
         user=usuario;
         conexion=st;
@@ -27,6 +28,7 @@ public class UsuarioPreViewController implements ActionListener {
         userPv.setNombre(user.getNombre());
         userPv.setDescripcion(user.getDescripcion());
         amigosController=ac;
+        profileView = pw;
     }
 
     @Override
@@ -71,6 +73,13 @@ public class UsuarioPreViewController implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                break;
+            case "CHATEAR":
+                ChatView cw = new ChatView();
+                ChatController cc = new ChatController(tu, user, conexion, cw, null, profileView);
+                cw.controlador(cc);
+                Main.frame.setContentPane(cw.getPanel1());
+                Main.frame.setVisible(true);
                 break;
         }
     }
