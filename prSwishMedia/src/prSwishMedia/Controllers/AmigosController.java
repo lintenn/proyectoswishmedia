@@ -37,7 +37,7 @@ public class AmigosController implements ActionListener {
             ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
             count.next();
             int cont = count.getInt(1);
-            
+
             if(cont!=0){
                 ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
                 amigosView.setLayoutListasUsers(cont);
