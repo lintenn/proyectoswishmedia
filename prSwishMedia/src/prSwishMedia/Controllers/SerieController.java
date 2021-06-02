@@ -92,6 +92,10 @@ public class SerieController  implements ActionListener, KeyListener {
                 List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=serieView.getAñadirSerie();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(serie.getId())){
+                    if(listaSeleccionada.getNombre().equals("Vistas")){
+                        user.setNumSeriesVistas(user.getNumPeliculasVistas()+1);
+                        user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+serie.getNumCapitulos());
+                    }
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+serie.getId()+","+listaSeleccionada.getId()+");");
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
