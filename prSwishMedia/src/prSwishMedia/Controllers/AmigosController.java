@@ -37,24 +37,20 @@ public class AmigosController implements ActionListener {
     public void rellenarLista() {
         amigosView.removeAlllistasUsers();
         try {
-            ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
+            ResultSet count= conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
             count.next();
             int cont = count.getInt(1);
 
             if(cont!=0){
-                ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario1 = '" + user.getNombre() +"' OR usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
+                ResultSet users= conexion.executeQuery("SELECT * FROM Amigo WHERE usuario2 = '"+ user.getNombre()+"' AND isAmigo=1;");
                 amigosView.setLayoutListasUsers(cont);
 
                 ResultSet amigo;
                 while(users.next()) {
                     String usuario1 = users.getString("usuario1");
-                    String usuario2 = users.getString("usuario2");
 
-                    if(usuario1.equals(user.getNombre())){
-                        amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+usuario2+"';");
-                    }else {
-                        amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+usuario1+"';");
-                    }
+                    amigo=conexion1.executeQuery("SELECT * FROM Usuario WHERE nombre = '"+usuario1+"';");
+
                     amigo.next();
 
                     Usuario usuario = new Usuario(amigo.getString("nombre"), amigo.getString("email"), amigo.getString("contraseña"),amigo.getString("descripcion"));
