@@ -51,7 +51,8 @@ public class UsuarioPreViewController implements ActionListener {
                             conexion.executeUpdate("UPDATE Amigo SET eresNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
                             ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
                             rs3.next();
-                            conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(tu.getNumAmigos()+1)+" where nombre = '"+tu.getNombre()+"';");
+
+
                         }
                     } else {
                         ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
@@ -69,10 +70,7 @@ public class UsuarioPreViewController implements ActionListener {
             case "ELIMINARAMIGO":
                 try {
                     conexion.executeUpdate("DELETE FROM Amigo where (usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"');");
-
-                    conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(tu.getNumAmigos()-1)+" where nombre = '"+tu.getNombre()+"';");
-
-                    profileView.setNumAmigos(tu.getNumAmigos()-1);
+                    profileView.setNumAmigos(Main.hallarAmigos(tu.getNombre(),conexion));
                     amigosController.eliminarUnUsuario(user.getNombre(),tu.getNombre());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -87,6 +85,7 @@ public class UsuarioPreViewController implements ActionListener {
                 break;
         }
     }
+
 
     private int generateID(){
         ResultSet res = null;

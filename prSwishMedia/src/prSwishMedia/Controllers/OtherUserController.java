@@ -93,10 +93,8 @@ public class OtherUserController implements ActionListener {
                             ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
                             rs3.next();
                             conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(tu.getNumAmigos()+1)+" where nombre = '"+tu.getNombre()+"';");
-                            ResultSet rs4 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
-                            rs4.next();
-                            user.setNumAmigos(rs4.getInt("numAmigos"));
-                            uview.setNumAmigos(user.getNumAmigos());
+                            tu.setNumAmigos(tu.getNumAmigos()+1);
+
                         }
                     } else {
                         ResultSet rs = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
