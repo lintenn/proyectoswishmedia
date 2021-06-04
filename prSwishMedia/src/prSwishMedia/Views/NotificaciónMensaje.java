@@ -1,12 +1,19 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class NotificaciónMensaje {
     private JPanel panel1;
     private JButton okey;
     private JLabel mensaje;
+
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+
+    public NotificaciónMensaje() {
+        okey.setCursor(manita);
+    }
 
     public void controlador(ActionListener ctr) {
         okey.addActionListener(ctr);

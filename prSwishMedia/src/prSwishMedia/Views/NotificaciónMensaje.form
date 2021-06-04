@@ -41,6 +41,7 @@
                   <borderPainted value="false"/>
                   <contentAreaFilled value="false"/>
                   <icon value="Resources/aceptar.png"/>
+                  <pressedIcon value="Resources/aceptarClicked.png"/>
                   <text value=""/>
                 </properties>
               </component>

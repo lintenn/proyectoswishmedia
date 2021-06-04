@@ -100,6 +100,7 @@
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/lupablanca.png"/>
+                          <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -117,6 +118,7 @@
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/a-z15.png"/>
                           <opaque value="false"/>
+                          <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -164,6 +166,7 @@
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/lupablanca.png"/>
+                          <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -180,6 +183,7 @@
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/a-z15.png"/>
+                          <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -234,6 +238,7 @@
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/lupablanca.png"/>
+                          <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -254,6 +259,7 @@
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/a-z15.png"/>
                           <label value=""/>
+                          <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -299,6 +305,7 @@
                           <borderPainted value="false"/>
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/lupablanca.png"/>
+                          <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>
@@ -329,6 +336,7 @@
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/a-z15.png"/>
                           <label value=""/>
+                          <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
                         </properties>
                       </component>

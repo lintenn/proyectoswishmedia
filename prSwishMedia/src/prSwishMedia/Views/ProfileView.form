@@ -255,6 +255,7 @@
           <contentAreaFilled value="false"/>
           <icon value="Resources/back.png"/>
           <opaque value="false"/>
+          <pressedIcon value="Resources/backClicked.png"/>
           <text value=""/>
         </properties>
       </component>
@@ -389,6 +390,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <icon value="Resources/notificación(1).png"/>
+              <pressedIcon value="Resources/notificacion(1)Clicked.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -400,6 +402,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <icon value="Resources/amigos.png"/>
+              <pressedIcon value="Resources/amigosClicked.png"/>
               <text value=""/>
             </properties>
           </component>

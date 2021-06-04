@@ -4,6 +4,7 @@ import prSwishMedia.Lista;
 
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class PeliculaPreView extends ContenidoMultimediaPreView{
@@ -15,8 +16,16 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
     private JLabel Genero;
     private JLabel Valoración;
     private JButton añadirbotón;
+    private JPanel panelito;
+
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+    private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
 
     public PeliculaPreView(){
+        Sinopsis.setCursor(cursorTexto);
+        Listas.setCursor(manita);
+        añadirbotón.setCursor(manita);
+        panelito.setCursor(manita);
     }
     public void controlador(ActionListener ctr){
         añadirbotón.addActionListener(ctr);
