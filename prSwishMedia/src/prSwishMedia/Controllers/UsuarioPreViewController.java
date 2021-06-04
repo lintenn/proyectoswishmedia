@@ -72,6 +72,7 @@ public class UsuarioPreViewController implements ActionListener {
 
                     conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(tu.getNumAmigos()-1)+" where nombre = '"+tu.getNombre()+"';");
 
+                    profileView.setNumAmigos(tu.getNumAmigos()-1);
                     amigosController.eliminarUnUsuario(user.getNombre(),tu.getNombre());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
