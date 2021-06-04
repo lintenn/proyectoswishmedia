@@ -57,10 +57,11 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+contenido.getId()+","+listaSeleccionada.getId()+");");
                         if(listaSeleccionada.getNombre().equals("Vistas")) {
-                            user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
-                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
                             conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()+1)+" where nombre='"+user.getNombre()+"';" );
                             conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()+contenido.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
+                            user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
+                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
+
                         }
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+contenido.getId()+"");
                         rs.next();
