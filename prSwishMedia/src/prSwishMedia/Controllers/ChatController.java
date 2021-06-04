@@ -154,7 +154,6 @@ public class ChatController implements ActionListener, KeyListener {
                 if(rs.getInt(1)==0){
                     conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, mensaje) values(" + generateID() + ",'" + otro.getNombre() + "','" + tu.getNombre() + "', true)");
                 }
-                System.out.println(tu.getNombre());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
