@@ -20,11 +20,14 @@ public class LoginView extends JFrame{
     private JLabel Error;
     private JLabel Forgot;
 
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
 
     public LoginView(){
-
         add(panel1);
 
+        loginButton.setCursor(manita);
+        registroButton.setCursor(manita);
+        Forgot.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr){
