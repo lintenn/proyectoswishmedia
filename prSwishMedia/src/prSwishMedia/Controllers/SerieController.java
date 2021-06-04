@@ -116,10 +116,10 @@ public class SerieController  implements ActionListener, KeyListener {
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(serie.getId())){
                     try {
                         if(listaSeleccionada2.getNombre().equals("Vistas")) {
-                            user.setNumSeriesVistas(user.getNumSeriesVistas() - 1);
-                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()-serie.getNumCapitulos());
                             conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()-1)+" where nombre='"+user.getNombre()+"';" );
                             conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()-serie.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
+                            user.setNumSeriesVistas(user.getNumSeriesVistas() - 1);
+                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()-serie.getNumCapitulos());
                         }
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
