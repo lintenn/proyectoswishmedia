@@ -41,11 +41,14 @@ public class SeriePreView extends ContenidoMultimediaPreView{
         Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+id +".jpg"));
     }
     public void setComboBox(JComboBox listas){
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        for(int i=0; i<listas.getItemCount();i++){
-            model.addElement(listas.getItemAt(i));
+        if(listas!=null){
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            for(int i=0; i<listas.getItemCount();i++){
+                model.addElement(listas.getItemAt(i));
+            }
+            comboBox1.setModel(model);
         }
-        comboBox1.setModel(model);
+
     }
     public void setNombre(String n){
         Nombre.setText(n);
