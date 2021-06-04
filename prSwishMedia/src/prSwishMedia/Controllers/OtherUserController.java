@@ -3,10 +3,9 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.ChatView;
-import prSwishMedia.Views.OtherUserView;
-import prSwishMedia.Views.PrincipalView;
+import prSwishMedia.Views.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -68,6 +67,11 @@ public class OtherUserController implements ActionListener {
                 break;
 
             case "VERLISTA":
+                VerListaView verListaView = new VerListaView(this);
+                verListaView.setMinimumSize(new Dimension(400,600));
+                VerListaController verListaController = new VerListaController(verListaView,conexion,uview.getListaSelecionada());
+                verListaView.controlador(verListaController);
+                verListaView.setVisible(true);
                 break;
 
             case "AÑADIRAMIGO":
