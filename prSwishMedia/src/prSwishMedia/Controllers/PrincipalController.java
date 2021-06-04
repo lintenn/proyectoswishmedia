@@ -322,9 +322,9 @@ public class PrincipalController implements ActionListener {
                         listapelipv.get(i).setValoracion(valmed.getDouble(1));
                     }
 
-                    ppView.setViewportViewScrollContenido(ppView.getListaContenido());
-                }
 
+                }
+                ppView.setViewportViewScrollContenido(ppView.getListaContenido());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
