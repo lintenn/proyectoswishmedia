@@ -6,6 +6,7 @@ import prSwishMedia.Main;
 import prSwishMedia.Usuario;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.awt.event.KeyListener;
@@ -49,11 +50,25 @@ public class ProfileView extends JFrame{
     private JButton botonnotificacion;
     private JButton AmigosButton;
 
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+    private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
+
 
     public ProfileView(Statement st){
         add(panel1);
         textAreaDescripcion.setFocusable(true);
 
+        AmigosButton.setCursor(manita);
+        botonnotificacion.setCursor(manita);
+        comboBoxListas.setCursor(manita);
+        buttonEliminarLista.setCursor(manita);
+        buttonCrearLista.setCursor(manita);
+        checkBoxPrivacidad.setCursor(manita);
+        comboBoxAnyo.setCursor(manita);
+        comboBoxDia.setCursor(manita);
+        comboBoxMes.setCursor(manita);
+        volver.setCursor(manita);
+        logout.setCursor(manita);
     }
 
 

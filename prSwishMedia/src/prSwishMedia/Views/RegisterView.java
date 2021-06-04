@@ -16,10 +16,13 @@ public class RegisterView extends JFrame {
     private JButton volverButton;
     private JLabel Error;
 
-    public RegisterView(){
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
 
+    public RegisterView(){
         add(panel1);
 
+        registroButton.setCursor(manita);
+        volverButton.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr){

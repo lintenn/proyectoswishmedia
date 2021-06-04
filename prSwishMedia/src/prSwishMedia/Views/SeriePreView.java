@@ -3,6 +3,7 @@ package prSwishMedia.Views;
 import prSwishMedia.Lista;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class SeriePreView extends ContenidoMultimediaPreView{
@@ -17,9 +18,16 @@ public class SeriePreView extends ContenidoMultimediaPreView{
     private JLabel valoracion;
     private JLabel numTemporadas;
     private JButton añadirbotón;
+    private JPanel panelito;
+
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+    private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
 
     public SeriePreView(){
-
+        panelito.setCursor(manita);
+        Sinopsis.setCursor(cursorTexto);
+        comboBox1.setCursor(manita);
+        añadirbotón.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr){

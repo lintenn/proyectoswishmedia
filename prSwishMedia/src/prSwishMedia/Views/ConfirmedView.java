@@ -12,9 +12,13 @@ public class ConfirmedView extends JFrame{
     private JButton volverButton;
     private JLabel Message;
 
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+
     public ConfirmedView(){
         add(panel1);
 
+        enviarButton.setCursor(manita);
+        volverButton.setCursor(manita);
     }
 
     public void setCMessage(String message) {

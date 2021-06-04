@@ -13,8 +13,11 @@ public class NotificacionAmistad extends JDialog{
     private JButton rechazar;
     private JLabel mensaje;
 
-    public NotificacionAmistad(){
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
 
+    public NotificacionAmistad(){
+        aceptar.setCursor(manita);
+        rechazar.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr) {
