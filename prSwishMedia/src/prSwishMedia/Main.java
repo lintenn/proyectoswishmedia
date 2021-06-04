@@ -69,6 +69,18 @@ public class Main {
     public static void setUser(Usuario user){
         Main.user =user;
     }
+    public static int hallarAmigos(String nombre,java.sql.Statement conexion) {
+        int num=0;
+        try {
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario2='"+nombre+"';");
+            rs.next();
+            num=rs.getInt(1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return num;
+    }
 
     public static void setUser(String nick, Statement st) throws SQLException {
         Statement stmt=st;
