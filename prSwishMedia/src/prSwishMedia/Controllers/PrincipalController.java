@@ -165,7 +165,7 @@ public class PrincipalController implements ActionListener {
                     // si no, se borra la informacion de la anterior consulta (Result Set)
                     listaids.add(peli.getInt("idContenidoMultimedia"));
 
-                    Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("imagen"), peli.getString("sinopsis"), peli.getString("genero"), 0);
+                    Pelicula pelicula = new Pelicula(peli.getString("nombre"), peli.getInt("idContenidoMultimedia"), peli.getString("sinopsis"), peli.getString("genero"), 0);
                     PeliculaPreView pelipv = new PeliculaPreView();
                     PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView,pelipv,pelicula,user,conexion,ppView.getComboBox1());
                     listapvC.add(peliPvController);
@@ -301,7 +301,7 @@ public class PrincipalController implements ActionListener {
                             listaidspelis.add(id);
                             count3 = conexion.executeQuery("SELECT * FROM ContenidoMultimedia join Pelicula on ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia && Pelicula.idContenidoMultimedia=" + id + ";");
                             count3.next();
-                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("imagen"), count3.getString("sinopsis"), count3.getString("genero"), 0, count3.getInt("veces_añadidas"));
+                            Pelicula pelicula = new Pelicula(count3.getString("nombre"), count3.getInt("idContenidoMultimedia"), count3.getString("sinopsis"), count3.getString("genero"), 0, count3.getInt("veces_añadidas"));
 
                             PeliculaPreView pelipv = new PeliculaPreView();
                             PeliculaPreViewController peliPvController = new PeliculaPreViewController(ppView, pelipv, pelicula, user, conexion, ppView.getComboBox1());
