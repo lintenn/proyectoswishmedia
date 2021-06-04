@@ -1,14 +1,15 @@
 package prSwishMedia.Controllers;
 
+import com.kitfox.svg.A;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
-import prSwishMedia.Views.LoginView;
-import prSwishMedia.Views.PrincipalView;
-import prSwishMedia.Views.ProfileView;
+import prSwishMedia.Views.*;
 
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,7 +21,7 @@ import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class ProfileController implements ActionListener, KeyListener {
+public class ProfileController extends JFrame implements ActionListener, KeyListener {
 
     private ProfileView pview;
     private PrincipalView ppview;
@@ -28,13 +29,15 @@ public class ProfileController implements ActionListener, KeyListener {
     private Usuario user;
     private PrincipalController pcc;
     private Statement conexion;
+    private Statement conexion1;
 
-    public ProfileController(PrincipalController principalController, ProfileView vp, PrincipalView ppv, LoginView lv, Statement st, Usuario u){
+    public ProfileController(PrincipalController principalController, ProfileView vp, PrincipalView ppv, LoginView lv, Statement st,Statement st1, Usuario u){
         lview=lv;
         pview=vp;
         ppview=ppv;
         user=u;
         conexion=st;
+        conexion1=st1;
         pcc=principalController;
         setInfo();
     }
@@ -111,7 +114,6 @@ public class ProfileController implements ActionListener, KeyListener {
     public void actualizarComboBox() {
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){
-
                 pview.añadirComboBox(l);
             }
         }else {
@@ -230,6 +232,19 @@ public class ProfileController implements ActionListener, KeyListener {
                      throwables.printStackTrace();
                  }
 
+                break;
+            case "NOTIFICACION":
+                Notificación notificación = new Notificación(this, true);
+                notificación.setMinimumSize(new Dimension(400,600));
+                NotificaciónController nc = new NotificaciónController(notificación, user,conexion, pview);
+                notificación.controlador(nc);
+                notificación.setVisible(true);
+                break;
+            case "AMIGOS":
+                ListaAmigosView amigosView = new ListaAmigosView(pview, true);
+                AmigosController ac = new AmigosController(user,conexion1,conexion,amigosView, pview);
+                amigosView.controlador(ac);
+                amigosView.setVisible(true);
                 break;
         }
     }

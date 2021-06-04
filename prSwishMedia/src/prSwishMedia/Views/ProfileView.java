@@ -46,6 +46,8 @@ public class ProfileView extends JFrame{
     private JComboBox comboBoxAnyo;
     private JComboBox comboBoxMes;
     private JComboBox comboBoxDia;
+    private JButton botonnotificacion;
+    private JButton AmigosButton;
 
 
     public ProfileView(Statement st){
@@ -95,7 +97,9 @@ public class ProfileView extends JFrame{
         comboBoxMes.addActionListener(ctr);
         comboBoxDia.addActionListener(ctr);
         textAreaDescripcion.addKeyListener((KeyListener) ctr);
-        
+        botonnotificacion.addActionListener(ctr);
+        AmigosButton.addActionListener(ctr);
+
         checkBoxPrivacidad.setActionCommand("PRIVACIDAD");
         logout.setActionCommand("LOGOUT");
         volver.setActionCommand("VOLVER");
@@ -104,6 +108,8 @@ public class ProfileView extends JFrame{
         comboBoxAnyo.setActionCommand("FECHAMES");
         comboBoxMes.setActionCommand("FECHAMES");
         comboBoxDia.setActionCommand("FECHA");
+        botonnotificacion.setActionCommand("NOTIFICACION");
+        AmigosButton.setActionCommand("AMIGOS");
     }
 
 

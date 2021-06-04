@@ -11,6 +11,7 @@ import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Date;
 
@@ -40,7 +41,7 @@ public class Main {
         lview.getForgot().addMouseListener(mc);
 
         frame = new JFrame();
-        frame.setMinimumSize(new Dimension(1050,600));
+        frame.setMinimumSize(new Dimension(1050,610));
 
         frame.setTitle("SwishMedia");
         frame.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
@@ -108,7 +109,7 @@ public class Main {
         numPel=conex.getInt(13);
 
         user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
-     
+
     }
 
 }

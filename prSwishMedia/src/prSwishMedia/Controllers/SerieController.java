@@ -93,6 +93,12 @@ public class SerieController  implements ActionListener, KeyListener {
                 Lista listaSeleccionada=serieView.getAñadirSerie();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(serie.getId())){
                     try {
+                        if(listaSeleccionada.getNombre().equals("Vistas")) {
+                        user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
+                        user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+serie.getNumCapitulos());
+                        conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()+1)+" where nombre='"+user.getNombre()+"';" );
+                        conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()+serie.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
+                    }
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+serie.getId()+","+listaSeleccionada.getId()+");");
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
@@ -109,6 +115,12 @@ public class SerieController  implements ActionListener, KeyListener {
                 Lista listaSeleccionada2=serieView.getAñadirSerie();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(serie.getId())){
                     try {
+                        if(listaSeleccionada2.getNombre().equals("Vistas")) {
+                            conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()-1)+" where nombre='"+user.getNombre()+"';" );
+                            conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()-serie.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
+                            user.setNumSeriesVistas(user.getNumSeriesVistas() - 1);
+                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()-serie.getNumCapitulos());
+                        }
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
                         conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")-1)+" where idContenidoMultimedia="+IDContenido+"");
@@ -197,12 +209,12 @@ public class SerieController  implements ActionListener, KeyListener {
             while(rs2.next()){
                 if(user.getNombre().equals(rs2.getString("Usuario"))){
                     ComentarioView comentario = new ComentarioView(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
-                    ComentarioController controller = new ComentarioController(conexion,comentario,null,rs2.getInt("ID"), this,user);
+                    ComentarioController controller = new ComentarioController(conexion,comentario,null,rs2.getInt("ID"), this,user, null);
                     comentario.controlador(controller);
                     listaComentarios.add(comentario.get());
                 } else {
                     ComentariosDeOtros comentario2 = new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
-                    ComentariosDeOtrosController controller = new ComentariosDeOtrosController(conexion,comentario2,null,rs2.getInt("ID"),this,user);
+                    ComentariosDeOtrosController controller = new ComentariosDeOtrosController(conexion,comentario2,null,rs2.getInt("ID"),this,user, null);
                     comentario2.controlador(controller);
                     listaComentarios.add(comentario2.get());
                 }

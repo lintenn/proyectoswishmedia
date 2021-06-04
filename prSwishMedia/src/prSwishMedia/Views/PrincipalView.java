@@ -17,9 +17,9 @@ public class PrincipalView extends JFrame{
     private JPanel Listas;
     private JLabel Logo;
     private JPanel Usuarios;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField BuscadorS;
+    private JTextField BuscadorL;
+    private JTextField BuscadorU;
     private JButton BuscarS;
     private JButton BuscarL;
     private JButton BuscarU;
@@ -28,6 +28,11 @@ public class PrincipalView extends JFrame{
     private JButton BuscarP;
     private JScrollPane contenidoListas;
     private JScrollPane UsersPanel;
+    private JTextField BuscadorP;
+    private JButton OrdenP;
+    private JButton OrdenS;
+    private JButton OrdenL;
+    private JButton OrdenU;
     private JPanel listaPelis;
     private JPanel listaSeries;
     private JPanel listaContenido;
@@ -49,10 +54,26 @@ public class PrincipalView extends JFrame{
         Perfil.addActionListener(ctr);
         comboBox1.addActionListener(ctr);
         BuscarP.addActionListener(ctr);
+        BuscarL.addActionListener(ctr);
+        BuscarS.addActionListener(ctr);
+        BuscarU.addActionListener(ctr);
+        OrdenL.addActionListener(ctr);
+        OrdenP.addActionListener(ctr);
+        OrdenS.addActionListener(ctr);
+        OrdenU.addActionListener(ctr);
+
 
         comboBox1.setActionCommand("LISTA");
         Perfil.setActionCommand("PROFILE");
-        BuscarP.setActionCommand("BUSCAR");
+        BuscarP.setActionCommand("BUSCARP");
+        BuscarL.setActionCommand("BUSCARL");
+        BuscarS.setActionCommand("BUSCARS");
+        BuscarU.setActionCommand("BUSCARU");
+        OrdenL.setActionCommand("ORDENL");
+        OrdenP.setActionCommand("ORDENP");
+        OrdenS.setActionCommand("ORDENS");
+        OrdenU.setActionCommand("ORDENU");
+
     }
 
     public void removeAllListas(){listaPelis.removeAll();}
@@ -80,6 +101,23 @@ public class PrincipalView extends JFrame{
     public void setViewportViewScrollSerie(JPanel panel){SeriesPanel.setViewportView(panel);};
     public void setViewportViewScrollContenido(JPanel panel){contenidoListas.setViewportView(panel);};
     public void setViewportViewScrollUser(JPanel panel){UsersPanel.setViewportView(panel);};
+
+
+    public JTextField getBuscadorL() {
+        return BuscadorL;
+    }
+
+    public JTextField getBuscadorP() {
+        return BuscadorP;
+    }
+
+    public JTextField getBuscadorS() {
+        return BuscadorS;
+    }
+
+    public JTextField getBuscadorU() {
+        return BuscadorU;
+    }
 
     public JComboBox getComboBox1(){return comboBox1;}
     public void setModelComboBox(ComboBoxModel<Lista> cbL){comboBox1.setModel(cbL);}

@@ -99,6 +99,14 @@ public class PeliculaController implements ActionListener, KeyListener {
                 java.util.List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=peliview.getAñadirPelicula();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
+                    if(listaSeleccionada.getNombre().equals("Vistas")){
+                        try {
+                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas="+(user.getNumPeliculasVistas()+1)+" where nombre='"+user.getNombre()+"';" );
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        user.setNumPeliculasVistas(user.getNumPeliculasVistas()+1);
+                    }
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+pelicula.getId()+","+listaSeleccionada.getId()+");");
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
@@ -115,6 +123,16 @@ public class PeliculaController implements ActionListener, KeyListener {
                 List<Lista> listasUsuariouser2=user.getListasPersonales();
                 Lista listaSeleccionada2=peliview.getAñadirPelicula();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(pelicula.getId())){
+
+                    if(listaSeleccionada2.getNombre().equals("Vistas")){
+                        try {
+                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas="+(user.getNumPeliculasVistas()-1)+" where nombre='"+user.getNombre()+"';" );
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        user.setNumPeliculasVistas(user.getNumPeliculasVistas()-1);
+                    }
+
                     try {
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
@@ -204,12 +222,12 @@ public class PeliculaController implements ActionListener, KeyListener {
             while(rs2.next()){
                 if(user.getNombre().equals(rs2.getString("Usuario"))){
                     ComentarioView comentario = new ComentarioView(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
-                    ComentarioController controller = new ComentarioController(conexion,comentario,this,rs2.getInt("ID"),null,user);
+                    ComentarioController controller = new ComentarioController(conexion,comentario,this,rs2.getInt("ID"),null,user, null);
                     comentario.controlador(controller);
                     listaComentarios.add(comentario.get());
                 } else {
                     ComentariosDeOtros comentario2 = new ComentariosDeOtros(rs2.getString("texto"),rs2.getInt("numDislikes"), rs2.getInt("numLikes"),rs2.getString("Usuario"),rs2.getString("fechaEnvio"));
-                    ComentariosDeOtrosController controller = new ComentariosDeOtrosController(conexion,comentario2,this,rs2.getInt("ID"),null,user);
+                    ComentariosDeOtrosController controller = new ComentariosDeOtrosController(conexion,comentario2,this,rs2.getInt("ID"),null,user, null);
                     comentario2.controlador(controller);
                     listaComentarios.add(comentario2.get());
                 }

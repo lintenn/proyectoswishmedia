@@ -54,16 +54,19 @@ public class SeriePreviewController extends ContenidoMultimediaPreViewController
                 List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=pvSerie.getSelectedComboBox();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(contenido.getId())){
-
                     try {
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+contenido.getId()+","+listaSeleccionada.getId()+");");
                         if(listaSeleccionada.getNombre().equals("Vistas")) {
+                            conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()+1)+" where nombre='"+user.getNombre()+"';" );
+                            conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()+contenido.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
                             user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
                             user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+contenido.getNumCapitulos());
+
                         }
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+contenido.getId()+"");
                         rs.next();
                         conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")+1)+" where idContenidoMultimedia="+contenido.getId()+"");
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

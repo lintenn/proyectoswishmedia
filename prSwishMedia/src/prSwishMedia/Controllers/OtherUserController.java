@@ -3,11 +3,14 @@ package prSwishMedia.Controllers;
 import prSwishMedia.Lista;
 import prSwishMedia.Main;
 import prSwishMedia.Usuario;
+import prSwishMedia.Views.ChatView;
 import prSwishMedia.Views.OtherUserView;
 import prSwishMedia.Views.PrincipalView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class OtherUserController implements ActionListener {
@@ -16,13 +19,15 @@ public class OtherUserController implements ActionListener {
     private Usuario user;
     private PrincipalController pcc;
     private Statement conexion;
+    private Usuario tu;
 
-    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u) {
+    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u, Usuario u2) {
         uview = uv;
         ppview = ppv;
         user = u;
         conexion = st;
         pcc = principalController;
+        tu=u2;
         setInfo();
     }
 
@@ -66,7 +71,58 @@ public class OtherUserController implements ActionListener {
                 break;
 
             case "AÑADIRAMIGO":
+
+                try {
+                    ResultSet rs2 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                    rs2.next();
+                    int cont = rs2.getInt(1);
+                    if(cont==0){
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Usuario where nombre='"+user.getNombre()+"';");
+                        rs.next();
+                        if(rs.getBoolean("privacidad")){
+                            conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, solicitud) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                        } else {
+                            conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, isAmigo) values("+generateID()+",'"+user.getNombre()+"','"+tu.getNombre()+"', true)");
+                            conexion.executeUpdate("UPDATE Amigo SET isNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
+                            conexion.executeUpdate("UPDATE Amigo SET eresNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
+                            ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
+                            rs3.next();
+                            conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(tu.getNumAmigos()+1)+" where nombre = '"+tu.getNombre()+"';");
+                            ResultSet rs4 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
+                            rs4.next();
+                            user.setNumAmigos(rs4.getInt("numAmigos"));
+                            uview.setNumAmigos(user.getNumAmigos());
+                        }
+                    } else {
+                        ResultSet rs = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        rs.next();
+                        if(!rs.getBoolean("isAmigo") && !rs.getBoolean("solicitud")){
+                            conexion.executeUpdate("UPDATE Amigo SET solictud=true where '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
+                        }
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
+            case "CHAT":
+                ChatView cw = new ChatView();
+                ChatController cc = new ChatController(tu, user, conexion, cw, uview, null);
+                cw.controlador(cc);
+                Main.frame.setContentPane(cw.getPanel1());
+                Main.frame.setVisible(true);
                 break;
         }
+    }
+
+    private int generateID () throws SQLException {
+        ResultSet res = conexion.executeQuery("SELECT MAX(id) FROM Amigo;");
+        int id=0;
+        try{
+            res.next();
+            id=res.getInt("MAX(id)")+1;
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }
