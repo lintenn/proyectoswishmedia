@@ -38,6 +38,8 @@ public class PrincipalView extends JFrame{
     private JPanel listaContenido;
     private JPanel listaUsers;
 
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+
     public PrincipalView(){
         listaPelis=new JPanel();
         listaSeries=new JPanel();
@@ -48,6 +50,17 @@ public class PrincipalView extends JFrame{
         SeriesPanel.getVerticalScrollBar().setUnitIncrement(16);
         UsersPanel.getVerticalScrollBar().setUnitIncrement(16);
         contenidoListas.getVerticalScrollBar().setUnitIncrement(16);
+
+        Perfil.setCursor(manita);
+        BuscarL.setCursor(manita);
+        BuscarP.setCursor(manita);
+        BuscarS.setCursor(manita);
+        BuscarU.setCursor(manita);
+        OrdenL.setCursor(manita);
+        OrdenP.setCursor(manita);
+        OrdenS.setCursor(manita);
+        OrdenU.setCursor(manita);
+        comboBox1.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr){

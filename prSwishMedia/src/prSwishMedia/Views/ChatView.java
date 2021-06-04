@@ -15,9 +15,14 @@ public class ChatView extends JFrame{
     private JButton button1;
     private JButton button2;
 
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+
     public ChatView(){
         Mensajes.getVerticalScrollBar().setUnitIncrement(16);
         setSize(new Dimension(500,400));
+
+        button1.setCursor(manita);
+        button2.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr){
