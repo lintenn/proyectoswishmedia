@@ -14,6 +14,7 @@ public class Notificación extends JDialog{
     public Notificación(ProfileController parent, boolean modal){
         super(parent, modal);
         add(panel1);
+        PanelNotificaciones2.getVerticalScrollBar().setUnitIncrement(16);
         setSize(new Dimension(300,500));
         this.setTitle("Notificaciones");
         this.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
