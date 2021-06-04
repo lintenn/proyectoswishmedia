@@ -59,8 +59,10 @@ public class PrincipalController implements ActionListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            Usuario usuarioProfile=Main.getUser();
+            usuarioProfile.setListasPersonales(getLista());
             pview = new ProfileView(conexion);
-            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,Main.getUser());
+            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,usuarioProfile);
             pview.controlador(pc);
 
             Main.frame.setContentPane(pview.getPanel());
@@ -347,7 +349,24 @@ public class PrincipalController implements ActionListener {
         }
 
     }
+    public List<Lista> getLista(){
+        ArrayList<Lista> listaActualizada = new ArrayList<>();
+        Lista actual;
+        try {
+            ResultSet rs = conexion2.executeQuery("SELECT * FROM Lista where Nombreusuario = '"+user.getNombre()+"';");
+            while(rs.next()){
+                int id=rs.getInt(1);
+                String nombre=rs.getString(2);
+                Date fecha=rs.getDate(3);
 
+                actual=new Lista(id,nombre,fecha,conexion);
+                listaActualizada.add(actual);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return listaActualizada;
+    }
     public void setLista(){
         ArrayList<Lista> listaActualizada = new ArrayList<>();
         Lista actual;
