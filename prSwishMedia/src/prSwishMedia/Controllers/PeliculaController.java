@@ -100,6 +100,11 @@ public class PeliculaController implements ActionListener, KeyListener {
                 Lista listaSeleccionada=peliview.getAñadirPelicula();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(pelicula.getId())){
                     if(listaSeleccionada.getNombre().equals("Vistas")){
+                        try {
+                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas="+(user.getNumPeliculasVistas()+1)+" where nombre='"+user.getNombre()+"';" );
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
                         user.setNumPeliculasVistas(user.getNumPeliculasVistas()+1);
                     }
                     try {
@@ -118,6 +123,16 @@ public class PeliculaController implements ActionListener, KeyListener {
                 List<Lista> listasUsuariouser2=user.getListasPersonales();
                 Lista listaSeleccionada2=peliview.getAñadirPelicula();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(pelicula.getId())){
+
+                    if(listaSeleccionada2.getNombre().equals("Vistas")){
+                        try {
+                            conexion.executeUpdate("UPDATE Usuario SET numPeliculasVistas="+(user.getNumPeliculasVistas()-1)+" where nombre='"+user.getNombre()+"';" );
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        user.setNumPeliculasVistas(user.getNumPeliculasVistas()-1);
+                    }
+
                     try {
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();

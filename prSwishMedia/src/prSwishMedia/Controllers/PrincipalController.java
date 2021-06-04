@@ -48,8 +48,6 @@ public class PrincipalController implements ActionListener {
         setLista();
     }
 
-    public void aumentarUnAmigo(){user.setNumAmigos(user.getNumAmigos()+1);}
-
     public void actionPerformed(ActionEvent e) {
         String act=e.getActionCommand();
 

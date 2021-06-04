@@ -92,11 +92,13 @@ public class SerieController  implements ActionListener, KeyListener {
                 List<Lista> listasUsuariouser=user.getListasPersonales();
                 Lista listaSeleccionada=serieView.getAñadirSerie();
                 if(listasUsuariouser.contains(listaSeleccionada) && !listaSeleccionada.esta(serie.getId())){
-                    if(listaSeleccionada.getNombre().equals("Vistas")){
-                        user.setNumSeriesVistas(user.getNumPeliculasVistas()+1);
-                        user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+serie.getNumCapitulos());
-                    }
                     try {
+                        if(listaSeleccionada.getNombre().equals("Vistas")) {
+                        user.setNumSeriesVistas(user.getNumSeriesVistas() + 1);
+                        user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()+serie.getNumCapitulos());
+                        conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()+1)+" where nombre='"+user.getNombre()+"';" );
+                        conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()+serie.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
+                    }
                         conexion.executeUpdate("INSERT INTO AñadirContenido (idContenidoMultimedia,idLista) VALUES("+serie.getId()+","+listaSeleccionada.getId()+");");
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
@@ -113,6 +115,12 @@ public class SerieController  implements ActionListener, KeyListener {
                 Lista listaSeleccionada2=serieView.getAñadirSerie();
                 if(listasUsuariouser2.contains(listaSeleccionada2) && listaSeleccionada2.esta(serie.getId())){
                     try {
+                        if(listaSeleccionada2.getNombre().equals("Vistas")) {
+                            conexion.executeUpdate("UPDATE Usuario SET numSeriesVistas="+(user.getNumSeriesVistas()-1)+" where nombre='"+user.getNombre()+"';" );
+                            conexion.executeUpdate("UPDATE Usuario SET numEpisodiosVistos="+(user.getNumEpisodiosVistos()-serie.getNumCapitulos())+" where nombre='"+user.getNombre()+"';" );
+                            user.setNumSeriesVistas(user.getNumSeriesVistas() - 1);
+                            user.setNumEpisodiosVistos(user.getNumEpisodiosVistos()-serie.getNumCapitulos());
+                        }
                         ResultSet rs = conexion.executeQuery("SELECT * from ContenidoMultimedia where idContenidoMultimedia="+IDContenido+"");
                         rs.next();
                         conexion.executeUpdate("UPDATE ContenidoMultimedia SET veces_añadidas="+(rs.getInt("veces_añadidas")-1)+" where idContenidoMultimedia="+IDContenido+"");
