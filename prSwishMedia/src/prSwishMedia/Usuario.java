@@ -102,6 +102,22 @@ public class Usuario {
         this.listasPersonales = new ArrayList<>();
     }
 
+    public Usuario(String nombre, String email, String contraseña, String descripcion, boolean privacidad) {
+        this.nombre = nombre;
+        this.email = email;
+        this.contrasenya = contraseña;
+        this.descripcion = descripcion;
+        this.privacidad=privacidad;
+        this.numListas = 3;
+        this.numPeliculasVistas = 0;
+        this.fechaNacimiento=null;
+        this.numSeriesVistas = 0;
+        this.numAmigos=0;
+        this.numComentarios=0;
+        this.numEpisodiosVistos=0;
+        this.listasPersonales = new ArrayList<>();
+    }
+
     // Getters
     public String getNombre() {
         return nombre;
