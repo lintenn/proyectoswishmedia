@@ -113,7 +113,6 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
     public void actualizarComboBox() {
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){
-
                 pview.añadirComboBox(l);
             }
         }else {

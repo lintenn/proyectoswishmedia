@@ -42,10 +42,7 @@ public class NotificacionAmistadController implements ActionListener {
                     ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+tu.getNombre()+"';");
                     rs3.next();
                     conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(nAmigos+1)+" where nombre = '"+otro+"';");
-                    ResultSet rs4 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+tu.getNombre()+"';");
-                    rs4.next();
-                    tu.setNumAmigos(rs4.getInt("numAmigos"));
-                    profileView.setNumAmigos(tu.getNumAmigos());
+
                     notificaciónController.actualizarNotificaciones();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

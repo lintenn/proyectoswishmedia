@@ -16,6 +16,7 @@ public class ChatView extends JFrame{
     private JButton button2;
 
     public ChatView(){
+        Mensajes.getVerticalScrollBar().setUnitIncrement(16);
         setSize(new Dimension(500,400));
     }
 
