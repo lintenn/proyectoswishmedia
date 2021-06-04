@@ -32,17 +32,17 @@ public class NotificacionAmistadController implements ActionListener {
         switch (act){
             case ("ACEPTAR"):
                 try {
+                    ResultSet rs5 = conexion.executeQuery("SELECT numAmigos FROM Usuario where nombre = '"+otro+"';");
+                    rs5.next();
+                    int nAmigos=rs5.getInt(1);
                     conexion.executeUpdate("UPDATE Amigo SET isAmigo=true where usuario1='"+tu.getNombre()+"' and usuario2='"+otro+"'");
                     conexion.executeUpdate("UPDATE Amigo SET solicitud=false where usuario1='"+tu.getNombre()+"' and usuario2='"+otro+"'");
                     conexion.executeUpdate("UPDATE Amigo SET isNuevoAmigo=true where usuario1='"+tu.getNombre()+"' and usuario2='"+otro+"'");
                     conexion.executeUpdate("UPDATE Amigo SET eresNuevoAmigo=true where usuario1='"+tu.getNombre()+"' and usuario2='"+otro+"'");
                     ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+tu.getNombre()+"';");
                     rs3.next();
-                    conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+tu.getNombre()+"';");
-                    ResultSet rs4 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+tu.getNombre()+"';");
-                    rs4.next();
-                    tu.setNumAmigos(rs4.getInt("numAmigos"));
-                    profileView.setNumAmigos(tu.getNumAmigos());
+                    conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(nAmigos+1)+" where nombre = '"+otro+"';");
+
                     notificaciónController.actualizarNotificaciones();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

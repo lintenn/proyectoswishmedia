@@ -8,7 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+import com.mysql.jdbc.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,9 +41,7 @@ public class PrincipalController implements ActionListener {
         listasvC=new ArrayList<>();
         listasSyPC=new ArrayList<>();
         listauvC=new ArrayList<>();
-        pview = new ProfileView(conexion);
-        ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,user);
-        pview.controlador(pc);
+
         añadirContenidoG(-3,null,"inicial");//añadirContenido(-3); // usuarios
         añadirContenidoG(-2,null, "inicial");//añadirContenido(-2); // peliculas
         añadirContenidoG(-1,null, "inicial");//añadirContenido(-1); // series
@@ -55,6 +54,15 @@ public class PrincipalController implements ActionListener {
         String act=e.getActionCommand();
 
         if(act.equals("PROFILE")){
+            try {
+                Main.setUser(user.getNombre(),conexion);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            pview = new ProfileView(conexion);
+            ProfileController pc = new ProfileController(this,pview,ppView,lview,conexion,conexion1,Main.getUser());
+            pview.controlador(pc);
+
             Main.frame.setContentPane(pview.getPanel());
             Main.frame.setVisible(true);
         }else if(act.equals("LISTA")){
@@ -267,6 +275,7 @@ public class PrincipalController implements ActionListener {
                     ArrayList<Integer> listaidsseries = new ArrayList<>();
                     ArrayList<PeliculaPreView> listapelipv = new ArrayList<>();
                     ArrayList<SeriePreView> listaseriepv = new ArrayList<>();
+
                     while (count.next()) {
                         int id = count.getInt("idContenidoMultimedia");
                         // Necesitamos guardar las variables antes de hacer una nueva consulta,

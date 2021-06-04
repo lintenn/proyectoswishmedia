@@ -11,6 +11,7 @@ import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Date;
 
@@ -108,7 +109,7 @@ public class Main {
         numPel=conex.getInt(13);
 
         user= new Usuario(nick,email,descripcion,fechaNac,fechaCre,contraseña,numList,numAmigos,priv,numComentarios,numSeries,numCap,numPel);
-     
+
     }
 
 }
