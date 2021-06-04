@@ -315,7 +315,7 @@ public class PrincipalController implements ActionListener {
                             listasSyPC.add(peliPvController);
                             listapelipv.add(pelipv);
 
-                            MiMouseListener listener = new MiMouseListener(count3.getInt(1), 1, "",this,pelipv, null);
+                            MiMouseListener listener = new MiMouseListener(count3.getInt("idContenidoMultimedia"), 1, "",this,pelipv, null);
                             pelipv.getPanel().addMouseListener(listener);
 
                             ppView.addListaContenido(pelipv.getPanel());
@@ -425,10 +425,10 @@ public class PrincipalController implements ActionListener {
         public void mouseClicked(MouseEvent e) {
             try {
                 if(tipo==1) {
-                    ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia=" + id + ";");
+                    ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Pelicula where ContenidoMultimedia.idContenidoMultimedia=" + id + " AND ContenidoMultimedia.idContenidoMultimedia=Pelicula.idContenidoMultimedia;");
                     resst.next();
                     String fechaEstreno = resst.getString("fecha_estreno");
-                    Pelicula pelicula = new Pelicula(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"),resst.getInt("veces_añadidas"));
+                    Pelicula pelicula = new Pelicula(id,resst.getString("nombre"), 0, fechaEstreno, resst.getInt("duracion"), resst.getString("genero"), resst.getString("sinopsis"), resst.getString("reparto"),resst.getInt("veces_añadidas"));
 
                     // aun falta la valoración para que esté creada completa la pelicula. Lo obtenemos:
                     ResultSet valmed = conexion.executeQuery("SELECT IFNULL(AVG(valoracion),0) FROM Valora WHERE idContenido=" + id + ";");
@@ -444,7 +444,7 @@ public class PrincipalController implements ActionListener {
 
                 }else if(tipo==2){
 
-                    ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Serie where ContenidoMultimedia.idContenidoMultimedia="+id+";");
+                    ResultSet resst = conexion.executeQuery("SELECT * FROM ContenidoMultimedia, Serie where ContenidoMultimedia.idContenidoMultimedia="+id+" AND ContenidoMultimedia.idContenidoMultimedia=Serie.idContenidoMultimedia;");
                     resst.next();
                     String fechaEstreno=resst.getString("fecha_estreno");
                     Serie serie=new Serie(resst.getInt("idContenidoMultimedia"),resst.getString("nombre"), resst.getString("sinopsis"),resst.getString("reparto"),0,resst.getString("fecha_estreno"),resst.getString("Genero"),resst.getString("premios"),0,resst.getString("trailer"),resst.getInt("veces_añadidas"),0,false,resst.getInt("numCapitulos"),resst.getInt("numTemporadas"),resst.getDouble("duracionMedia"));
