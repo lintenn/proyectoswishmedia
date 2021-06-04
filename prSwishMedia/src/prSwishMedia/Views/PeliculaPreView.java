@@ -48,4 +48,11 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
     }
 
 
+    public void setVisibleAñadir(boolean b) {
+        añadirbotón.setVisible(false);
+    }
+
+    public void setVisibleComboBox(boolean b) {
+        Listas.setVisible(false);
+    }
 }
