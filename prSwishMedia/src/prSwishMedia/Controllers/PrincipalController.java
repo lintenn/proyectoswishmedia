@@ -487,7 +487,7 @@ public class PrincipalController implements ActionListener {
                         }
                         usuario.setListasPersonales(lista);
                         OtherUserView ouv = new OtherUserView();
-                        OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, usuario, user);
+                        OtherUserController ouc = new OtherUserController(pController, ouv, ppView, conexion, conexion1,usuario, user);
                         ouv.controlador(ouc);
                         Main.frame.setContentPane(ouv.getPanel());
                         Main.frame.setVisible(true);

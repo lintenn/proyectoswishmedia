@@ -17,14 +17,15 @@ public class OtherUserController implements ActionListener {
     private PrincipalView ppview;
     private Usuario user;
     private PrincipalController pcc;
-    private Statement conexion;
+    private Statement conexion,conexion1;
     private Usuario tu;
 
-    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st, Usuario u, Usuario u2) {
+    public OtherUserController(PrincipalController principalController, OtherUserView uv, PrincipalView ppv, Statement st,Statement st1, Usuario u, Usuario u2) {
         uview = uv;
         ppview = ppv;
         user = u;
         conexion = st;
+        conexion1=st1;
         pcc = principalController;
         tu=u2;
         setInfo();
@@ -69,7 +70,7 @@ public class OtherUserController implements ActionListener {
             case "VERLISTA":
                 VerListaView verListaView = new VerListaView(this);
                 verListaView.setMinimumSize(new Dimension(400,600));
-                VerListaController verListaController = new VerListaController(verListaView,conexion,uview.getListaSelecionada());
+                VerListaController verListaController = new VerListaController(verListaView,conexion,conexion1,uview.getListaSelecionada());
                 verListaView.controlador(verListaController);
                 verListaView.setVisible(true);
                 break;

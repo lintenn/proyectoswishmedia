@@ -43,10 +43,13 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
     public void setImagen(int imagen){Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg")); }
     public void setComboBox(JComboBox listas){
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        for(int i=0; i<listas.getItemCount();i++){
-            model.addElement(listas.getItemAt(i));
+        if(listas!=null){
+            for(int i=0; i<listas.getItemCount();i++){
+                model.addElement(listas.getItemAt(i));
+            }
+            Listas.setModel(model);
         }
-        Listas.setModel(model);
+
     }
     public void setSinopsis(String s){Sinopsis.setText(s);}
     public void setGenero(String s){Genero.setText(s);}
