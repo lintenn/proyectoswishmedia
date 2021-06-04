@@ -53,12 +53,17 @@ public class AmigosController implements ActionListener {
 
                     amigo.next();
 
-                    Usuario usuario = new Usuario(amigo.getString("nombre"), amigo.getString("email"), amigo.getString("contraseña"),amigo.getString("descripcion"));
+                    Usuario usuario = new Usuario(amigo.getString("nombre"), amigo.getString("email"), amigo.getString("contraseña"),amigo.getString("descripcion"),amigo.getBoolean("privacidad"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
                     userpv.botonAñadirInvisible(false);
                     UsuarioPreViewController userPvController = new UsuarioPreViewController(userpv,usuario,conexion,user,this, profileView);
                     userpv.controlador(userPvController);
+
+                    if(usuario.getPrivacidad())
+                        userpv.añadirCandado();
+                    else
+                        userpv.quitarCandado();
 
                     listaUsuariosPreViews.add(userpv);
                     listauvC.add(userPvController);
