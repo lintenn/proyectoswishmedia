@@ -63,4 +63,12 @@ public class SeriePreView extends ContenidoMultimediaPreView{
     }
 
     public Lista getSelectedComboBox() {return (Lista) comboBox1.getSelectedItem(); }
+
+    public void setVisibleAñadir(boolean b) {
+        añadirbotón.setVisible(b);
+    }
+
+    public void setVisibleComboBox(boolean b) {
+        comboBox1.setVisible(b);
+    }
 }

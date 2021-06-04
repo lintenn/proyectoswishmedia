@@ -45,6 +45,10 @@ public class OtherUserView {
         descripcionPanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
     }
 
+    public Lista getListaSelecionada() {
+        return (Lista) comboBoxListas.getSelectedItem();
+    }
+
     public void añadirComboBox(Lista l){
         comboBoxListas.addItem(l);
     }
