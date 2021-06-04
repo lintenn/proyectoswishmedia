@@ -1,6 +1,7 @@
 package prSwishMedia.Views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class UsuarioPreView {
@@ -11,9 +12,17 @@ public class UsuarioPreView {
     private JButton eliminarAmigo;
     private JButton chatear;
     private JLabel candado;
+    private JPanel panelito;
+
+    private Cursor manita = new Cursor(Cursor.HAND_CURSOR);
+    private Cursor cursorTexto = new Cursor(Cursor.TEXT_CURSOR);
 
     public UsuarioPreView(){
-
+        Descripcion.setCursor(cursorTexto);
+        eliminarAmigo.setCursor(manita);
+        añadirAmigo.setCursor(manita);
+        chatear.setCursor(manita);
+        panelito.setCursor(manita);
     }
 
     public void controlador(ActionListener ctr) {

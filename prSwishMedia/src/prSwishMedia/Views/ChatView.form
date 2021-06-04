@@ -70,6 +70,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <icon value="Resources/enviar.png"/>
+              <pressedIcon value="Resources/enviarClicked.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -85,6 +86,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <icon value="Resources/back.png"/>
+              <pressedIcon value="Resources/backClicked.png"/>
               <text value=""/>
             </properties>
           </component>

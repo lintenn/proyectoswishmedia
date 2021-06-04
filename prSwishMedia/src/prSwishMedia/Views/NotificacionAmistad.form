@@ -41,6 +41,7 @@
                   <borderPainted value="false"/>
                   <contentAreaFilled value="false"/>
                   <icon value="Resources/aceptar.png"/>
+                  <pressedIcon value="Resources/aceptarClicked.png"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -53,6 +54,7 @@
                   <contentAreaFilled value="false"/>
                   <icon value="Resources/rechazar(1).png"/>
                   <label value=""/>
+                  <pressedIcon value="Resources/rechazar(1)Clicked.png"/>
                   <text value=""/>
                 </properties>
               </component>
