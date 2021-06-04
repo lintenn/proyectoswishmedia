@@ -343,6 +343,7 @@
           </grid>
         </constraints>
         <properties>
+          <font name="Comic Sans MS"/>
           <lineWrap value="true"/>
         </properties>
       </component>
