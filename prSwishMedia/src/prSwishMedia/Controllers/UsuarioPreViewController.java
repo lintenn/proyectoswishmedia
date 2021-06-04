@@ -51,7 +51,7 @@ public class UsuarioPreViewController implements ActionListener {
                             conexion.executeUpdate("UPDATE Amigo SET eresNuevoAmigo=true where usuario1='"+user.getNombre()+"' and usuario2='"+tu.getNombre()+"'");
                             ResultSet rs3 = conexion.executeQuery("SELECT * FROM Usuario where nombre = '"+user.getNombre()+"';");
                             rs3.next();
-                            conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(rs3.getInt("numAmigos")+1)+" where nombre = '"+tu.getNombre()+"';");
+                            conexion.executeUpdate("UPDATE Usuario SET numAmigos="+(tu.getNumAmigos()+1)+" where nombre = '"+tu.getNombre()+"';");
                         }
                     } else {
                         ResultSet rs = conexion.executeQuery("SELECT * FROM Amigo where usuario1 = '"+user.getNombre()+"' and usuario2 = '"+tu.getNombre()+"';");
