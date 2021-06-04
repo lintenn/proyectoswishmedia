@@ -10,6 +10,7 @@ public class UsuarioPreView {
     private JButton añadirAmigo;
     private JButton eliminarAmigo;
     private JButton chatear;
+    private JLabel candado;
 
     public UsuarioPreView(){
 
@@ -25,6 +26,13 @@ public class UsuarioPreView {
         chatear.setActionCommand("CHATEAR");
     }
 
+    public void añadirCandado(){
+        candado.setVisible(true);
+    }
+
+    public void quitarCandado(){
+        candado.setVisible(false);
+    }
 
     public JPanel getPanel() {
         return panel1;
