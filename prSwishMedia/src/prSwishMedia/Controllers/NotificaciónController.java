@@ -39,12 +39,18 @@ public class NotificaciónController implements ActionListener {
     public void actualizarNotificaciones(){
         listaNotificaciones.removeAll();
         try {
-            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1 = '"+tu.getNombre()+"' and solicitud=true;");
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario2 = '"+tu.getNombre()+"' and solicitud=true;");
             rs.next();
             int cont = rs.getInt(1);
-            ResultSet rs2 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1 = '"+tu.getNombre()+"' and mensaje=true;");
+            ResultSet rs2 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario2 = '"+tu.getNombre()+"' and mensaje=true;");
             rs2.next();
             cont+=rs2.getInt(1);
+            ResultSet rs3 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario2 = '"+tu.getNombre()+"' and isNuevoAmigo=true;");
+            rs3.next();
+            cont = rs3.getInt(1);
+            ResultSet rs4 = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario2 = '"+tu.getNombre()+"' and eresNuevoAmigo=true;");
+            rs4.next();
+            cont+=rs4.getInt(1);
             if(cont<=4){
                 listaNotificaciones.setLayout(new GridLayout(5,0,0,0));
             } else {

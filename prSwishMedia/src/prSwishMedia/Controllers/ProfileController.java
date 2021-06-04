@@ -9,6 +9,7 @@ import prSwishMedia.Views.*;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -113,7 +114,6 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
     public void actualizarComboBox() {
         if(user.getListasPersonales()!=null){
             for(Lista l: user.getListasPersonales()){
-
                 pview.añadirComboBox(l);
             }
         }else {
@@ -235,6 +235,7 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
                 break;
             case "NOTIFICACION":
                 Notificación notificación = new Notificación(this, true);
+                notificación.setMinimumSize(new Dimension(400,600));
                 NotificaciónController nc = new NotificaciónController(notificación, user,conexion, pview);
                 notificación.controlador(nc);
                 notificación.setVisible(true);
