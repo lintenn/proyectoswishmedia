@@ -149,6 +149,12 @@ public class ChatController implements ActionListener, KeyListener {
             try {
                 conexion.executeUpdate("Insert into Comunicación (texto, fechaEnvio, Usuario, ID) values('"+chatView.getTextField1()+"',now(),'"+tu.getNombre()+"',"+ID+");");
                 conexion.executeUpdate("Insert Into Mensaje (ID,islikeUser,destinatario,isDislikeUser) values("+ID+",0,'"+otro.getNombre()+"',0);");
+                ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Amigo where usuario1 = '"+otro.getNombre()+"' and usuario2 = '"+tu.getNombre()+"' ");
+                rs.next();
+                if(rs.getInt(1)==0){
+                    conexion.executeUpdate("INSERT INTO Amigo (id, usuario1, usuario2, mensaje) values(" + generateID() + ",'" + otro.getNombre() + "','" + tu.getNombre() + "', true)");
+                }
+                System.out.println(tu.getNombre());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

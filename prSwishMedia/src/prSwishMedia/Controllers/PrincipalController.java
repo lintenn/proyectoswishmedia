@@ -115,11 +115,12 @@ public class PrincipalController implements ActionListener {
 
                     if (metodo.equals("inicial")) {
                         ProfileView pview = new ProfileView(conexion);
+
                         ProfileController pc = new ProfileController(this, pview, ppView, lview, conexion, conexion1, user);
                         pview.controlador(pc);
                     }
 
-                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"));
+                    Usuario usuario = new Usuario(users.getString("nombre"), users.getString("email"), users.getString("contraseña"),users.getString("descripcion"),users.getBoolean("privacidad"));
 
                     UsuarioPreView userpv = new UsuarioPreView();
                     userpv.botonEliminarInvisible(false); // distinto segun el método
@@ -131,6 +132,11 @@ public class PrincipalController implements ActionListener {
 
                     MiMouseListener listener = new MiMouseListener(0,3, usuario.getNombre(),this, null, null);
                     userpv.getPanel().addMouseListener(listener);
+                    if(usuario.getPrivacidad())
+                        userpv.añadirCandado();
+                    else
+                        userpv.quitarCandado();
+
                     ppView.addListaUser(userpv.getPanel());
                 }
 
