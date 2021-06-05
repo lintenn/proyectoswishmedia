@@ -16,12 +16,13 @@ import java.util.ArrayList;
 
 public class VerListaController {
 
-    Statement conexion;
+    Statement conexion,conexion1;
     VerListaView verListaView;
     Lista listaSeleccionada;
 
-    public VerListaController(VerListaView verListaV, Statement st, Lista lista){
+    public VerListaController(VerListaView verListaV, Statement st,Statement st1, Lista lista){
         conexion=st;
+        conexion1=st1;
         verListaView=verListaV;
         listaSeleccionada=lista;
         verListaView.setNombre(lista.getNombre());
@@ -34,19 +35,21 @@ public class VerListaController {
 
         ResultSet count3=null;
         try {
+            ResultSet count = conexion.executeQuery("SELECT COUNT(*) FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista="+listaSeleccionada.getId()+";");
+            count.next();
+            int cont=count.getInt(1);
+            if(cont!=0) {
 
-            if(listaSeleccionada.getContMedia().size()!=0) {
-
-                verListaView.setLayoutListasContenido(listaSeleccionada.getContMedia().size());
-
+                verListaView.setLayoutListasContenido(cont);
                 // Creo listas para almacenar los idContenidoMultimedia y referencias de pelipv y seriepv
                 ArrayList<Integer> listaidspelis = new ArrayList<>();
                 ArrayList<Integer> listaidsseries = new ArrayList<>();
                 ArrayList<PeliculaPreView> listapelipv = new ArrayList<>();
                 ArrayList<SeriePreView> listaseriepv = new ArrayList<>();
+                count = conexion1.executeQuery("SELECT * FROM ContenidoMultimedia join AñadirContenido on AñadirContenido.idContenidoMultimedia=ContenidoMultimedia.idContenidoMultimedia && AñadirContenido.idLista=" + listaSeleccionada.getId() + ";");
 
-                for (ContenidoMultimedia contenidoMultimedia: listaSeleccionada.getContMedia()) {
-                    int id=contenidoMultimedia.getId();
+                while (count.next()) {
+                    int id = count.getInt("idContenidoMultimedia");
 
                     ResultSet count2 = conexion.executeQuery("SELECT COUNT(*) FROM Serie WHERE idContenidoMultimedia=" + id + ";");
                     count2.next();

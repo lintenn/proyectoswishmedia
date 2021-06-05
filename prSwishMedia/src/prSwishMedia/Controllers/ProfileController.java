@@ -44,10 +44,11 @@ public class ProfileController extends JFrame implements ActionListener, KeyList
     public void setInfo(){
         pview.setDescripcion(user.getDescripcion());
         pview.setNombreUsuario(user.getNombre());
-        pview.setNumAmigos(user.getNumAmigos());
+        pview.setNumAmigos(Main.hallarAmigos(user.getNombre(), conexion1));
         pview.setNumCapitulos(user.getNumEpisodiosVistos());
         pview.setNumSeriesVistas(user.getNumSeriesVistas());
         pview.setNumPeliculas(user.getNumPeliculasVistas());
+
         if(user.getFechaCreacion()!=null)pview.setFechaCreacion(user.getFechaCreacion().toString());
         actualizarComboBox();
         fechaPrivacidad();

@@ -23,7 +23,7 @@
               </grid>
             </constraints>
             <properties>
-              <font name="Comic Sans MS" size="18" style="1"/>
+              <font name="Comic Sans MS" size="22" style="1"/>
               <text value="Notificaciones:"/>
             </properties>
           </component>

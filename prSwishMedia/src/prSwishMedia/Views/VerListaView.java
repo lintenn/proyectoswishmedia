@@ -9,12 +9,20 @@ import java.awt.*;
 public class VerListaView extends JDialog{
     private JScrollPane contenidoListas;
     private JLabel nombreLista;
+    private JPanel panel1;
     private JPanel listaContenido;
     private OtherUserController user;
 
     public VerListaView(OtherUserController otherUserController) {
         user=otherUserController;
+
         listaContenido=new JPanel();
+        add(panel1);
+        setSize(new Dimension(800,500));
+        contenidoListas.getVerticalScrollBar().setUnitIncrement(16);
+        this.setTitle("Listas");
+        this.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
+        this.setLocationRelativeTo(null);
     }
 
     public void controlador(VerListaController verListaController) {
@@ -30,7 +38,7 @@ public class VerListaView extends JDialog{
     }
 
     public void addListaContenido(JPanel panel) {
-        contenidoListas.add(panel);
+        listaContenido.add(panel);
     }
 
     public JPanel getListaContenido() {
