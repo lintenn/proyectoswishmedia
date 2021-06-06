@@ -72,7 +72,7 @@ public class Main {
     public static int hallarAmigos(String nombre,java.sql.Statement conexion) {
         int num=0;
         try {
-            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario2='"+nombre+"';");
+            ResultSet rs = conexion.executeQuery("SELECT COUNT(*) FROM Amigo WHERE usuario2='"+nombre+"' AND isAmigo=1;");
             rs.next();
             num=rs.getInt(1);
         } catch (SQLException throwables) {
