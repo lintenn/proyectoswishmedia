@@ -291,6 +291,7 @@
               </grid>
             </constraints>
             <properties>
+              <font name="Comic Sans MS"/>
               <text value="Eliminar lista seleccionada"/>
             </properties>
           </component>
@@ -320,6 +321,7 @@
               </grid>
             </constraints>
             <properties>
+              <font name="Comic Sans MS"/>
               <text value="Crear lista"/>
             </properties>
           </component>
