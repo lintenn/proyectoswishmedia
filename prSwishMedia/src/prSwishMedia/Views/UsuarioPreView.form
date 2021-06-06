@@ -48,6 +48,7 @@
               <icon value="Resources/addFriends.png"/>
               <pressedIcon value="Resources/addFriendsClicked.png"/>
               <text value=""/>
+              <toolTipText value="Añadir a amigos"/>
             </properties>
           </component>
           <component id="dec47" class="javax.swing.JButton" binding="eliminarAmigo">
@@ -59,6 +60,7 @@
               <contentAreaFilled value="false"/>
               <icon value="Resources/BASURA.png"/>
               <text value=""/>
+              <toolTipText value="Eliminar de amigos"/>
             </properties>
           </component>
           <component id="c2ef4" class="javax.swing.JButton" binding="chatear">
@@ -71,6 +73,7 @@
               <icon value="Resources/chat.png"/>
               <pressedIcon value="Resources/chatClicked.png"/>
               <text value=""/>
+              <toolTipText value="Chat"/>
             </properties>
           </component>
           <component id="e24b4" class="javax.swing.JLabel" binding="candado">
@@ -80,6 +83,7 @@
             <properties>
               <icon value="Resources/candado.png"/>
               <text value=""/>
+              <toolTipText value="Usuario privado"/>
             </properties>
           </component>
         </children>

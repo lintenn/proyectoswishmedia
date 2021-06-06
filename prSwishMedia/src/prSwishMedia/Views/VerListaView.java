@@ -19,6 +19,7 @@ public class VerListaView extends JDialog{
         listaContenido=new JPanel();
         add(panel1);
         setSize(new Dimension(800,500));
+        contenidoListas.getVerticalScrollBar().setUnitIncrement(16);
         this.setTitle("Listas");
         this.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
         this.setLocationRelativeTo(null);

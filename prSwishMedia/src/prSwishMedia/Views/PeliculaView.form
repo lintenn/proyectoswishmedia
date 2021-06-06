@@ -121,6 +121,7 @@
               <pressedIcon value="Resources/enviarClicked.png"/>
               <selected value="false"/>
               <text value=""/>
+              <toolTipText value="Enviar"/>
             </properties>
           </component>
           <component id="e7524" class="javax.swing.JTextField" binding="textField1" default-binding="true">
@@ -129,7 +130,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <toolTipText value="Escribir comentario"/>
+            </properties>
           </component>
           <scrollpane id="9def0" binding="ComentariosPanel">
             <constraints>
@@ -296,6 +299,7 @@
               <requestFocusEnabled value="true"/>
               <rolloverEnabled value="true"/>
               <text value=""/>
+              <toolTipText value="Volver"/>
               <visible value="true"/>
             </properties>
           </component>
@@ -443,6 +447,7 @@
                           <label value=""/>
                           <pressedIcon value="Resources/anadirListaClicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Añadir a lista"/>
                         </properties>
                       </component>
                       <component id="fef2d" class="javax.swing.JButton" binding="eliminar">
@@ -454,6 +459,7 @@
                           <contentAreaFilled value="false"/>
                           <icon value="Resources/BASURA.png"/>
                           <text value=""/>
+                          <toolTipText value="Eliminar de la lista"/>
                         </properties>
                       </component>
                       <hspacer id="fe9f4">

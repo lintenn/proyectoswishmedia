@@ -25,6 +25,7 @@
               <contentAreaFilled value="false"/>
               <icon value="Resources/profile.png"/>
               <text value=""/>
+              <toolTipText value="Ver perfil"/>
             </properties>
           </component>
           <hspacer id="be681">
@@ -90,7 +91,9 @@
                             <preferred-size width="169" height="30"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <toolTipText value="Buscar"/>
+                        </properties>
                       </component>
                       <component id="9e3da" class="javax.swing.JButton" binding="BuscarP">
                         <constraints>
@@ -102,6 +105,7 @@
                           <icon value="Resources/lupablanca.png"/>
                           <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Buscar"/>
                         </properties>
                       </component>
                       <hspacer id="af67d">
@@ -120,6 +124,7 @@
                           <opaque value="false"/>
                           <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Ordenar alfabéticamente"/>
                         </properties>
                       </component>
                     </children>
@@ -156,7 +161,9 @@
                             <preferred-size width="169" height="30"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <toolTipText value="Buscar"/>
+                        </properties>
                       </component>
                       <component id="a7fd9" class="javax.swing.JButton" binding="BuscarS">
                         <constraints>
@@ -168,6 +175,7 @@
                           <icon value="Resources/lupablanca.png"/>
                           <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Buscar"/>
                         </properties>
                       </component>
                       <hspacer id="435f5">
@@ -185,6 +193,7 @@
                           <icon value="Resources/a-z15.png"/>
                           <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Ordenar alfabéticamente"/>
                         </properties>
                       </component>
                     </children>
@@ -205,7 +214,9 @@
                         <preferred-size width="169" height="30"/>
                       </grid>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <toolTipText value="Seleccionar lista"/>
+                    </properties>
                   </component>
                   <grid id="e9009" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
@@ -223,6 +234,7 @@
                         </constraints>
                         <properties>
                           <text value=""/>
+                          <toolTipText value="Buscar"/>
                         </properties>
                       </component>
                       <hspacer id="efebe">
@@ -240,6 +252,7 @@
                           <icon value="Resources/lupablanca.png"/>
                           <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Buscar"/>
                         </properties>
                       </component>
                       <scrollpane id="d6cb" binding="contenidoListas">
@@ -261,6 +274,7 @@
                           <label value=""/>
                           <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Ordenar alfabéticamente"/>
                         </properties>
                       </component>
                     </children>
@@ -290,7 +304,9 @@
                             <preferred-size width="169" height="30"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <toolTipText value="Buscar"/>
+                        </properties>
                       </component>
                       <hspacer id="fa628">
                         <constraints>
@@ -307,6 +323,7 @@
                           <icon value="Resources/lupablanca.png"/>
                           <pressedIcon value="Resources/lupablancaClicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Buscar"/>
                         </properties>
                       </component>
                       <grid id="2a771" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -338,6 +355,7 @@
                           <label value=""/>
                           <pressedIcon value="Resources/a-z15Clicked.png"/>
                           <text value=""/>
+                          <toolTipText value="Ordenar alfabéticamente"/>
                         </properties>
                       </component>
                     </children>
