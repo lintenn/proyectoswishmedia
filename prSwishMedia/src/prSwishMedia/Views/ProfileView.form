@@ -201,13 +201,16 @@
             <properties>
               <editable value="false"/>
               <model/>
+              <toolTipText value="Año"/>
             </properties>
           </component>
           <component id="ede3a" class="javax.swing.JComboBox" binding="comboBoxMes">
             <constraints>
               <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <toolTipText value="Mes"/>
+            </properties>
           </component>
           <hspacer id="3a23c">
             <constraints>
@@ -230,7 +233,9 @@
             <constraints>
               <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <toolTipText value="Día"/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -257,6 +262,7 @@
           <opaque value="false"/>
           <pressedIcon value="Resources/backClicked.png"/>
           <text value=""/>
+          <toolTipText value="Volver"/>
         </properties>
       </component>
       <grid id="43d84" binding="listasPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -373,6 +379,7 @@
           <contentAreaFilled value="false"/>
           <icon value="Resources/logout.png"/>
           <text value=""/>
+          <toolTipText value="Cerrar sesión"/>
         </properties>
       </component>
       <grid id="ef50f" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -393,6 +400,7 @@
               <icon value="Resources/notificación(1).png"/>
               <pressedIcon value="Resources/notificacion(1)Clicked.png"/>
               <text value=""/>
+              <toolTipText value="Notificaciones"/>
             </properties>
           </component>
           <component id="d432f" class="javax.swing.JButton" binding="AmigosButton">
@@ -405,6 +413,7 @@
               <icon value="Resources/amigos.png"/>
               <pressedIcon value="Resources/amigosClicked.png"/>
               <text value=""/>
+              <toolTipText value="Amigos"/>
             </properties>
           </component>
           <hspacer id="ca5d3">
