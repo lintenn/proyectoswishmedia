@@ -329,7 +329,9 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <icon value="Resources/chat.png"/>
+              <pressedIcon value="Resources/chatClicked.png"/>
               <text value=""/>
+              <toolTipText value="Chat"/>
             </properties>
           </component>
           <component id="721d8" class="javax.swing.JButton" binding="añadirAmigo">
@@ -341,6 +343,7 @@
               <contentAreaFilled value="false"/>
               <icon value="Resources/addFriends.png"/>
               <margin top="0" left="0" bottom="0" right="20"/>
+              <pressedIcon value="Resources/addFriendsClicked.png"/>
               <text value=""/>
               <toolTipText value="Añadir a amigos"/>
             </properties>
