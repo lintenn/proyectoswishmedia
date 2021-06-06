@@ -40,6 +40,7 @@ public class OtherUserView {
         volver.setCursor(manita);
         verLista.setCursor(manita);
         añadirAmigo.setCursor(manita);
+        button1.setCursor(manita);
         comboBoxListas.setCursor(manita);
         descripcionPanel.setCursor(cursorTexto);
         descripcionPanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
