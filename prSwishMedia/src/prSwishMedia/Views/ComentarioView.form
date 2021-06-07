@@ -21,7 +21,7 @@
         </constraints>
         <properties>
           <focusable value="false"/>
-          <font name="Comic Sans MS" size="18" style="1"/>
+          <font name="Roboto Light" size="18" style="1"/>
           <foreground color="-16777216"/>
           <text value=""/>
         </properties>
@@ -34,7 +34,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <font name="Comic Sans MS" style="1"/>
+          <font name="Roboto Light" style="1"/>
           <foreground color="-16777216"/>
           <opaque value="false"/>
         </properties>
@@ -104,7 +104,7 @@
           </grid>
         </constraints>
         <properties>
-          <font name="Comic Sans MS" style="1"/>
+          <font name="Roboto Light" style="1"/>
           <foreground color="-16777216"/>
           <text value=""/>
         </properties>
@@ -117,7 +117,7 @@
         </constraints>
         <properties>
           <focusable value="false"/>
-          <font name="Comic Sans MS" style="1"/>
+          <font name="Roboto Light" style="1"/>
           <foreground color="-16777216"/>
           <text value=""/>
         </properties>
@@ -136,7 +136,7 @@
           </grid>
         </constraints>
         <properties>
-          <font name="Comic Sans MS" size="8" style="1"/>
+          <font name="Roboto Light" size="8" style="1"/>
           <foreground color="-16777216"/>
           <text value=""/>
         </properties>

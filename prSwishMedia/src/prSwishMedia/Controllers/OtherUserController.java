@@ -38,7 +38,9 @@ public class OtherUserController implements ActionListener {
         uview.setNumCapitulos(user.getNumEpisodiosVistos());
         uview.setNumSeriesVistas(user.getNumSeriesVistas());
         uview.setNumPeliculas(user.getNumPeliculasVistas());
-
+        if(user.getPrivacidad()==true){
+            uview.setVisibleAñadir(false);
+        }
         if (user.getFechaCreacion() != null) {
             uview.setFechaCreacion(user.getFechaCreacion().toString());
         }
