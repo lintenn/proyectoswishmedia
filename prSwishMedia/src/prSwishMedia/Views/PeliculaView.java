@@ -2,6 +2,7 @@ package prSwishMedia.Views;
 
 import prSwishMedia.Lista;
 
+import javax.imageio.ImageIO;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class PeliculaView extends JFrame{
@@ -93,7 +95,12 @@ public class PeliculaView extends JFrame{
     }
 
     public void setImagen(int id){
-        Foto.setIcon(new ImageIcon( "prSwishMedia/imagen/x"+ id +".jpg"));
+
+        try {
+            Foto.setIcon(new ImageIcon(ImageIO.read (PeliculaView.class.getResourceAsStream(/*"prSwishMedia/imagen/" +*/ "/x"+id +".jpg"))));
+        } catch (IOException e) {
+            Foto.setIcon(new ImageIcon("prSwishMedia/imagen/x"+ id +".jpg"));
+        }
     }
 
     public JPanel getPanel(){
