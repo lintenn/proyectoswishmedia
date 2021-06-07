@@ -41,7 +41,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="22" style="1"/>
+                  <font name="Roboto Light" size="22" style="1"/>
                   <text value="Valoración"/>
                 </properties>
               </component>
@@ -50,7 +50,7 @@
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="22" style="1"/>
+                  <font name="Roboto Light" size="22" style="1"/>
                   <text value="Fecha"/>
                 </properties>
               </component>
@@ -59,7 +59,7 @@
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="22" style="1"/>
+                  <font name="Roboto Light" size="22" style="1"/>
                   <text value="Añadida"/>
                 </properties>
               </component>
@@ -68,7 +68,7 @@
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="20"/>
+                  <font name="Roboto Light" size="20"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -77,7 +77,7 @@
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="20"/>
+                  <font name="Roboto Light" size="20"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -86,7 +86,7 @@
                   <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="20"/>
+                  <font name="Roboto Light" size="20"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -175,7 +175,7 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Comic Sans MS" size="16"/>
+              <font name="Roboto Light" size="16" style="1"/>
               <text value="Sinópsis:"/>
             </properties>
           </component>
@@ -184,7 +184,7 @@
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Comic Sans MS" size="16"/>
+              <font name="Roboto Light" size="16" style="1"/>
               <text value="Reparto:"/>
             </properties>
           </component>
@@ -204,7 +204,7 @@
                 </constraints>
                 <properties>
                   <editable value="false"/>
-                  <font name="Comic Sans MS"/>
+                  <font name="Roboto Light"/>
                   <opaque value="false"/>
                   <text value=""/>
                 </properties>
@@ -227,7 +227,7 @@
                 </constraints>
                 <properties>
                   <editable value="false"/>
-                  <font name="Comic Sans MS"/>
+                  <font name="Roboto Light"/>
                   <opaque value="false"/>
                   <text value=""/>
                 </properties>
@@ -261,7 +261,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16" style="1"/>
                   <text value="Capítulos:"/>
                 </properties>
               </component>
@@ -270,7 +270,7 @@
                   <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16" style="1"/>
                   <text value="Temporadas:"/>
                 </properties>
               </component>
@@ -280,7 +280,7 @@
                 </constraints>
                 <properties>
                   <enabled value="true"/>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -289,7 +289,7 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -313,7 +313,7 @@
                   <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16" style="1"/>
                   <text value="Duración media:"/>
                 </properties>
               </component>
@@ -322,7 +322,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16" style="1"/>
                   <text value="Género:"/>
                 </properties>
               </component>
@@ -331,7 +331,7 @@
                   <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -340,7 +340,7 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" size="16"/>
+                  <font name="Roboto Light" size="16"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -400,7 +400,9 @@
                         <preferred-size width="250" height="-1"/>
                       </grid>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <font name="Roboto Light"/>
+                    </properties>
                   </component>
                   <component id="d37d8" class="javax.swing.JComboBox" binding="valorarSerie">
                     <constraints>
@@ -413,7 +415,7 @@
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <font name="Comic Sans MS" size="16"/>
+                      <font name="Roboto Light" size="16" style="1"/>
                       <text value="Añadir a lista"/>
                     </properties>
                   </component>
@@ -422,7 +424,7 @@
                       <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <font name="Comic Sans MS" size="16"/>
+                      <font name="Roboto Light" size="16" style="1"/>
                       <text value="Valorar"/>
                     </properties>
                   </component>
