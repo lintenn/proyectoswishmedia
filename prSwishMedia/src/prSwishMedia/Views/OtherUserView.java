@@ -83,4 +83,8 @@ public class OtherUserView {
     public JPanel getPanel() {
         return panel1;
     }
+
+    public void setVisibleAñadir(boolean b) {
+        añadirAmigo.setVisible(b);
+    }
 }
