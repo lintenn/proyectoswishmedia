@@ -2,10 +2,12 @@ package prSwishMedia.Views;
 
 import prSwishMedia.Lista;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 public class SerieView extends JFrame {
 
@@ -124,7 +126,15 @@ public class SerieView extends JFrame {
     }
 
     public void setImagen(int id) {
-        Foto.setIcon(new ImageIcon("prSwishMedia/imagen/x"+ id +".jpg"));
+
+        try {
+            Foto.setIcon(new ImageIcon(ImageIO.read (SerieView.class.getResourceAsStream(/*"prSwishMedia/imagen/" +*/ "/x"+id +".jpg"))));
+        } catch (IOException e) {
+            Foto.setIcon(new ImageIcon("prSwishMedia/imagen/x"+ id +".jpg"));
+        }
+
+
+
     }
 
     public JTextField getTextField1(){

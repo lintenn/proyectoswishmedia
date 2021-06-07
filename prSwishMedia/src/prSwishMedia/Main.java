@@ -6,9 +6,11 @@ import prSwishMedia.Controllers.*;
 import prSwishMedia.Listeners.MouseClick;
 import prSwishMedia.Views.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.State;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
@@ -44,7 +46,12 @@ public class Main {
         frame.setMinimumSize(new Dimension(1050,610));
 
         frame.setTitle("SwishMedia");
-        frame.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
+        try {
+            frame.setIconImage(new ImageIcon(ImageIO.read (Main.class.getResourceAsStream("/LogoFondo.jpg"))).getImage());
+        } catch (IOException e) {
+            frame.setIconImage(new ImageIcon("LogoFondo.jpg").getImage());
+        }
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(lview.getPanel());
 

@@ -2,10 +2,12 @@ package prSwishMedia.Views;
 
 import prSwishMedia.Lista;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class PeliculaPreView extends ContenidoMultimediaPreView{
     private JPanel panel1;
@@ -40,7 +42,13 @@ public class PeliculaPreView extends ContenidoMultimediaPreView{
         Valoración.setText(s);
     }
     public void setNombre(String nombre){Nombre.setText(nombre);}
-    public void setImagen(int imagen){Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg")); }
+    public void setImagen(int imagen){
+        try {
+            Imagen.setIcon(new ImageIcon(ImageIO.read (PeliculaPreView.class.getResourceAsStream(/*"prSwishMedia/imagen/" +*/ "/"+imagen +".jpg"))));
+        } catch (IOException e) {
+            Imagen.setIcon(new ImageIcon( "prSwishMedia/imagen/"+imagen +".jpg"));
+        }
+    }
     public void setComboBox(JComboBox listas){
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         if(listas!=null){

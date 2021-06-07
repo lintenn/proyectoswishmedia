@@ -11,8 +11,9 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/prSwishMedia/src/Resources/flatlaf-demo-0.38.jar" path-in-jar="/" />
       <element id="library" level="project" name="Resources" />
       <element id="library" level="project" name="Resources1" />
-      <element id="dir-copy" path="$PROJECT_DIR$/prSwishMedia/imagen" />
       <element id="file-copy" path="$PROJECT_DIR$/prSwishMedia/imagen/1.jpg" />
+      <element id="module-source" name="proyectoswishmedia" />
+      <element id="file-copy" path="$PROJECT_DIR$/LogoFondo.jpg" />
     </root>
   </artifact>
 </component>
