@@ -41,7 +41,7 @@
               <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Comic Sans MS" size="18"/>
+              <font name="Roboto Light" size="18"/>
               <text value="Nombre"/>
             </properties>
           </component>
@@ -58,7 +58,7 @@
             </constraints>
             <properties>
               <editable value="false"/>
-              <font name="Comic Sans MS" size="12"/>
+              <font name="Roboto Light" size="12"/>
               <opaque value="false"/>
               <text value="sassadada"/>
             </properties>
@@ -68,6 +68,7 @@
               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Roboto Light"/>
               <toolTipText value="Seleccionar lista"/>
             </properties>
           </component>
@@ -84,7 +85,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" style="1"/>
+                  <font name="Roboto Light" style="1"/>
                   <text value="Género: "/>
                 </properties>
               </component>
@@ -98,7 +99,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS"/>
+                  <font name="Roboto Light"/>
                   <text value="asda"/>
                 </properties>
               </component>
@@ -117,7 +118,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" style="1"/>
+                  <font name="Roboto Light" style="1"/>
                   <text value="Valoración:"/>
                 </properties>
               </component>
@@ -126,7 +127,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS"/>
+                  <font name="Roboto Light"/>
                   <text value="sad"/>
                 </properties>
               </component>
@@ -150,7 +151,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS" style="1"/>
+                  <font name="Roboto Light" style="1"/>
                   <text value="Número de temporadas:"/>
                 </properties>
               </component>
@@ -159,7 +160,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Comic Sans MS"/>
+                  <font name="Roboto Light"/>
                   <text value="Label"/>
                 </properties>
               </component>

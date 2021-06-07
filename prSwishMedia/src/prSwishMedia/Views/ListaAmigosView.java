@@ -15,7 +15,7 @@ public class ListaAmigosView extends JDialog {
     public ListaAmigosView(ProfileView pview, boolean modal){
         super(pview,modal);
         add(panel1);
-        setSize(new Dimension(430,500));
+        setSize(new Dimension(500,560));
         listaUsers=new JPanel();
         UsersPane.getVerticalScrollBar().setUnitIncrement(16);
         this.setTitle("Amigos");
